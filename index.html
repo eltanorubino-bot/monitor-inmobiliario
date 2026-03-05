@@ -2,1082 +2,316 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>CINE.EU — Panorama del cine europeo curado por Fer Rubino</title>
-<meta name="description" content="Panorama del cine europeo curado por Fer Rubino.">
-<meta name="theme-color" content="#000">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monitor Inmobiliario &mdash; Saavedra &bull; Núñez &bull; Coghlan</title>
 <style>
-:root {
-  --bg: #FFFFFF;
-  --black: #000000;
-  --text: #1A1A1A;
-  --text-mid: #444;
-  --text-light: #999;
-  --border: #E0E0E0;
-  --serif: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --sans: 'Inter', Graphik, -apple-system, Helvetica, Arial, sans-serif;
-}
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{font-family:var(--sans);background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;overflow-x:hidden}
-a{text-decoration:none;color:inherit}
-img{display:block;max-width:100%}
+:root{--bg:#09090b;--s1:#18181b;--s2:#27272a;--bdr:#3f3f46;--t:#fafafa;--t2:#a1a1aa;--t3:#71717a;--green:#22c55e;--red:#ef4444;--orange:#f97316;--blue:#3b82f6;--cyan:#06b6d4;--purple:#a78bfa;--yellow:#eab308;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--t);line-height:1.5;}
 
-/* ── HEADER ─── */
-.header{
-  position:sticky;top:0;z-index:100;
-  background:var(--black);color:#fff;
-}
-.header-inner{
-  max-width:1440px;margin:0 auto;
-  padding:0 32px;height:50px;
-  display:flex;align-items:center;
-}
-.logo{
-  font-family:var(--sans);font-size:18px;font-weight:700;
-  letter-spacing:0.12em;color:#fff;cursor:pointer;
-  text-transform:uppercase;margin-right:8px;
-}
-.logo-city{
-  font-family:var(--serif);font-size:16px;font-weight:400;
-  color:#fff;margin-left:12px;letter-spacing:0;
-}
+/* NAV */
+.topbar{position:sticky;top:0;z-index:100;background:rgba(9,9,11,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between;padding:12px 24px;}
+.topbar h1{font-size:1.1rem;font-weight:700;letter-spacing:-.02em;}
+.topbar h1 span{color:var(--cyan);}
+.tabs{display:flex;gap:4px;}
+.tab{padding:7px 18px;border-radius:8px;font-size:.82rem;font-weight:600;cursor:pointer;border:1px solid transparent;color:var(--t3);background:transparent;transition:all .15s;}
+.tab:hover{color:var(--t);background:var(--s1);}
+.tab.active{color:var(--t);background:var(--s2);border-color:var(--bdr);}
+.tab .count{margin-left:5px;background:var(--s2);color:var(--t2);padding:1px 7px;border-radius:10px;font-size:.7rem;}
+.tab.active .count{background:var(--blue);color:#fff;}
+.tab.tab-baja.active .count{background:var(--red);}
 
-.nav{display:flex;gap:0;margin-left:auto}
-.nav-btn{
-  background:none;border:none;
-  padding:14px 16px;font-size:13px;font-weight:500;
-  color:rgba(255,255,255,.55);cursor:pointer;
-  font-family:var(--sans);transition:color .2s;
-}
-.nav-btn:hover,.nav-btn.active{color:#fff}
+/* Stats bar */
+.stats-bar{display:flex;gap:12px;padding:14px 24px;border-bottom:1px solid var(--bdr);flex-wrap:wrap;background:var(--s1);}
+.stat{font-size:.78rem;color:var(--t2);}
+.stat strong{color:var(--t);font-size:.9rem;}
+.stat .up{color:var(--green);} .stat .down{color:var(--red);}
 
-.header-right{display:flex;align-items:center;gap:4px;margin-left:12px}
-.h-icon{
-  background:none;border:none;color:rgba(255,255,255,.5);
-  cursor:pointer;font-size:18px;padding:8px;transition:color .2s;
-}
-.h-icon:hover{color:#fff}
+/* Sections */
+.section{display:none;padding:20px 24px;}
+.section.active{display:block;}
 
-.menu-toggle{display:none;background:none;border:none;cursor:pointer;font-size:20px;color:#fff;margin-left:auto;padding:8px}
+/* Filters */
+.filter-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px;align-items:center;}
+.filter-row label{font-size:.72rem;color:var(--t3);font-weight:600;text-transform:uppercase;letter-spacing:.04em;margin-right:4px;}
+.fbtn{background:var(--s1);border:1px solid var(--bdr);color:var(--t3);padding:5px 12px;border-radius:7px;font-size:.78rem;cursor:pointer;transition:all .15s;}
+.fbtn:hover,.fbtn.on{background:var(--blue);color:#fff;border-color:var(--blue);}
 
-/* ── MOBILE NAV ── */
-.nav-mobile{display:none;position:fixed;inset:0;z-index:200;background:var(--black);flex-direction:column;padding:80px 32px 32px}
-.nav-mobile.open{display:flex}
-.nav-mobile button{background:none;border:none;font-family:var(--serif);font-size:28px;color:#fff;padding:14px 0;cursor:pointer;text-align:left;border-bottom:1px solid rgba(255,255,255,.08)}
-.nav-mobile .close-btn{position:absolute;top:14px;right:24px;font-size:28px;color:rgba(255,255,255,.4);padding:8px;border:none;background:none;cursor:pointer}
+/* Property Cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;}
+.card{background:var(--s1);border:1px solid var(--bdr);border-radius:14px;overflow:hidden;transition:transform .15s,border-color .15s;}
+.card:hover{transform:translateY(-3px);border-color:var(--blue);}
+.card-img{position:relative;width:100%;height:200px;overflow:hidden;background:var(--s2);}
+.card-img img{width:100%;height:100%;object-fit:cover;}
+.card-img .overlay{position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(0deg,rgba(0,0,0,.6) 0%,transparent 50%);}
+.card-img .days-pill{position:absolute;top:10px;right:10px;padding:3px 10px;border-radius:8px;font-size:.7rem;font-weight:700;backdrop-filter:blur(8px);}
+.days-new{background:rgba(34,197,94,.25);color:#86efac;border:1px solid rgba(34,197,94,.3);}
+.days-med{background:rgba(234,179,8,.2);color:#fde047;border:1px solid rgba(234,179,8,.3);}
+.days-old{background:rgba(239,68,68,.25);color:#fca5a5;border:1px solid rgba(239,68,68,.3);}
+.card-img .type-pill{position:absolute;top:10px;left:10px;padding:3px 10px;border-radius:8px;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;backdrop-filter:blur(8px);}
+.pill-ph{background:rgba(99,102,241,.3);color:#a5b4fc;border:1px solid rgba(99,102,241,.3);}
+.pill-ofi{background:rgba(234,179,8,.25);color:#fde047;border:1px solid rgba(234,179,8,.3);}
+.pill-gal{background:rgba(34,197,94,.25);color:#86efac;border:1px solid rgba(34,197,94,.3);}
+.pill-dep{background:rgba(167,139,250,.25);color:#c4b5fd;border:1px solid rgba(167,139,250,.3);}
+.card-img .price-tag{position:absolute;bottom:12px;left:12px;font-size:1.25rem;font-weight:800;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.5);}
+.card-img .price-m2{position:absolute;bottom:12px;right:12px;font-size:.75rem;color:rgba(255,255,255,.8);text-shadow:0 1px 4px rgba(0,0,0,.5);}
 
-/* ── BIG SECTION TITLE (like "A MILANO", "NEWS") ── */
-.big-title{
-  text-align:center;padding:56px 24px 12px;
-}
-.big-title h1{
-  font-family:var(--serif);font-size:clamp(48px,8vw,100px);
-  font-weight:400;color:var(--black);line-height:1;
-  letter-spacing:-0.01em;text-transform:uppercase;
-}
-.big-title p{
-  font-family:var(--serif);font-size:18px;font-weight:400;
-  color:var(--text-mid);margin-top:12px;
-}
+.card-body{padding:14px 16px;}
+.card-addr{font-weight:700;font-size:.95rem;margin-bottom:2px;}
+.card-barrio{font-size:.78rem;color:var(--t3);margin-bottom:8px;display:flex;align-items:center;gap:4px;}
+.card-barrio::before{content:'📍';font-size:.7rem;}
+.card-meta{display:flex;gap:10px;flex-wrap:wrap;font-size:.75rem;color:var(--t2);margin-bottom:8px;}
+.card-meta span{display:flex;align-items:center;gap:3px;}
+.card-desc{font-size:.76rem;color:var(--t3);line-height:1.4;max-height:36px;overflow:hidden;}
+.card-footer{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;border-top:1px solid var(--bdr);font-size:.75rem;}
+.trend-up{color:var(--green);font-weight:600;}
+.trend-down{color:var(--red);font-weight:600;}
+.trend-stable{color:var(--t3);}
 
-/* ── CATEGORY FILTER PILLS ── */
-.filter-bar{
-  padding:20px 0 24px;text-align:center;
-}
-.filter-inner{
-  max-width:1440px;margin:0 auto;padding:0 32px;
-  display:flex;flex-wrap:wrap;justify-content:center;gap:10px;
-}
-.filter-pill{
-  padding:9px 20px;border:1.5px solid var(--border);
-  border-radius:0;font-size:12px;font-weight:600;
-  letter-spacing:0.08em;text-transform:uppercase;
-  cursor:pointer;background:transparent;color:var(--text);
-  font-family:var(--sans);transition:all .15s;
-}
-.filter-pill:hover{border-color:var(--black)}
-.filter-pill.active{background:var(--black);color:#fff;border-color:var(--black)}
+/* BAJA cards */
+.card.baja{border-color:var(--red);opacity:.85;}
+.card.baja .card-img::after{content:'DADO DE BAJA';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-15deg);background:rgba(239,68,68,.85);color:#fff;padding:6px 24px;font-size:.9rem;font-weight:800;border-radius:6px;z-index:5;letter-spacing:.05em;}
+.baja-info{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);border-radius:8px;padding:8px 12px;margin-top:8px;font-size:.75rem;color:#fca5a5;}
 
-/* ── SECTION NAV TABS (like "oggi / questo weekend") ── */
-.tabs{
-  display:flex;justify-content:center;gap:32px;
-  padding:16px 24px 32px;
-}
-.tab{
-  font-family:var(--serif);font-size:18px;
-  color:var(--text-light);cursor:pointer;
-  background:none;border:none;transition:color .2s;
-  padding:0;
-}
-.tab:hover{color:var(--text)}
-.tab.active{color:var(--black);font-weight:700}
+/* Section headers */
+.section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px;}
+.section-header h2{font-size:1.2rem;font-weight:700;}
+.section-header .badge{padding:4px 12px;border-radius:8px;font-size:.72rem;font-weight:700;}
 
-/* ── SECTION DIVIDER ── */
-.section-div{
-  max-width:1440px;margin:0 auto;padding:0 32px;
-}
-.section-div hr{border:none;border-top:1px solid var(--border)}
+/* Summary panels */
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:20px;}
+.summary-card{background:var(--s2);border:1px solid var(--bdr);border-radius:10px;padding:14px;}
+.summary-card .label{font-size:.68rem;color:var(--t3);text-transform:uppercase;letter-spacing:.05em;}
+.summary-card .value{font-size:1.5rem;font-weight:800;margin:4px 0;}
+.summary-card .sub{font-size:.75rem;}
 
-/* ═══════ FEATURED EVENT ROW (2-col asymmetric like zero.eu) ═══════ */
-.featured-row{
-  max-width:1440px;margin:0 auto;padding:0 32px;
-  display:grid;grid-template-columns:1.4fr 1fr;gap:0;
-}
-.featured-main{padding-right:40px}
-.featured-side{display:flex;flex-direction:column}
+/* Baja alert */
+.baja-alert{background:linear-gradient(135deg,rgba(239,68,68,.12),rgba(239,68,68,.04));border:1px solid rgba(239,68,68,.25);border-radius:12px;padding:20px;margin-bottom:20px;}
+.baja-alert h3{color:var(--red);font-size:1rem;margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.baja-alert p{font-size:.85rem;color:var(--t2);line-height:1.6;}
 
-.event-item{
-  padding:24px 0;border-bottom:1px solid var(--border);
-  cursor:pointer;display:block;transition:opacity .2s;
-}
-.event-item:hover{opacity:.7}
-.event-cat{
-  font-size:11px;font-weight:600;letter-spacing:0.1em;
-  text-transform:uppercase;color:var(--text);
-  margin-bottom:6px;display:block;
-}
-.event-meta{
-  font-size:13px;color:var(--text-light);
-  margin-bottom:4px;line-height:1.4;
-}
-.event-title{
-  font-family:var(--serif);font-size:28px;font-weight:400;
-  color:var(--text);line-height:1.2;margin-bottom:8px;
-}
-.event-img{
-  width:100%;overflow:hidden;margin-bottom:12px;
-}
-.event-img img{width:100%;display:block;transition:transform .5s}
-.event-item:hover .event-img img{transform:scale(1.02)}
-.event-excerpt{
-  font-size:14px;color:var(--text-mid);line-height:1.6;
-}
-
-.event-item-sm .event-title{font-size:22px}
-.event-item-sm .event-excerpt{
-  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
-}
-
-/* ═══════ CARD GRID (3-col like zero.eu news) ═══════ */
-.card-grid{
-  max-width:1440px;margin:0 auto;padding:0 32px;
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:40px;
-}
-.card{cursor:pointer;display:block;transition:opacity .2s}
-.card:hover{opacity:.7}
-.card .card-cat{
-  font-size:11px;font-weight:600;letter-spacing:0.1em;
-  text-transform:uppercase;color:var(--text);
-  margin-bottom:8px;display:block;
-}
-.card .card-img{
-  width:100%;overflow:hidden;margin-bottom:12px;
-}
-.card .card-img img{width:100%;display:block;transition:transform .4s}
-.card:hover .card-img img{transform:scale(1.02)}
-.card h3{
-  font-family:var(--serif);font-size:22px;font-weight:400;
-  color:var(--text);line-height:1.25;margin-bottom:8px;
-}
-.card .card-excerpt{
-  font-size:14px;color:var(--text-mid);line-height:1.6;
-  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
-}
-.card .card-author{
-  font-size:13px;color:var(--text-light);margin-top:10px;
-}
-.card .card-author strong{color:var(--text)}
-
-/* ═══════ CTA BUTTON (black pill like zero.eu) ═══════ */
-.cta-wrap{text-align:center;padding:40px 24px}
-.cta-btn{
-  display:inline-block;padding:14px 32px;
-  background:var(--black);color:#fff;
-  font-size:12px;font-weight:600;letter-spacing:0.1em;
-  text-transform:uppercase;border:none;cursor:pointer;
-  font-family:var(--sans);transition:opacity .2s;
-}
-.cta-btn:hover{opacity:.8}
-
-/* ═══════ RELEASES ═══════ */
-.rel-list{max-width:1440px;margin:0 auto;padding:0 32px}
-.rel-row{
-  display:grid;grid-template-columns:80px 1fr auto;
-  gap:20px;align-items:start;
-  padding:24px 0;border-bottom:1px solid var(--border);
-  cursor:pointer;transition:opacity .2s;
-}
-.rel-row:hover{opacity:.7}
-.rel-date{text-align:center;padding-top:4px}
-.rel-date .day{font-family:var(--serif);font-size:36px;font-weight:400;color:var(--black);line-height:1}
-.rel-date .month{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-light)}
-.rel-info .event-cat{margin-bottom:4px}
-.rel-info h3{font-family:var(--serif);font-size:22px;font-weight:400;color:var(--text);margin-bottom:2px}
-.rel-info .dir{font-size:13px;color:var(--text-mid)}
-.rel-info .country{font-size:12px;color:var(--text-light);margin-top:2px}
-.rel-badge{
-  font-family:var(--sans);font-size:12px;font-weight:600;
-  color:var(--text);padding:6px 14px;
-  border:1.5px solid var(--black);
-  align-self:center;white-space:nowrap;
-}
-
-/* ═══════ FESTIVALS (colored cards + timeline) ═══════ */
-.fest-timeline{
-  max-width:1440px;margin:0 auto;padding:0 32px;
-  position:relative;
-}
-.fest-timeline::before{
-  content:'';position:absolute;left:50%;top:0;bottom:0;
-  width:2px;background:var(--border);transform:translateX(-1px);
-}
-.fest-grid{
-  max-width:1440px;margin:0 auto;padding:0 32px;
-  display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
-}
-.fest-item{
-  padding:28px;border-radius:4px;
-  cursor:pointer;transition:transform .2s,box-shadow .2s;
-  color:#fff;position:relative;overflow:hidden;
-  min-height:240px;display:flex;flex-direction:column;
-  justify-content:space-between;
-}
-.fest-item:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.15)}
-.fest-status{
-  display:inline-block;font-size:10px;font-weight:700;
-  letter-spacing:0.1em;text-transform:uppercase;
-  padding:4px 12px;border-radius:12px;margin-bottom:12px;
-  align-self:flex-start;
-}
-.fest-status-live{background:rgba(255,255,255,.25);backdrop-filter:blur(4px)}
-.fest-status-next{background:rgba(255,255,255,.12)}
-.fest-item h3{font-family:var(--serif);font-size:26px;font-weight:400;color:#fff;line-height:1.15;margin-bottom:8px}
-.fest-dates{font-family:var(--sans);font-size:13px;font-weight:600;opacity:.85;margin-bottom:2px}
-.fest-city{font-size:12px;opacity:.65}
-.fest-desc{font-size:13px;opacity:.75;margin-top:10px;line-height:1.5}
-.fest-jury{font-size:12px;opacity:.7;margin-top:8px;font-style:italic}
-.fest-edition{
-  font-size:11px;font-weight:600;letter-spacing:0.06em;
-  text-transform:uppercase;opacity:.5;margin-bottom:6px;
-}
-
-/* ═══════ PLATFORMS ═══════ */
-.plat-grid{
-  max-width:1440px;margin:0 auto;padding:0 32px;
-  display:grid;grid-template-columns:1fr 1fr;gap:0;
-}
-.plat-card{
-  padding:28px 0;border-bottom:1px solid var(--border);
-}
-.plat-card:nth-child(odd){padding-right:32px;border-right:1px solid var(--border)}
-.plat-card:nth-child(even){padding-left:32px}
-.plat-name{font-family:var(--serif);font-size:26px;font-weight:400;margin-bottom:4px}
-.plat-hl{font-size:13px;color:var(--text-mid);margin-bottom:16px}
-.plat-film{font-size:13px;padding:8px 0;border-bottom:1px solid var(--border);color:var(--text)}
-.plat-film:last-child{border:none}
-
-/* ═══════ REVIEWS ═══════ */
-.rev-list{max-width:1440px;margin:0 auto;padding:0 32px}
-.rev-row{
-  display:grid;grid-template-columns:52px 1fr auto;
-  gap:20px;align-items:start;
-  padding:24px 0;border-bottom:1px solid var(--border);
-}
-.rev-score{
-  width:48px;height:48px;border-radius:50%;
-  border:2px solid var(--black);
-  display:flex;align-items:center;justify-content:center;
-  font-size:15px;font-weight:600;
-}
-.rev-info h3{font-family:var(--serif);font-size:22px;font-weight:400;margin-bottom:2px}
-.rev-info .dir{font-size:13px;color:var(--text-mid)}
-.rev-info .rev-text{font-family:var(--serif);font-size:15px;font-style:italic;color:var(--text-mid);margin-top:8px;line-height:1.5}
-.rev-badge{
-  font-size:10px;font-weight:700;letter-spacing:0.08em;
-  text-transform:uppercase;padding:5px 14px;
-  border:1.5px solid var(--black);
-  white-space:nowrap;align-self:center;
-}
-
-/* ═══════ TRAILERS (inline play) ═══════ */
-.tr-grid{
-  max-width:1440px;margin:0 auto;padding:0 32px;
-  display:grid;grid-template-columns:repeat(2,1fr);
-  gap:24px;
-}
-.tr-card{position:relative;overflow:hidden;cursor:pointer;background:var(--black);aspect-ratio:16/9}
-.tr-card .tr-thumb{position:relative;width:100%;height:100%}
-.tr-card .tr-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s;opacity:.85}
-.tr-card:hover .tr-thumb img{transform:scale(1.03);opacity:.7}
-.tr-overlay{
-  position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 50%);
-  display:flex;flex-direction:column;justify-content:flex-end;
-  padding:24px;pointer-events:none;
-}
-.tr-play{
-  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-  width:68px;height:68px;border-radius:50%;
-  background:rgba(0,0,0,.5);backdrop-filter:blur(4px);
-  border:2px solid rgba(255,255,255,.6);
-  display:flex;align-items:center;justify-content:center;
-  transition:transform .2s,background .2s;
-}
-.tr-card:hover .tr-play{background:rgba(0,0,0,.7);transform:translate(-50%,-50%) scale(1.08)}
-.tr-title{font-family:var(--serif);font-size:22px;color:#fff;line-height:1.2}
-.tr-sub{font-size:11px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px}
-.tr-card iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
-.tr-card.playing .tr-thumb,.tr-card.playing .tr-overlay,.tr-card.playing .tr-play{display:none}
-
-/* ═══════ ARTICLE DETAIL VIEW ═══════ */
-.article-view{
-  display:none;position:fixed;inset:0;z-index:150;
-  background:var(--bg);overflow-y:auto;
-  animation:avSlideIn .3s ease;
-}
-.article-view.open{display:block}
-@keyframes avSlideIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-
-.av-header{
-  position:sticky;top:0;z-index:10;
-  background:var(--bg);border-bottom:1px solid var(--border);
-  padding:14px 32px;display:flex;align-items:center;gap:16px;
-}
-.av-back{
-  background:none;border:none;cursor:pointer;
-  font-family:var(--sans);font-size:13px;font-weight:600;
-  color:var(--text);display:flex;align-items:center;gap:6px;
-  padding:8px 0;transition:opacity .2s;
-}
-.av-back:hover{opacity:.6}
-.av-back svg{width:18px;height:18px}
-.av-source-link{
-  margin-left:auto;font-size:12px;font-weight:600;
-  color:var(--text-light);text-transform:uppercase;
-  letter-spacing:0.06em;text-decoration:none;
-  padding:6px 16px;border:1.5px solid var(--border);
-  transition:all .15s;
-}
-.av-source-link:hover{border-color:var(--black);color:var(--black)}
-
-.av-body{max-width:720px;margin:0 auto;padding:48px 32px 80px}
-.av-cat{
-  font-size:11px;font-weight:600;letter-spacing:0.12em;
-  text-transform:uppercase;color:var(--text);margin-bottom:12px;
-  display:block;
-}
-.av-meta{font-size:13px;color:var(--text-light);margin-bottom:6px;line-height:1.4}
-.av-title{
-  font-family:var(--serif);font-size:clamp(28px,5vw,44px);
-  font-weight:400;color:var(--text);line-height:1.15;
-  margin-bottom:16px;
-}
-.av-author{font-size:14px;color:var(--text-mid);margin-bottom:32px}
-.av-author strong{color:var(--text)}
-.av-img{
-  width:100%;margin-bottom:32px;overflow:hidden;
-}
-.av-img img{width:100%;display:block}
-.av-img figcaption{font-size:11px;color:var(--text-light);margin-top:8px;font-style:italic}
-.av-content{
-  font-family:var(--serif);font-size:19px;
-  color:var(--text);line-height:1.75;
-}
-.av-content p{margin-bottom:24px}
-
-.av-related{
-  max-width:720px;margin:0 auto;padding:0 32px 80px;
-}
-.av-related-title{
-  font-size:11px;font-weight:600;letter-spacing:0.12em;
-  text-transform:uppercase;color:var(--text-light);
-  padding-bottom:16px;border-bottom:1px solid var(--border);
-  margin-bottom:0;
-}
-.av-related-item{
-  padding:20px 0;border-bottom:1px solid var(--border);
-  cursor:pointer;transition:opacity .2s;
-}
-.av-related-item:hover{opacity:.6}
-.av-related-item h4{
-  font-family:var(--serif);font-size:20px;font-weight:400;
-  color:var(--text);line-height:1.25;margin-bottom:4px;
-}
-.av-related-item .av-related-meta{font-size:12px;color:var(--text-light)}
-
-@media(max-width:480px){
-  .av-header{padding:12px 16px}
-  .av-body{padding:32px 16px 60px}
-  .av-related{padding:0 16px 60px}
-  .av-title{font-size:26px}
-  .av-content{font-size:17px}
-}
-
-/* ═══════ FOOTER ═══════ */
-.footer{
-  background:var(--black);color:#fff;
-  padding:48px 32px;margin-top:48px;
-}
-.footer-inner{
-  max-width:1440px;margin:0 auto;
-  display:flex;justify-content:space-between;align-items:flex-start;
-  gap:24px;flex-wrap:wrap;
-}
-.footer-brand{font-family:var(--sans);font-size:16px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase}
-.footer-copy{font-size:12px;color:rgba(255,255,255,.3);margin-top:8px}
-.footer-sources{font-size:11px;color:rgba(255,255,255,.35);max-width:500px;line-height:1.8}
-
-/* ═══════ RESPONSIVE ═══════ */
-@media(max-width:900px){
-  .featured-row{grid-template-columns:1fr}
-  .featured-main{padding-right:0}
-  .card-grid{grid-template-columns:repeat(2,1fr);gap:24px}
-  .fest-grid{grid-template-columns:1fr 1fr}
-  .plat-grid{grid-template-columns:1fr}
-  .plat-card:nth-child(odd){padding-right:0;border-right:none}
-  .plat-card:nth-child(even){padding-left:0}
-}
-@media(max-width:768px){
-  .nav{display:none}
-  .menu-toggle{display:block}
-  .card-grid{grid-template-columns:1fr;gap:32px}
-  .fest-grid{grid-template-columns:1fr}
-  .tr-grid{grid-template-columns:1fr}
-  .rev-row{grid-template-columns:48px 1fr}
-  .rev-badge{display:none}
-  .rel-row{grid-template-columns:60px 1fr}
-  .rel-badge{display:none}
-  .tabs{gap:16px;flex-wrap:wrap}
-  .tab{font-size:15px}
-  .filter-pill{padding:7px 14px;font-size:11px}
-  .header-inner{padding:0 16px}
-  .big-title h1{font-size:48px}
-}
-@media(max-width:480px){
-  .big-title{padding:40px 16px 8px}
-  .card-grid,.rel-list,.fest-grid,.plat-grid,.rev-list,.tr-grid,.featured-row,.section-div{padding-left:16px;padding-right:16px}
-  .event-title{font-size:24px}
-  .event-item-sm .event-title{font-size:20px}
-  .card h3{font-size:20px}
-}
+@media(max-width:768px){.grid{grid-template-columns:1fr;}.tabs{gap:2px;}.tab{padding:5px 10px;font-size:.75rem;}}
 </style>
 </head>
 <body>
 
-<!-- MOBILE NAV -->
-<div class="nav-mobile" id="mobileNav">
-  <button class="close-btn" onclick="toggleMenu()">✕</button>
-  <button data-s="noticias">Noticias</button>
-  <button data-s="estrenos">Estrenos</button>
-  <button data-s="festivales">Festivales</button>
-  <button data-s="plataformas">Plataformas</button>
-  <button data-s="criticas">Críticas</button>
-  <button data-s="trailers">Trailers</button>
-</div>
-
-<!-- HEADER -->
-<header class="header">
-  <div class="header-inner">
-    <div class="logo" data-s="noticias">CINE.EU</div>
-    <span class="logo-city">Argentina ▾</span>
-    <nav class="nav" id="desktopNav"></nav>
-    <div class="header-right">
-      <button class="h-icon">|</button>
-      <button class="h-icon">⌕</button>
+<!-- TOPBAR -->
+<div class="topbar">
+    <h1><span>●</span> Monitor Inmobiliario &mdash; Saavedra &bull; Núñez &bull; Coghlan</h1>
+    <div class="tabs">
+        <button class="tab active" onclick="showSection('venta',this)">Venta<span class="count" id="countVenta">0</span></button>
+        <button class="tab" onclick="showSection('alquiler',this)">Alquiler<span class="count" id="countAlquiler">0</span></button>
+        <button class="tab tab-baja" onclick="showSection('bajas',this)">Bajas<span class="count" id="countBajas">0</span></button>
     </div>
-    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
-  </div>
-</header>
-
-<main>
-
-<!-- HERO SECTION -->
-<div class="big-title" id="s-noticias">
-  <h1>CINE.EU</h1>
-  <p>Panorama del cine europeo curado por Fer Rubino</p>
 </div>
 
-<!-- CATEGORY FILTER PILLS -->
-<div class="filter-bar">
-  <div class="filter-inner" id="filterBar"></div>
-</div>
+<!-- STATS BAR -->
+<div class="stats-bar" id="statsBar"></div>
 
-<!-- SECTION TABS -->
-<div class="tabs">
-  <button class="tab active" data-tab="hoy">hoy</button>
-  <button class="tab" data-tab="semana">esta semana</button>
-  <button class="tab" data-tab="mes">este mes</button>
-  <button class="tab" data-tab="festival">festivales</button>
-</div>
-
-<!-- FEATURED 2-COL LAYOUT -->
-<div class="section-div"><hr></div>
-<div class="featured-row" id="featuredRow"></div>
-
-<!-- CTA -->
-<div class="cta-wrap">
-  <button class="cta-btn" id="ctaBtn">TODAS LAS NOTICIAS</button>
-</div>
-
-<!-- NEWS CARD GRID -->
-<div class="big-title">
-  <h1>Noticias</h1>
-  <p>Las últimas del cine europeo</p>
-</div>
-<div class="card-grid" id="cardGrid"></div>
-<div class="cta-wrap">
-  <button class="cta-btn">VER MÁS NOTICIAS</button>
-</div>
-
-<!-- ESTRENOS -->
-<div class="big-title" id="s-estrenos">
-  <h1>Estrenos</h1>
-  <p>Próximas películas europeas en Argentina</p>
-</div>
-<div class="section-div"><hr></div>
-<div class="rel-list" id="relList"></div>
-
-<!-- FESTIVALES -->
-<div class="big-title" id="s-festivales">
-  <h1>Festivales</h1>
-  <p>Calendario de festivales de cine europeo 2026</p>
-</div>
-<div class="section-div"><hr></div>
-<div class="fest-grid" id="festGrid"></div>
-
-<!-- PLATAFORMAS -->
-<div class="big-title" id="s-plataformas">
-  <h1>Plataformas</h1>
-  <p>Lo nuevo en streaming</p>
-</div>
-<div class="section-div"><hr></div>
-<div class="plat-grid" id="platGrid"></div>
-
-<!-- CRÍTICAS -->
-<div class="big-title" id="s-criticas">
-  <h1>Críticas</h1>
-  <p>Las últimas reseñas</p>
-</div>
-<div class="section-div"><hr></div>
-<div class="rev-list" id="revList"></div>
-
-<!-- TRAILERS -->
-<div class="big-title" id="s-trailers">
-  <h1>Trailers</h1>
-</div>
-<div class="tr-grid" id="trGrid"></div>
-
-</main>
-
-<!-- ARTICLE DETAIL VIEW -->
-<div class="article-view" id="articleView">
-  <div class="av-header">
-    <button class="av-back" id="avBack">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-      Volver
-    </button>
-    <a class="av-source-link" id="avSourceLink" href="#" target="_blank" rel="noopener">Ver fuente original</a>
-  </div>
-  <div class="av-body" id="avBody"></div>
-  <div class="av-related" id="avRelated"></div>
-</div>
-
-<footer class="footer">
-  <div class="footer-inner">
-    <div>
-      <div class="footer-brand">CINE.EU</div>
-      <div class="footer-copy">Panorama del cine europeo curado por Fer Rubino</div>
+<!-- VENTA -->
+<div class="section active" id="sec-venta">
+    <div class="section-header">
+        <h2>Propiedades en Venta</h2>
+        <span class="badge" style="background:rgba(59,130,246,.15);color:var(--blue);border:1px solid rgba(59,130,246,.3);">PH • Oficinas • Galpones • Depósitos • 200-600 m²</span>
     </div>
-    <div class="footer-sources">Fuentes: El Antepenúltimo Mohicano · A Sala Llena · Cineuropa · Otros Cines · Escribiendo Cine · Fotogramas · Kinotico</div>
-  </div>
-</footer>
+    <div class="summary-grid" id="summaryVenta"></div>
+    <div class="filter-row" id="filtersVenta"></div>
+    <div class="grid" id="gridVenta"></div>
+</div>
+
+<!-- ALQUILER -->
+<div class="section" id="sec-alquiler">
+    <div class="section-header">
+        <h2>Propiedades en Alquiler</h2>
+        <span class="badge" style="background:rgba(249,115,22,.15);color:var(--orange);border:1px solid rgba(249,115,22,.3);">PH • Oficinas • Galpones • Depósitos • 200-600 m²</span>
+    </div>
+    <div class="summary-grid" id="summaryAlquiler"></div>
+    <div class="filter-row" id="filtersAlquiler"></div>
+    <div class="grid" id="gridAlquiler"></div>
+</div>
+
+<!-- BAJAS -->
+<div class="section" id="sec-bajas">
+    <div class="section-header">
+        <h2>Propiedades dadas de Baja</h2>
+        <span class="badge" style="background:rgba(239,68,68,.15);color:var(--red);border:1px solid rgba(239,68,68,.3);">Termómetro del mercado</span>
+    </div>
+    <div class="baja-alert">
+        <h3>📊 ¿Por qué importa esto?</h3>
+        <p>Las propiedades que desaparecen de los portales indican <strong>movimiento real del mercado</strong>: se vendieron, se alquilaron o se retiraron. Este seguimiento diario te permite calcular la <strong>velocidad de absorción</strong> (cuánto tarda en venderse/alquilarse cada tipo de propiedad) y entender qué tipo de inmueble tiene más demanda en la zona.</p>
+    </div>
+    <div class="summary-grid" id="summaryBajas"></div>
+    <div class="grid" id="gridBajas"></div>
+</div>
 
 <script>
-/* ═══════ DATA (fallback — se reemplaza con data.json) ═══════ */
-const CATEGORIES = ['TODOS','FESTIVALES','ESTRENOS','PLATAFORMAS','ARGENTINA','CRÍTICAS'];
-let activeFilter = 'TODOS';
+// ====== DATA ======
+const VENTA = [{"id": "v1", "addr": "Arcos 2019", "barrio": "Saavedra", "type": "PH", "m2": 244, "price": 369000, "priceLabel": "USD 369.000", "m2price": 1512, "amb": 4, "bath": 2, "coch": 1, "days": 88, "trend": "stable", "desc": "PH 244m², 4 ambientes, 2 baños, 1 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/46/13/95/360x266/2035542936.jpg?isFirstImage=true", "firstSeen": "2026-02-06", "priceHistory": [{"date": "2026-02-06", "p": 369000}]}, {"id": "v2", "addr": "Cabildo 2754", "barrio": "Saavedra", "type": "PH", "m2": 393, "price": 440000, "priceLabel": "USD 440.000", "m2price": 1120, "amb": 10, "bath": 2, "coch": 0, "days": 51, "trend": "up", "desc": "PH 393m², 10 ambientes, 2 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/33/81/33/360x266/2032071478.jpg?isFirstImage=true", "firstSeen": "2026-01-30", "priceHistory": [{"date": "2026-01-30", "p": 440000}]}, {"id": "v3", "addr": "Donato Alvarez 2042", "barrio": "Coghlan", "type": "PH", "m2": 226, "price": 350000, "priceLabel": "USD 350.000", "m2price": 1549, "amb": 4, "bath": 3, "coch": 0, "days": 41, "trend": "stable", "desc": "PH 226m², 4 ambientes, 3 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/57/44/81/42/360x266/2008475379.jpg?isFirstImage=true", "firstSeen": "2026-02-25", "priceHistory": [{"date": "2026-02-25", "p": 350000}]}, {"id": "v4", "addr": "Ibera 4064", "barrio": "Núñez", "type": "PH", "m2": 221, "price": 380000, "priceLabel": "USD 380.000", "m2price": 1719, "amb": 4, "bath": 2, "coch": 0, "days": 90, "trend": "up", "desc": "PH 221m², 4 ambientes, 2 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/56/57/79/69/360x266/1984466986.jpg?isFirstImage=true", "firstSeen": "2026-02-01", "priceHistory": [{"date": "2026-02-01", "p": 380000}]}, {"id": "v5", "addr": "Cnel Achaval 4526", "barrio": "Saavedra", "type": "PH", "m2": 228, "price": 299000, "priceLabel": "USD 299.000", "m2price": 1311, "amb": 4, "bath": 3, "coch": 0, "days": 33, "trend": "stable", "desc": "PH 228m², 4 ambientes, 3 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/28/60/93/360x266/2030631208.jpg?isFirstImage=true", "firstSeen": "2026-02-28", "priceHistory": [{"date": "2026-02-28", "p": 299000}]}, {"id": "v6", "addr": "Roosevelt 3607", "barrio": "Saavedra", "type": "PH", "m2": 221, "price": 310000, "priceLabel": "USD 310.000", "m2price": 1403, "amb": 5, "bath": 2, "coch": 1, "days": 51, "trend": "down", "desc": "PH 221m², 5 ambientes, 2 baños, 1 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/01/18/86/360x266/2023037516.jpg?isFirstImage=true", "firstSeen": "2026-02-25", "priceHistory": [{"date": "2026-02-15", "p": 325500}, {"date": "2026-02-25", "p": 310000}]}, {"id": "v7", "addr": "Av. Gral Paz 4844", "barrio": "Saavedra", "type": "PH", "m2": 205, "price": 345000, "priceLabel": "USD 345.000", "m2price": 1683, "amb": 4, "bath": 1, "coch": 1, "days": 45, "trend": "stable", "desc": "PH 205m², 4 ambientes, 1 baños, 1 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/44/60/27/360x266/2035118772.jpg?isFirstImage=true", "firstSeen": "2026-01-09", "priceHistory": [{"date": "2026-01-09", "p": 345000}]}, {"id": "v8", "addr": "Av. Gral Paz 2374", "barrio": "Coghlan", "type": "PH", "m2": 201, "price": 389000, "priceLabel": "USD 389.000", "m2price": 1935, "amb": 4, "bath": 4, "coch": 1, "days": 26, "trend": "down", "desc": "PH 201m², 4 ambientes, 4 baños, 1 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/57/50/66/44/360x266/2009900709.jpg?isFirstImage=true", "firstSeen": "2026-03-03", "priceHistory": [{"date": "2026-02-21", "p": 408450}, {"date": "2026-03-03", "p": 389000}]}, {"id": "v9", "addr": "Av. R. Balbin 2872", "barrio": "Coghlan", "type": "PH", "m2": 239, "price": 338000, "priceLabel": "USD 338.000", "m2price": 1414, "amb": 4, "bath": 2, "coch": 0, "days": 69, "trend": "down", "desc": "PH 239m², 4 ambientes, 2 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/41/41/12/360x266/2036080248.jpg?isFirstImage=true", "firstSeen": "2026-01-21", "priceHistory": [{"date": "2026-01-11", "p": 354900}, {"date": "2026-01-21", "p": 338000}]}, {"id": "v10", "addr": "Tronador 4672", "barrio": "Núñez", "type": "PH", "m2": 207, "price": 280000, "priceLabel": "USD 280.000", "m2price": 1353, "amb": 4, "bath": 3, "coch": 0, "days": 88, "trend": "down", "desc": "PH 207m², 4 ambientes, 3 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/42/35/06/360x266/2034510013.jpg?isFirstImage=true", "firstSeen": "2026-02-26", "priceHistory": [{"date": "2026-02-16", "p": 294000}, {"date": "2026-02-26", "p": 280000}]}, {"id": "v11", "addr": "Serrano 4685", "barrio": "Saavedra", "type": "PH", "m2": 250, "price": 250000, "priceLabel": "USD 250.000", "m2price": 1000, "amb": 3, "bath": 2, "coch": 0, "days": 40, "trend": "down", "desc": "PH 250m², 3 ambientes, 2 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/57/37/61/15/360x266/2006617595.jpg?isFirstImage=true", "firstSeen": "2026-02-27", "priceHistory": [{"date": "2026-02-17", "p": 262500}, {"date": "2026-02-27", "p": 250000}]}, {"id": "v12", "addr": "Roosevelt 4963", "barrio": "Saavedra", "type": "PH", "m2": 242, "price": 270000, "priceLabel": "USD 270.000", "m2price": 1116, "amb": 3, "bath": 2, "coch": 0, "days": 73, "trend": "up", "desc": "PH 242m², 3 ambientes, 2 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/57/62/25/24/360x266/2020441401.jpg?isFirstImage=true", "firstSeen": "2026-01-08", "priceHistory": [{"date": "2026-01-08", "p": 270000}]}, {"id": "v13", "addr": "Av. Balbin 4296", "barrio": "Núñez", "type": "PH", "m2": 335, "price": 450000, "priceLabel": "USD 450.000", "m2price": 1343, "amb": 11, "bath": 3, "coch": 0, "days": 66, "trend": "down", "desc": "PH 335m², 11 ambientes, 3 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/52/20/02/47/360x266/1878413803.jpg?isFirstImage=true", "firstSeen": "2026-01-08", "priceHistory": [{"date": "2025-12-29", "p": 472500}, {"date": "2026-01-08", "p": 450000}]}, {"id": "v14", "addr": "Las Heras 4497", "barrio": "Saavedra", "type": "PH", "m2": 239, "price": 338000, "priceLabel": "USD 338.000", "m2price": 1414, "amb": 4, "bath": 2, "coch": 0, "days": 73, "trend": "stable", "desc": "PH 239m², 4 ambientes, 2 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/41/40/61/360x266/2034243632.jpg?isFirstImage=true", "firstSeen": "2026-02-27", "priceHistory": [{"date": "2026-02-27", "p": 338000}]}, {"id": "v15", "addr": "Larralde 3402", "barrio": "Saavedra", "type": "PH", "m2": 203, "price": 239000, "priceLabel": "USD 239.000", "m2price": 1177, "amb": 6, "bath": 3, "coch": 0, "days": 52, "trend": "stable", "desc": "PH 203m², 6 ambientes, 3 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/56/55/58/98/360x266/1984453913.jpg?isFirstImage=true", "firstSeen": "2026-01-23", "priceHistory": [{"date": "2026-01-23", "p": 239000}]}, {"id": "v16", "addr": "Washington 2467", "barrio": "Coghlan", "type": "PH", "m2": 216, "price": 380000, "priceLabel": "USD 380.000", "m2price": 1759, "amb": 5, "bath": 2, "coch": 0, "days": 23, "trend": "stable", "desc": "PH 216m², 5 ambientes, 2 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/31/14/28/360x266/2031349107.jpg?isFirstImage=true", "firstSeen": "2026-01-20", "priceHistory": [{"date": "2026-01-20", "p": 380000}]}, {"id": "v17", "addr": "Av. Ramirez 3664", "barrio": "Coghlan", "type": "PH", "m2": 209, "price": 284900, "priceLabel": "USD 284.900", "m2price": 1363, "amb": 5, "bath": 1, "coch": 1, "days": 34, "trend": "stable", "desc": "PH 209m², 5 ambientes, 1 baños, 1 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/34/25/01/360x266/2032186844.jpg?isFirstImage=true", "firstSeen": "2026-01-27", "priceHistory": [{"date": "2026-01-27", "p": 284900}]}, {"id": "v18", "addr": "Alvarez Jonte 2688", "barrio": "Saavedra", "type": "PH", "m2": 260, "price": 209000, "priceLabel": "USD 209.000", "m2price": 804, "amb": 3, "bath": 2, "coch": 1, "days": 53, "trend": "up", "desc": "PH 260m², 3 ambientes, 2 baños, 1 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/57/67/07/79/360x266/2014060353.jpg?isFirstImage=true", "firstSeen": "2026-01-13", "priceHistory": [{"date": "2026-01-13", "p": 209000}]}, {"id": "v19", "addr": "Roosevelt 4020", "barrio": "Saavedra", "type": "PH", "m2": 254, "price": 218000, "priceLabel": "USD 218.000", "m2price": 858, "amb": 6, "bath": 2, "coch": 0, "days": 12, "trend": "up", "desc": "PH 254m², 6 ambientes, 2 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/57/04/82/61/360x266/2007141873.jpg?isFirstImage=true", "firstSeen": "2026-02-17", "priceHistory": [{"date": "2026-02-17", "p": 218000}]}, {"id": "v20", "addr": "Monroe 4698", "barrio": "Coghlan", "type": "PH", "m2": 270, "price": 255000, "priceLabel": "USD 255.000", "m2price": 944, "amb": 4, "bath": 2, "coch": 0, "days": 24, "trend": "down", "desc": "PH 270m², 4 ambientes, 2 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/36/39/16/360x266/2032830668.jpg?isFirstImage=true", "firstSeen": "2026-02-06", "priceHistory": [{"date": "2026-01-27", "p": 267750}, {"date": "2026-02-06", "p": 255000}]}, {"id": "v21", "addr": "Alvarez Jonte 2045", "barrio": "Saavedra", "type": "PH", "m2": 238, "price": 195000, "priceLabel": "USD 195.000", "m2price": 819, "amb": 6, "bath": 3, "coch": 0, "days": 54, "trend": "down", "desc": "PH 238m², 6 ambientes, 3 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/55/07/56/95/360x266/2019019942.jpg?isFirstImage=true", "firstSeen": "2026-02-25", "priceHistory": [{"date": "2026-02-15", "p": 204750}, {"date": "2026-02-25", "p": 195000}]}, {"id": "v22", "addr": "Zapiola 4415", "barrio": "Saavedra", "type": "PH", "m2": 240, "price": 270000, "priceLabel": "USD 270.000", "m2price": 1125, "amb": 5, "bath": 2, "coch": 0, "days": 12, "trend": "stable", "desc": "PH 240m², 5 ambientes, 2 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/57/68/38/35/360x266/2014426416.jpg?isFirstImage=true", "firstSeen": "2026-03-03", "priceHistory": [{"date": "2026-03-03", "p": 270000}]}, {"id": "v23", "addr": "Cabildo 2613", "barrio": "Saavedra", "type": "PH", "m2": 230, "price": 220000, "priceLabel": "USD 220.000", "m2price": 957, "amb": 7, "bath": 3, "coch": 0, "days": 75, "trend": "down", "desc": "PH 230m², 7 ambientes, 3 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/26/04/01/360x266/2029957811.jpg?isFirstImage=true", "firstSeen": "2026-01-28", "priceHistory": [{"date": "2026-01-18", "p": 231000}, {"date": "2026-01-28", "p": 220000}]}, {"id": "v24", "addr": "Arias 3274", "barrio": "Saavedra", "type": "PH", "m2": 200, "price": 270000, "priceLabel": "USD 270.000", "m2price": 1350, "amb": 6, "bath": 2, "coch": 0, "days": 80, "trend": "stable", "desc": "PH 200m², 6 ambientes, 2 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/21/23/76/360x266/2028634590.jpg?isFirstImage=true", "firstSeen": "2026-02-06", "priceHistory": [{"date": "2026-02-06", "p": 270000}]}, {"id": "v25", "addr": "Holmberg 4862", "barrio": "Saavedra", "type": "PH", "m2": 209, "price": 292000, "priceLabel": "USD 292.000", "m2price": 1397, "amb": 5, "bath": 2, "coch": 0, "days": 83, "trend": "stable", "desc": "PH 209m², 5 ambientes, 2 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/53/97/74/33/360x266/1919184649.jpg?isFirstImage=true", "firstSeen": "2026-01-28", "priceHistory": [{"date": "2026-01-28", "p": 292000}]}, {"id": "v26", "addr": "Cabildo 3302", "barrio": "Saavedra", "type": "PH", "m2": 200, "price": 249000, "priceLabel": "USD 249.000", "m2price": 1245, "amb": 4, "bath": 2, "coch": 0, "days": 53, "trend": "up", "desc": "PH 200m², 4 ambientes, 2 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/31/58/18/360x266/2031463015.jpg?isFirstImage=true", "firstSeen": "2026-02-04", "priceHistory": [{"date": "2026-02-04", "p": 249000}]}, {"id": "v27", "addr": "Tronador 3450", "barrio": "Saavedra", "type": "PH", "m2": 204, "price": 205000, "priceLabel": "USD 205.000", "m2price": 1005, "amb": 5, "bath": 2, "coch": 1, "days": 19, "trend": "down", "desc": "PH 204m², 5 ambientes, 2 baños, 1 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/46/92/91/360x266/2035781239.jpg?isFirstImage=true", "firstSeen": "2026-02-06", "priceHistory": [{"date": "2026-01-27", "p": 215250}, {"date": "2026-02-06", "p": 205000}]}, {"id": "v28", "addr": "Zamora 2383", "barrio": "Saavedra", "type": "PH", "m2": 325, "price": 230000, "priceLabel": "USD 230.000", "m2price": 708, "amb": 5, "bath": 2, "coch": 1, "days": 88, "trend": "stable", "desc": "PH 325m², 5 ambientes, 2 baños, 1 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/46/92/91/360x266/2035781239.jpg?isFirstImage=true", "firstSeen": "2026-01-25", "priceHistory": [{"date": "2026-01-25", "p": 230000}]}, {"id": "v29", "addr": "Av. Gral Paz 4074", "barrio": "Coghlan", "type": "PH", "m2": 264, "price": 460000, "priceLabel": "USD 460.000", "m2price": 1742, "amb": 5, "bath": 3, "coch": 1, "days": 28, "trend": "stable", "desc": "PH 264m², 5 ambientes, 3 baños, 1 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/27/98/08/360x266/2030464169.jpg?isFirstImage=true", "firstSeen": "2026-02-23", "priceHistory": [{"date": "2026-02-23", "p": 460000}]}, {"id": "v30", "addr": "Av. de los Incas 2701", "barrio": "Coghlan", "type": "PH", "m2": 200, "price": 230000, "priceLabel": "USD 230.000", "m2price": 1150, "amb": 7, "bath": 2, "coch": 0, "days": 6, "trend": "down", "desc": "PH 200m², 7 ambientes, 2 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/19/05/48/360x266/2028055392.jpg?isFirstImage=true", "firstSeen": "2026-02-23", "priceHistory": [{"date": "2026-02-13", "p": 241500}, {"date": "2026-02-23", "p": 230000}]}, {"id": "v31", "addr": "Cabildo 2156", "barrio": "Núñez", "type": "PH", "m2": 235, "price": 429000, "priceLabel": "USD 429.000", "m2price": 1826, "amb": 5, "bath": 2, "coch": 0, "days": 71, "trend": "stable", "desc": "PH 235m², 5 ambientes, 2 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/57/82/60/18/360x266/2030087635.jpg?isFirstImage=true", "firstSeen": "2026-02-22", "priceHistory": [{"date": "2026-02-22", "p": 429000}]}, {"id": "v32", "addr": "Tronador 2575", "barrio": "Saavedra", "type": "PH", "m2": 225, "price": 275000, "priceLabel": "USD 275.000", "m2price": 1222, "amb": 5, "bath": 2, "coch": 0, "days": 78, "trend": "stable", "desc": "PH 225m², 5 ambientes, 2 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/43/05/25/360x266/2034670496.jpg?isFirstImage=true", "firstSeen": "2026-01-23", "priceHistory": [{"date": "2026-01-23", "p": 275000}]}, {"id": "v33", "addr": "Ramallo 2762", "barrio": "Núñez", "type": "PH", "m2": 215, "price": 355000, "priceLabel": "USD 355.000", "m2price": 1651, "amb": 5, "bath": 3, "coch": 2, "days": 44, "trend": "stable", "desc": "PH 215m², 5 ambientes, 3 baños, 2 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/57/55/64/92/360x266/2029713969.jpg?isFirstImage=true", "firstSeen": "2026-02-21", "priceHistory": [{"date": "2026-02-21", "p": 355000}]}, {"id": "v34", "addr": "Conesa 3154", "barrio": "Coghlan", "type": "PH", "m2": 246, "price": 395000, "priceLabel": "USD 395.000", "m2price": 1606, "amb": 6, "bath": 3, "coch": 1, "days": 89, "trend": "stable", "desc": "PH 246m², 6 ambientes, 3 baños, 1 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/57/69/75/74/360x266/2014785795.jpg?isFirstImage=true", "firstSeen": "2026-02-16", "priceHistory": [{"date": "2026-02-16", "p": 395000}]}, {"id": "v35", "addr": "Arcos 3410", "barrio": "Saavedra", "type": "PH", "m2": 228, "price": 299000, "priceLabel": "USD 299.000", "m2price": 1311, "amb": 4, "bath": 2, "coch": 0, "days": 76, "trend": "stable", "desc": "PH 228m², 4 ambientes, 2 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/41/31/15/360x266/2034214231.jpg?isFirstImage=true", "firstSeen": "2026-02-10", "priceHistory": [{"date": "2026-02-10", "p": 299000}]}, {"id": "v36", "addr": "Conesa 4123", "barrio": "Coghlan", "type": "PH", "m2": 233, "price": 535000, "priceLabel": "USD 535.000", "m2price": 2296, "amb": 8, "bath": 2, "coch": 1, "days": 21, "trend": "stable", "desc": "PH 233m², 8 ambientes, 2 baños, 1 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/55/09/15/08/360x266/1947901076.jpg?isFirstImage=true", "firstSeen": "2026-01-09", "priceHistory": [{"date": "2026-01-09", "p": 535000}]}, {"id": "v37", "addr": "Av. Ramirez 3796", "barrio": "Núñez", "type": "PH", "m2": 220, "price": 370000, "priceLabel": "USD 370.000", "m2price": 1682, "amb": 4, "bath": 2, "coch": 0, "days": 69, "trend": "stable", "desc": "PH 220m², 4 ambientes, 2 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/57/83/52/49/360x266/2018306848.jpg?isFirstImage=true", "firstSeen": "2026-01-26", "priceHistory": [{"date": "2026-01-26", "p": 370000}]}, {"id": "v38", "addr": "Tronador 2820", "barrio": "Saavedra", "type": "PH", "m2": 221, "price": 220000, "priceLabel": "USD 220.000", "m2price": 995, "amb": 8, "bath": 2, "coch": 0, "days": 72, "trend": "down", "desc": "PH 221m², 8 ambientes, 2 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/36/22/00/360x266/2032777143.jpg?isFirstImage=true", "firstSeen": "2026-01-16", "priceHistory": [{"date": "2026-01-06", "p": 231000}, {"date": "2026-01-16", "p": 220000}]}, {"id": "v39", "addr": "Cabildo 3349", "barrio": "Núñez", "type": "PH", "m2": 220, "price": 350000, "priceLabel": "USD 350.000", "m2price": 1591, "amb": 5, "bath": 2, "coch": 0, "days": 6, "trend": "stable", "desc": "PH 220m², 5 ambientes, 2 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/27/98/08/360x266/2030464169.jpg?isFirstImage=true", "firstSeen": "2026-01-16", "priceHistory": [{"date": "2026-01-16", "p": 350000}]}, {"id": "v40", "addr": "Av. Ramirez 3100", "barrio": "Núñez", "type": "PH", "m2": 200, "price": 295000, "priceLabel": "USD 295.000", "m2price": 1475, "amb": 4, "bath": 2, "coch": 0, "days": 47, "trend": "down", "desc": "PH 200m², 4 ambientes, 2 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/50/23/75/23/360x266/1827550287.jpg?isFirstImage=true", "firstSeen": "2026-01-17", "priceHistory": [{"date": "2026-01-07", "p": 309750}, {"date": "2026-01-17", "p": 295000}]}, {"id": "v41", "addr": "Av. Ramirez 3908", "barrio": "Núñez", "type": "PH", "m2": 271, "price": 350000, "priceLabel": "USD 350.000", "m2price": 1292, "amb": 6, "bath": 3, "coch": 0, "days": 77, "trend": "stable", "desc": "PH 271m², 6 ambientes, 3 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/43/55/80/360x266/2034836684.jpg?isFirstImage=true", "firstSeen": "2026-01-24", "priceHistory": [{"date": "2026-01-24", "p": 350000}]}, {"id": "v42", "addr": "Cramer 4675", "barrio": "Núñez", "type": "PH", "m2": 310, "price": 540000, "priceLabel": "USD 540.000", "m2price": 1742, "amb": 5, "bath": 3, "coch": 3, "days": 84, "trend": "stable", "desc": "PH 310m², 5 ambientes, 3 baños, 3 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/38/25/46/360x266/2033338002.jpg?isFirstImage=true", "firstSeen": "2026-01-26", "priceHistory": [{"date": "2026-01-26", "p": 540000}]}, {"id": "v43", "addr": "Arias 4104", "barrio": "Saavedra", "type": "PH", "m2": 324, "price": 260000, "priceLabel": "USD 260.000", "m2price": 802, "amb": 4, "bath": 2, "coch": 0, "days": 71, "trend": "down", "desc": "PH 324m², 4 ambientes, 2 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/57/51/93/14/360x266/2010203320.jpg?isFirstImage=true", "firstSeen": "2026-02-06", "priceHistory": [{"date": "2026-01-27", "p": 273000}, {"date": "2026-02-06", "p": 260000}]}, {"id": "v44", "addr": "Av. Ramirez 3898", "barrio": "Núñez", "type": "PH", "m2": 250, "price": 384000, "priceLabel": "USD 384.000", "m2price": 1536, "amb": 3, "bath": 1, "coch": 0, "days": 31, "trend": "stable", "desc": "PH 250m², 3 ambientes, 1 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/57/41/67/05/360x266/2007684346.jpg?isFirstImage=true", "firstSeen": "2026-01-22", "priceHistory": [{"date": "2026-01-22", "p": 384000}]}, {"id": "v45", "addr": "Quesada 2134", "barrio": "Saavedra", "type": "PH", "m2": 286, "price": 284000, "priceLabel": "USD 284.000", "m2price": 993, "amb": 4, "bath": 3, "coch": 1, "days": 26, "trend": "stable", "desc": "PH 286m², 4 ambientes, 3 baños, 1 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/39/04/97/360x266/2033547587.jpg?isFirstImage=true", "firstSeen": "2026-02-25", "priceHistory": [{"date": "2026-02-25", "p": 284000}]}, {"id": "v46", "addr": "Av. Libertador 4538", "barrio": "Núñez", "type": "PH", "m2": 214, "price": 275000, "priceLabel": "USD 275.000", "m2price": 1285, "amb": 4, "bath": 2, "coch": 1, "days": 5, "trend": "stable", "desc": "PH 214m², 4 ambientes, 2 baños, 1 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/57/95/60/32/360x266/2021472817.jpg?isFirstImage=true", "firstSeen": "2026-01-22", "priceHistory": [{"date": "2026-01-22", "p": 275000}]}, {"id": "v47", "addr": "Av. R. Balbin 4003", "barrio": "Coghlan", "type": "PH", "m2": 310, "price": 370000, "priceLabel": "USD 370.000", "m2price": 1194, "amb": 4, "bath": 2, "coch": 0, "days": 53, "trend": "up", "desc": "PH 310m², 4 ambientes, 2 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/46/89/26/360x266/2035774145.jpg?isFirstImage=true", "firstSeen": "2026-02-01", "priceHistory": [{"date": "2026-02-01", "p": 370000}]}, {"id": "v48", "addr": "Av. Libertador 4516", "barrio": "Núñez", "type": "PH", "m2": 200, "price": 284000, "priceLabel": "USD 284.000", "m2price": 1420, "amb": 4, "bath": 2, "coch": 0, "days": 36, "trend": "stable", "desc": "PH 200m², 4 ambientes, 2 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/46/89/26/360x266/2035774145.jpg?isFirstImage=true", "firstSeen": "2026-03-01", "priceHistory": [{"date": "2026-03-01", "p": 284000}]}, {"id": "v49", "addr": "Av. Córdoba 2978", "barrio": "Coghlan", "type": "PH", "m2": 258, "price": 370000, "priceLabel": "USD 370.000", "m2price": 1434, "amb": 5, "bath": 2, "coch": 0, "days": 66, "trend": "up", "desc": "PH 258m², 5 ambientes, 2 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/26/04/01/360x266/2029957811.jpg?isFirstImage=true", "firstSeen": "2026-03-02", "priceHistory": [{"date": "2026-03-02", "p": 370000}]}, {"id": "v50", "addr": "Vedia 4233", "barrio": "Saavedra", "type": "PH", "m2": 240, "price": 285000, "priceLabel": "USD 285.000", "m2price": 1188, "amb": 4, "bath": 2, "coch": 0, "days": 79, "trend": "down", "desc": "PH 240m², 4 ambientes, 2 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/57/95/60/32/360x266/2021472817.jpg?isFirstImage=true", "firstSeen": "2026-02-25", "priceHistory": [{"date": "2026-02-15", "p": 299250}, {"date": "2026-02-25", "p": 285000}]}, {"id": "v51", "addr": "Tronador 3140", "barrio": "Núñez", "type": "PH", "m2": 256, "price": 330000, "priceLabel": "USD 330.000", "m2price": 1289, "amb": 5, "bath": 3, "coch": 0, "days": 23, "trend": "stable", "desc": "PH 256m², 5 ambientes, 3 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/43/55/80/360x266/2034836684.jpg?isFirstImage=true", "firstSeen": "2026-01-26", "priceHistory": [{"date": "2026-01-26", "p": 330000}]}, {"id": "v52", "addr": "Ramallo 3915", "barrio": "Saavedra", "type": "PH", "m2": 215, "price": 265000, "priceLabel": "USD 265.000", "m2price": 1233, "amb": 4, "bath": 2, "coch": 0, "days": 52, "trend": "down", "desc": "PH 215m², 4 ambientes, 2 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/36/22/00/360x266/2032777143.jpg?isFirstImage=true", "firstSeen": "2026-02-18", "priceHistory": [{"date": "2026-02-08", "p": 278250}, {"date": "2026-02-18", "p": 265000}]}, {"id": "v53", "addr": "Av. del Libertador 3483", "barrio": "Núñez", "type": "Oficina", "m2": 254, "price": 399000, "priceLabel": "USD 399.000", "m2price": 1571, "amb": 1, "bath": 2, "coch": 0, "days": 55, "trend": "stable", "desc": "Oficina 254m², 2 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/56/27/34/00/360x266/2025720594.jpg?isFirstImage=true", "firstSeen": "2026-01-12", "priceHistory": [{"date": "2026-01-12", "p": 399000}]}, {"id": "v54", "addr": "Holmberg 2403", "barrio": "Saavedra", "type": "Oficina", "m2": 393, "price": 440000, "priceLabel": "USD 440.000", "m2price": 1120, "amb": 10, "bath": 2, "coch": 0, "days": 38, "trend": "down", "desc": "Oficina 393m², 2 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/11/54/51/360x266/2025959428.jpg?isFirstImage=true", "firstSeen": "2026-01-19", "priceHistory": [{"date": "2026-01-09", "p": 462000}, {"date": "2026-01-19", "p": 440000}]}, {"id": "v55", "addr": "Larralde 2108", "barrio": "Saavedra", "type": "Oficina", "m2": 580, "price": 2600000, "priceLabel": "USD 2.600.000", "m2price": 4483, "amb": 14, "bath": 6, "coch": 10, "days": 61, "trend": "down", "desc": "Oficina 580m², 6 baños, 10 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/52/30/69/77/360x266/1880775506.jpg?isFirstImage=true", "firstSeen": "2026-01-26", "priceHistory": [{"date": "2026-01-16", "p": 2730000}, {"date": "2026-01-26", "p": 2600000}]}, {"id": "v56", "addr": "Del Libertador 2478", "barrio": "Núñez", "type": "Oficina", "m2": 270, "price": 729000, "priceLabel": "USD 729.000", "m2price": 2700, "amb": 4, "bath": 3, "coch": 2, "days": 43, "trend": "down", "desc": "Oficina 270m², 3 baños, 2 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/57/66/64/03/360x266/2013933815.jpg?isFirstImage=true", "firstSeen": "2026-02-07", "priceHistory": [{"date": "2026-01-28", "p": 765450}, {"date": "2026-02-07", "p": 729000}]}, {"id": "v57", "addr": "Av. Libertador 4289", "barrio": "Núñez", "type": "Oficina", "m2": 254, "price": 399000, "priceLabel": "USD 399.000", "m2price": 1571, "amb": 1, "bath": 2, "coch": 0, "days": 5, "trend": "stable", "desc": "Oficina 254m², 2 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/56/06/86/96/360x266/1971564354.jpg?isFirstImage=true", "firstSeen": "2026-02-11", "priceHistory": [{"date": "2026-02-11", "p": 399000}]}, {"id": "v58", "addr": "Cabildo 4521", "barrio": "Saavedra", "type": "Oficina", "m2": 580, "price": 1850000, "priceLabel": "USD 1.850.000", "m2price": 3190, "amb": 0, "bath": 4, "coch": 6, "days": 28, "trend": "up", "desc": "Oficina 580m², 4 baños, 6 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/55/80/76/45/360x266/1965187944.jpg?isFirstImage=true", "firstSeen": "2026-02-16", "priceHistory": [{"date": "2026-02-16", "p": 1850000}]}, {"id": "v59", "addr": "Av. Corrientes 4431", "barrio": "Núñez", "type": "Oficina", "m2": 278, "price": 1110000, "priceLabel": "USD 1.110.000", "m2price": 3993, "amb": 0, "bath": 1, "coch": 2, "days": 70, "trend": "up", "desc": "Oficina 278m², 1 baños, 2 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/55/87/89/35/360x266/1966933306.jpg?isFirstImage=true", "firstSeen": "2026-01-19", "priceHistory": [{"date": "2026-01-19", "p": 1110000}]}, {"id": "v60", "addr": "Serrano 4663", "barrio": "Saavedra", "type": "Oficina", "m2": 436, "price": 1300000, "priceLabel": "USD 1.300.000", "m2price": 2982, "amb": 6, "bath": 12, "coch": 0, "days": 63, "trend": "stable", "desc": "Oficina 436m², 12 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/51/97/26/31/360x266/1873115481.jpg?isFirstImage=true", "firstSeen": "2026-01-09", "priceHistory": [{"date": "2026-01-09", "p": 1300000}]}, {"id": "v61", "addr": "Cabildo 3499", "barrio": "Núñez", "type": "Oficina", "m2": 495, "price": 1250000, "priceLabel": "USD 1.250.000", "m2price": 2525, "amb": 7, "bath": 4, "coch": 2, "days": 26, "trend": "stable", "desc": "Oficina 495m², 4 baños, 2 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/57/18/22/51/360x266/2001552819.jpg?isFirstImage=true", "firstSeen": "2026-02-26", "priceHistory": [{"date": "2026-02-26", "p": 1250000}]}, {"id": "v62", "addr": "Arcos 2697", "barrio": "Saavedra", "type": "Oficina", "m2": 250, "price": 329000, "priceLabel": "USD 329.000", "m2price": 1316, "amb": 5, "bath": 3, "coch": 1, "days": 77, "trend": "up", "desc": "Oficina 250m², 3 baños, 1 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/57/94/43/41/360x266/2021158424.jpg?isFirstImage=true", "firstSeen": "2026-02-08", "priceHistory": [{"date": "2026-02-08", "p": 329000}]}, {"id": "v63", "addr": "Av. Gral Paz 4218", "barrio": "Saavedra", "type": "Oficina", "m2": 350, "price": 360000, "priceLabel": "USD 360.000", "m2price": 1029, "amb": 0, "bath": 3, "coch": 1, "days": 61, "trend": "stable", "desc": "Oficina 350m², 3 baños, 1 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/05/68/48/360x266/2024216031.jpg?isFirstImage=true", "firstSeen": "2026-01-16", "priceHistory": [{"date": "2026-01-16", "p": 360000}]}, {"id": "v64", "addr": "3 de Febrero 3638", "barrio": "Núñez", "type": "Oficina", "m2": 200, "price": 520000, "priceLabel": "USD 520.000", "m2price": 2600, "amb": 0, "bath": 2, "coch": 0, "days": 77, "trend": "up", "desc": "Oficina 200m², 2 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/57/38/89/40/360x266/2007000685.jpg?isFirstImage=true", "firstSeen": "2026-03-03", "priceHistory": [{"date": "2026-03-03", "p": 520000}]}, {"id": "v65", "addr": "Cramer 2914", "barrio": "Núñez", "type": "Oficina", "m2": 600, "price": 41500, "priceLabel": "USD 41.500", "m2price": 69, "amb": 0, "bath": 0, "coch": 0, "days": 76, "trend": "stable", "desc": "Oficina 600m², 0 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/54/79/27/98/360x266/1940613917.jpg?isFirstImage=true", "firstSeen": "2026-01-20", "priceHistory": [{"date": "2026-01-20", "p": 41500}]}, {"id": "v66", "addr": "Ramallo 4426", "barrio": "Saavedra", "type": "Oficina", "m2": 240, "price": 920000, "priceLabel": "USD 920.000", "m2price": 3833, "amb": 10, "bath": 6, "coch": 2, "days": 64, "trend": "down", "desc": "Oficina 240m², 6 baños, 2 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/11/44/33/360x266/2025934319.jpg?isFirstImage=true", "firstSeen": "2026-02-10", "priceHistory": [{"date": "2026-01-31", "p": 966000}, {"date": "2026-02-10", "p": 920000}]}, {"id": "v67", "addr": "Av. Córdoba 4404", "barrio": "Núñez", "type": "Oficina", "m2": 469, "price": 1800000, "priceLabel": "USD 1.800.000", "m2price": 3838, "amb": 0, "bath": 6, "coch": 5, "days": 21, "trend": "stable", "desc": "Oficina 469m², 6 baños, 5 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/11/44/33/360x266/2025934319.jpg?isFirstImage=true", "firstSeen": "2026-01-16", "priceHistory": [{"date": "2026-01-16", "p": 1800000}]}, {"id": "v68", "addr": "Ibera 4739", "barrio": "Núñez", "type": "Oficina", "m2": 280, "price": 490000, "priceLabel": "USD 490.000", "m2price": 1750, "amb": 0, "bath": 2, "coch": 0, "days": 17, "trend": "down", "desc": "Oficina 280m², 2 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/11/44/33/360x266/2025934319.jpg?isFirstImage=true", "firstSeen": "2026-01-28", "priceHistory": [{"date": "2026-01-18", "p": 514500}, {"date": "2026-01-28", "p": 490000}]}, {"id": "v69", "addr": "Roosevelt 3335", "barrio": "Saavedra", "type": "Oficina", "m2": 210, "price": 350000, "priceLabel": "USD 350.000", "m2price": 1667, "amb": 0, "bath": 3, "coch": 0, "days": 10, "trend": "up", "desc": "Oficina 210m², 3 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/11/44/33/360x266/2025934319.jpg?isFirstImage=true", "firstSeen": "2026-01-19", "priceHistory": [{"date": "2026-01-19", "p": 350000}]}, {"id": "v70", "addr": "Washington 3340", "barrio": "Coghlan", "type": "Depósito", "m2": 274, "price": 280000, "priceLabel": "USD 280.000", "m2price": 1022, "amb": 0, "bath": 0, "coch": 0, "days": 48, "trend": "stable", "desc": "Depósito 274m², múltiples destinos comerciales", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/50/36/03/360x266/2036707657.jpg?isFirstImage=true", "firstSeen": "2026-01-16", "priceHistory": [{"date": "2026-01-16", "p": 280000}]}, {"id": "v71", "addr": "Zapiola al 4800", "barrio": "Saavedra", "type": "Galpón", "m2": 547, "price": 1145000, "priceLabel": "USD 1.145.000", "m2price": 2093, "amb": 0, "bath": 0, "coch": 0, "days": 60, "trend": "stable", "desc": "Galpón 547m², 25m frente, a 50m de Gral Paz", "img": "https://imgar.zonapropcdn.com/avisos/1/00/56/66/60/09/360x266/1986839462.jpg?isFirstImage=true", "firstSeen": "2026-01-04", "priceHistory": [{"date": "2026-01-04", "p": 1145000}]}];
+const ALQUILER = [{"id": "a1", "addr": "3 de Febrero 3431", "barrio": "Núñez", "type": "PH", "m2": 228, "price": 2100, "priceLabel": "USD 2.100/mes", "m2price": 9, "amb": 3, "bath": 2, "coch": 2, "days": 39, "trend": "stable", "desc": "PH 228m², 3 ambientes, 2 baños, 2 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/35/85/65/360x266/2032658292.jpg?isFirstImage=true", "firstSeen": "2026-03-04", "priceHistory": [{"date": "2026-03-04", "p": 2100}]}, {"id": "a2", "addr": "Zapiola 3587", "barrio": "Saavedra", "type": "PH", "m2": 210, "price": 24, "priceLabel": "$ 2.400.000/mes", "m2price": 0, "amb": 5, "bath": 3, "coch": 0, "days": 38, "trend": "up", "desc": "PH 210m², 5 ambientes, 3 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/53/23/30/52/360x266/1901667753.jpg?isFirstImage=true", "firstSeen": "2026-01-19", "priceHistory": [{"date": "2026-01-19", "p": 24}]}, {"id": "a3", "addr": "Av. Libertador 2830", "barrio": "Núñez", "type": "Oficina", "m2": 270, "price": 3800, "priceLabel": "USD 3.800/mes", "m2price": 14, "amb": 4, "bath": 3, "coch": 2, "days": 18, "trend": "down", "desc": "Oficina 270m², 3 baños, 2 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/57/64/88/11/360x266/2013468673.jpg?isFirstImage=true", "firstSeen": "2026-03-04", "priceHistory": [{"date": "2026-02-22", "p": 3990}, {"date": "2026-03-04", "p": 3800}]}, {"id": "a4", "addr": "Cabildo 4369", "barrio": "Núñez", "type": "Oficina", "m2": 212, "price": 4200, "priceLabel": "USD 4.200/mes", "m2price": 20, "amb": 0, "bath": 0, "coch": 2, "days": 63, "trend": "stable", "desc": "Oficina 212m², 0 baños, 2 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/56/40/62/58/360x266/1979953722.jpg?isFirstImage=true", "firstSeen": "2026-02-14", "priceHistory": [{"date": "2026-02-14", "p": 4200}]}, {"id": "a5", "addr": "Cabildo 4561", "barrio": "Núñez", "type": "Oficina", "m2": 450, "price": 85, "priceLabel": "$ 8.550.237/mes", "m2price": 0, "amb": 1, "bath": 2, "coch": 1, "days": 51, "trend": "stable", "desc": "Oficina 450m², 2 baños, 1 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/57/14/08/30/360x266/2013318417.jpg?isFirstImage=true", "firstSeen": "2026-03-04", "priceHistory": [{"date": "2026-03-04", "p": 85}]}, {"id": "a6", "addr": "Cramer 4556", "barrio": "Núñez", "type": "Oficina", "m2": 265, "price": 5960, "priceLabel": "USD 5.960/mes", "m2price": 22, "amb": 0, "bath": 0, "coch": 2, "days": 59, "trend": "down", "desc": "Oficina 265m², 0 baños, 2 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/57/47/04/17/360x266/2009014660.jpg?isFirstImage=true", "firstSeen": "2026-02-03", "priceHistory": [{"date": "2026-01-24", "p": 6258}, {"date": "2026-02-03", "p": 5960}]}, {"id": "a7", "addr": "Ramallo 2030", "barrio": "Núñez", "type": "Oficina", "m2": 451, "price": 5960, "priceLabel": "USD 5.960/mes", "m2price": 13, "amb": 0, "bath": 2, "coch": 1, "days": 89, "trend": "stable", "desc": "Oficina 451m², 2 baños, 1 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/56/43/39/77/360x266/1980655375.jpg?isFirstImage=true", "firstSeen": "2026-02-10", "priceHistory": [{"date": "2026-02-10", "p": 5960}]}, {"id": "a8", "addr": "Conesa 2609", "barrio": "Saavedra", "type": "Oficina", "m2": 451, "price": 5960, "priceLabel": "USD 5.960/mes", "m2price": 13, "amb": 0, "bath": 2, "coch": 1, "days": 7, "trend": "stable", "desc": "Oficina 451m², 2 baños, 1 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/56/43/40/61/360x266/1980656938.jpg?isFirstImage=true", "firstSeen": "2026-02-16", "priceHistory": [{"date": "2026-02-16", "p": 5960}]}, {"id": "a9", "addr": "Victorino de la Plaza 5000", "barrio": "Núñez", "type": "Oficina", "m2": 275, "price": 3400, "priceLabel": "USD 3.400/mes", "m2price": 12, "amb": 0, "bath": 3, "coch": 2, "days": 20, "trend": "up", "desc": "Oficina 275m², 3 baños, 2 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/20/53/14/360x266/2028455402.jpg?isFirstImage=true", "firstSeen": "2026-01-14", "priceHistory": [{"date": "2026-01-14", "p": 3400}]}, {"id": "a10", "addr": "Holmberg 4657", "barrio": "Saavedra", "type": "Oficina", "m2": 399, "price": 9576, "priceLabel": "USD 9.576/mes", "m2price": 24, "amb": 1, "bath": 1, "coch": 4, "days": 86, "trend": "stable", "desc": "Oficina 399m², 1 baños, 4 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/54/91/02/57/360x266/2024956616.jpg?isFirstImage=true", "firstSeen": "2026-02-04", "priceHistory": [{"date": "2026-02-04", "p": 9576}]}, {"id": "a11", "addr": "Tronador 3167", "barrio": "Saavedra", "type": "Oficina", "m2": 445, "price": 10680, "priceLabel": "USD 10.680/mes", "m2price": 24, "amb": 1, "bath": 3, "coch": 4, "days": 36, "trend": "up", "desc": "Oficina 445m², 3 baños, 4 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/56/27/68/89/360x266/1976751591.jpg?isFirstImage=true", "firstSeen": "2026-01-07", "priceHistory": [{"date": "2026-01-07", "p": 10680}]}, {"id": "a12", "addr": "Av. Libertador 3201", "barrio": "Núñez", "type": "Oficina", "m2": 265, "price": 5960, "priceLabel": "USD 5.960/mes", "m2price": 22, "amb": 0, "bath": 2, "coch": 2, "days": 12, "trend": "stable", "desc": "Oficina 265m², 2 baños, 2 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/57/47/93/65/360x266/2009222599.jpg?isFirstImage=true", "firstSeen": "2026-01-22", "priceHistory": [{"date": "2026-01-22", "p": 5960}]}, {"id": "a13", "addr": "Av. Balbin 4495", "barrio": "Núñez", "type": "Oficina", "m2": 451, "price": 4200, "priceLabel": "USD 4.200/mes", "m2price": 9, "amb": 0, "bath": 2, "coch": 1, "days": 75, "trend": "stable", "desc": "Oficina 451m², 2 baños, 1 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/57/48/03/22/360x266/2009247073.jpg?isFirstImage=true", "firstSeen": "2026-02-11", "priceHistory": [{"date": "2026-02-11", "p": 4200}]}, {"id": "a14", "addr": "Victorino de la Plaza 2338", "barrio": "Núñez", "type": "Oficina", "m2": 215, "price": 4200, "priceLabel": "USD 4.200/mes", "m2price": 20, "amb": 0, "bath": 4, "coch": 1, "days": 33, "trend": "down", "desc": "Oficina 215m², 4 baños, 1 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/54/74/66/66/360x266/1939488174.jpg?isFirstImage=true", "firstSeen": "2026-01-11", "priceHistory": [{"date": "2026-01-01", "p": 4410}, {"date": "2026-01-11", "p": 4200}]}, {"id": "a15", "addr": "Ramallo 3298", "barrio": "Núñez", "type": "Oficina", "m2": 310, "price": 5960, "priceLabel": "USD 5.960/mes", "m2price": 19, "amb": 0, "bath": 0, "coch": 2, "days": 24, "trend": "down", "desc": "Oficina 310m², 0 baños, 2 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/57/64/25/28/360x266/2013315361.jpg?isFirstImage=true", "firstSeen": "2026-01-13", "priceHistory": [{"date": "2026-01-03", "p": 6258}, {"date": "2026-01-13", "p": 5960}]}, {"id": "a16", "addr": "Av. Corrientes 4202", "barrio": "Núñez", "type": "Oficina", "m2": 300, "price": 5960, "priceLabel": "USD 5.960/mes", "m2price": 20, "amb": 0, "bath": 4, "coch": 2, "days": 53, "trend": "up", "desc": "Oficina 300m², 4 baños, 2 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/57/47/04/17/360x266/2009014660.jpg?isFirstImage=true", "firstSeen": "2026-01-07", "priceHistory": [{"date": "2026-01-07", "p": 5960}]}, {"id": "a17", "addr": "Conesa 4200", "barrio": "Saavedra", "type": "Oficina", "m2": 579, "price": 109, "priceLabel": "$ 10.956.000/mes", "m2price": 0, "amb": 14, "bath": 6, "coch": 10, "days": 77, "trend": "stable", "desc": "Oficina 579m², 6 baños, 10 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/52/30/69/77/360x266/1880775506.jpg?isFirstImage=true", "firstSeen": "2026-01-28", "priceHistory": [{"date": "2026-01-28", "p": 109}]}, {"id": "a18", "addr": "Cabildo 3514", "barrio": "Núñez", "type": "Oficina", "m2": 212, "price": 3980, "priceLabel": "USD 3.980/mes", "m2price": 19, "amb": 0, "bath": 0, "coch": 2, "days": 80, "trend": "stable", "desc": "Oficina 212m², 0 baños, 2 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/51/81/09/13/360x266/1869493237.jpg?isFirstImage=true", "firstSeen": "2026-02-09", "priceHistory": [{"date": "2026-02-09", "p": 3980}]}, {"id": "a19", "addr": "Av. Balbin 2672", "barrio": "Núñez", "type": "Oficina", "m2": 214, "price": 5960, "priceLabel": "USD 5.960/mes", "m2price": 28, "amb": 5, "bath": 4, "coch": 2, "days": 67, "trend": "up", "desc": "Oficina 214m², 4 baños, 2 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/57/55/58/18/360x266/2011089759.jpg?isFirstImage=true", "firstSeen": "2026-02-03", "priceHistory": [{"date": "2026-02-03", "p": 5960}]}, {"id": "a20", "addr": "Cabildo 2036", "barrio": "Núñez", "type": "Oficina", "m2": 212, "price": 4600, "priceLabel": "USD 4.600/mes", "m2price": 22, "amb": 0, "bath": 4, "coch": 2, "days": 57, "trend": "up", "desc": "Oficina 212m², 4 baños, 2 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/57/01/65/53/360x266/1996761422.jpg?isFirstImage=true", "firstSeen": "2026-02-01", "priceHistory": [{"date": "2026-02-01", "p": 4600}]}, {"id": "a21", "addr": "Ibera 3545", "barrio": "Núñez", "type": "Oficina", "m2": 300, "price": 5960, "priceLabel": "USD 5.960/mes", "m2price": 20, "amb": 0, "bath": 4, "coch": 2, "days": 44, "trend": "down", "desc": "Oficina 300m², 4 baños, 2 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/57/48/67/99/360x266/2009410369.jpg?isFirstImage=true", "firstSeen": "2026-01-18", "priceHistory": [{"date": "2026-01-08", "p": 6258}, {"date": "2026-01-18", "p": 5960}]}, {"id": "a22", "addr": "3 de Febrero 4896", "barrio": "Núñez", "type": "Oficina", "m2": 215, "price": 4200, "priceLabel": "USD 4.200/mes", "m2price": 20, "amb": 0, "bath": 4, "coch": 1, "days": 84, "trend": "stable", "desc": "Oficina 215m², 4 baños, 1 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/57/47/93/65/360x266/2009222599.jpg?isFirstImage=true", "firstSeen": "2026-02-15", "priceHistory": [{"date": "2026-02-15", "p": 4200}]}, {"id": "a23", "addr": "Av. del Libertador 4692", "barrio": "Núñez", "type": "Oficina", "m2": 212, "price": 4200, "priceLabel": "USD 4.200/mes", "m2price": 20, "amb": 0, "bath": 4, "coch": 2, "days": 45, "trend": "up", "desc": "Oficina 212m², 4 baños, 2 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/56/45/59/74/360x266/1981243852.jpg?isFirstImage=true", "firstSeen": "2026-01-24", "priceHistory": [{"date": "2026-01-24", "p": 4200}]}, {"id": "a24", "addr": "3 de Febrero 2960", "barrio": "Núñez", "type": "Oficina", "m2": 212, "price": 3980, "priceLabel": "USD 3.980/mes", "m2price": 19, "amb": 0, "bath": 4, "coch": 2, "days": 81, "trend": "stable", "desc": "Oficina 212m², 4 baños, 2 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/57/47/93/89/360x266/2009223040.jpg?isFirstImage=true", "firstSeen": "2026-01-27", "priceHistory": [{"date": "2026-01-27", "p": 3980}]}, {"id": "a25", "addr": "Av. Corrientes 4812", "barrio": "Núñez", "type": "Oficina", "m2": 310, "price": 5960, "priceLabel": "USD 5.960/mes", "m2price": 19, "amb": 0, "bath": 0, "coch": 2, "days": 39, "trend": "up", "desc": "Oficina 310m², 0 baños, 2 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/57/64/25/28/360x266/2013315361.jpg?isFirstImage=true", "firstSeen": "2026-01-21", "priceHistory": [{"date": "2026-01-21", "p": 5960}]}, {"id": "a26", "addr": "Manuela Pedraza 3241", "barrio": "Núñez", "type": "Oficina", "m2": 212, "price": 3980, "priceLabel": "USD 3.980/mes", "m2price": 19, "amb": 0, "bath": 4, "coch": 2, "days": 45, "trend": "stable", "desc": "Oficina 212m², 4 baños, 2 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/54/87/66/26/360x266/1942690806.jpg?isFirstImage=true", "firstSeen": "2026-02-03", "priceHistory": [{"date": "2026-02-03", "p": 3980}]}, {"id": "a27", "addr": "Victorino de la Plaza 4382", "barrio": "Núñez", "type": "Oficina", "m2": 212, "price": 4200, "priceLabel": "USD 4.200/mes", "m2price": 20, "amb": 0, "bath": 4, "coch": 1, "days": 36, "trend": "down", "desc": "Oficina 212m², 4 baños, 1 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/53/97/74/33/360x266/1919184649.jpg?isFirstImage=true", "firstSeen": "2026-01-17", "priceHistory": [{"date": "2026-01-07", "p": 4410}, {"date": "2026-01-17", "p": 4200}]}, {"id": "a28", "addr": "Del Libertador 2217", "barrio": "Núñez", "type": "Oficina", "m2": 212, "price": 4600, "priceLabel": "USD 4.600/mes", "m2price": 22, "amb": 0, "bath": 4, "coch": 2, "days": 55, "trend": "stable", "desc": "Oficina 212m², 4 baños, 2 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/56/45/59/74/360x266/1981243852.jpg?isFirstImage=true", "firstSeen": "2026-02-22", "priceHistory": [{"date": "2026-02-22", "p": 4600}]}, {"id": "a29", "addr": "Av. Ramirez 4022", "barrio": "Núñez", "type": "Oficina", "m2": 214, "price": 5960, "priceLabel": "USD 5.960/mes", "m2price": 28, "amb": 5, "bath": 4, "coch": 2, "days": 40, "trend": "stable", "desc": "Oficina 214m², 4 baños, 2 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/56/66/25/87/360x266/1986753078.jpg?isFirstImage=true", "firstSeen": "2026-02-23", "priceHistory": [{"date": "2026-02-23", "p": 5960}]}, {"id": "a30", "addr": "Victorino de la Plaza 3936", "barrio": "Núñez", "type": "Oficina", "m2": 212, "price": 4600, "priceLabel": "USD 4.600/mes", "m2price": 22, "amb": 0, "bath": 4, "coch": 2, "days": 65, "trend": "stable", "desc": "Oficina 212m², 4 baños, 2 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/57/01/65/53/360x266/1996761422.jpg?isFirstImage=true", "firstSeen": "2026-02-16", "priceHistory": [{"date": "2026-02-16", "p": 4600}]}, {"id": "a31", "addr": "Av. Libertador 3433", "barrio": "Núñez", "type": "Oficina", "m2": 205, "price": 52, "priceLabel": "$ 5.200.000/mes", "m2price": 0, "amb": 7, "bath": 4, "coch": 2, "days": 57, "trend": "stable", "desc": "Oficina 205m², 4 baños, 2 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/43/42/08/360x266/2034790122.jpg?isFirstImage=true", "firstSeen": "2026-02-27", "priceHistory": [{"date": "2026-02-27", "p": 52}]}, {"id": "a32", "addr": "Manuela Pedraza 2020", "barrio": "Núñez", "type": "Oficina", "m2": 265, "price": 4200, "priceLabel": "USD 4.200/mes", "m2price": 16, "amb": 0, "bath": 2, "coch": 1, "days": 59, "trend": "down", "desc": "Oficina 265m², 2 baños, 1 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/56/40/62/58/360x266/1979953722.jpg?isFirstImage=true", "firstSeen": "2026-01-21", "priceHistory": [{"date": "2026-01-11", "p": 4410}, {"date": "2026-01-21", "p": 4200}]}, {"id": "a33", "addr": "Alvarez Jonte 4120", "barrio": "Saavedra", "type": "Oficina", "m2": 457, "price": 11000, "priceLabel": "USD 11.000/mes", "m2price": 24, "amb": 0, "bath": 3, "coch": 3, "days": 86, "trend": "down", "desc": "Oficina 457m², 3 baños, 3 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/56/34/71/05/360x266/1979737303.jpg?isFirstImage=true", "firstSeen": "2026-02-07", "priceHistory": [{"date": "2026-01-28", "p": 11550}, {"date": "2026-02-07", "p": 11000}]}, {"id": "a34", "addr": "Cabildo 4885", "barrio": "Saavedra", "type": "Oficina", "m2": 255, "price": 7140, "priceLabel": "USD 7.140/mes", "m2price": 28, "amb": 1, "bath": 2, "coch": 4, "days": 81, "trend": "stable", "desc": "Oficina 255m², 2 baños, 4 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/33/80/92/360x266/2032070444.jpg?isFirstImage=true", "firstSeen": "2026-01-22", "priceHistory": [{"date": "2026-01-22", "p": 7140}]}, {"id": "a35", "addr": "Av. Córdoba 3282", "barrio": "Núñez", "type": "Oficina", "m2": 214, "price": 4000, "priceLabel": "USD 4.000/mes", "m2price": 19, "amb": 5, "bath": 4, "coch": 2, "days": 79, "trend": "up", "desc": "Oficina 214m², 4 baños, 2 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/54/86/79/67/360x266/1942484816.jpg?isFirstImage=true", "firstSeen": "2026-01-06", "priceHistory": [{"date": "2026-01-06", "p": 4000}]}, {"id": "a36", "addr": "Manuela Pedraza 3932", "barrio": "Núñez", "type": "Oficina", "m2": 205, "price": 52, "priceLabel": "$ 5.200.000/mes", "m2price": 0, "amb": 7, "bath": 4, "coch": 2, "days": 85, "trend": "stable", "desc": "Oficina 205m², 4 baños, 2 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/43/42/08/360x266/2034790122.jpg?isFirstImage=true", "firstSeen": "2026-01-09", "priceHistory": [{"date": "2026-01-09", "p": 52}]}, {"id": "a37", "addr": "Del Libertador 4686", "barrio": "Núñez", "type": "Oficina", "m2": 520, "price": 10700, "priceLabel": "USD 10.700/mes", "m2price": 21, "amb": 0, "bath": 2, "coch": 2, "days": 53, "trend": "up", "desc": "Oficina 520m², 2 baños, 2 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/52/39/74/51/360x266/2024256155.jpg?isFirstImage=true", "firstSeen": "2026-01-07", "priceHistory": [{"date": "2026-01-07", "p": 10700}]}, {"id": "a38", "addr": "Ramallo 3789", "barrio": "Núñez", "type": "Oficina", "m2": 212, "price": 4240, "priceLabel": "USD 4.240/mes", "m2price": 20, "amb": 0, "bath": 2, "coch": 2, "days": 65, "trend": "stable", "desc": "Oficina 212m², 2 baños, 2 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/45/11/41/95/360x266/1704574652.jpg?isFirstImage=true", "firstSeen": "2026-02-06", "priceHistory": [{"date": "2026-02-06", "p": 4240}]}, {"id": "a39", "addr": "Ramallo 4819", "barrio": "Saavedra", "type": "Oficina", "m2": 325, "price": 8500, "priceLabel": "USD 8.500/mes", "m2price": 26, "amb": 0, "bath": 2, "coch": 6, "days": 69, "trend": "up", "desc": "Oficina 325m², 2 baños, 6 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/57/18/94/31/360x266/2001749896.jpg?isFirstImage=true", "firstSeen": "2026-01-16", "priceHistory": [{"date": "2026-01-16", "p": 8500}]}, {"id": "a41", "addr": "Av. del Libertador 3319", "barrio": "Núñez", "type": "Oficina", "m2": 205, "price": 52, "priceLabel": "$ 5.200.000/mes", "m2price": 0, "amb": 7, "bath": 4, "coch": 2, "days": 48, "trend": "down", "desc": "Oficina 205m², 4 baños, 2 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/57/17/97/34/360x266/2001489682.jpg?isFirstImage=true", "firstSeen": "2026-02-10", "priceHistory": [{"date": "2026-01-31", "p": 54}, {"date": "2026-02-10", "p": 52}]}, {"id": "a42", "addr": "Av. Corrientes 2425", "barrio": "Núñez", "type": "Oficina", "m2": 212, "price": 4600, "priceLabel": "USD 4.600/mes", "m2price": 22, "amb": 0, "bath": 4, "coch": 2, "days": 49, "trend": "stable", "desc": "Oficina 212m², 4 baños, 2 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/56/45/59/74/360x266/1981243852.jpg?isFirstImage=true", "firstSeen": "2026-02-12", "priceHistory": [{"date": "2026-02-12", "p": 4600}]}, {"id": "a43", "addr": "Av. del Libertador 4368", "barrio": "Núñez", "type": "Oficina", "m2": 240, "price": 4950, "priceLabel": "USD 4.950/mes", "m2price": 21, "amb": 0, "bath": 2, "coch": 1, "days": 90, "trend": "up", "desc": "Oficina 240m², 2 baños, 1 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/52/39/69/27/360x266/2024271210.jpg?isFirstImage=true", "firstSeen": "2026-01-05", "priceHistory": [{"date": "2026-01-05", "p": 4950}]}, {"id": "a44", "addr": "3 de Febrero 2060", "barrio": "Núñez", "type": "Oficina", "m2": 214, "price": 4200, "priceLabel": "USD 4.200/mes", "m2price": 20, "amb": 5, "bath": 4, "coch": 2, "days": 77, "trend": "stable", "desc": "Oficina 214m², 4 baños, 2 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/56/66/25/87/360x266/1986753078.jpg?isFirstImage=true", "firstSeen": "2026-03-02", "priceHistory": [{"date": "2026-03-02", "p": 4200}]}, {"id": "a45", "addr": "Av. Corrientes 2531", "barrio": "Núñez", "type": "Oficina", "m2": 260, "price": 5300, "priceLabel": "USD 5.300/mes", "m2price": 20, "amb": 0, "bath": 2, "coch": 1, "days": 8, "trend": "down", "desc": "Oficina 260m², 2 baños, 1 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/52/39/77/92/360x266/2024278498.jpg?isFirstImage=true", "firstSeen": "2026-01-20", "priceHistory": [{"date": "2026-01-10", "p": 5565}, {"date": "2026-01-20", "p": 5300}]}, {"id": "a46", "addr": "Arias 4543", "barrio": "Saavedra", "type": "Oficina", "m2": 399, "price": 9600, "priceLabel": "USD 9.600/mes", "m2price": 24, "amb": 0, "bath": 3, "coch": 3, "days": 63, "trend": "stable", "desc": "Oficina 399m², 3 baños, 3 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/56/34/71/53/360x266/1979737300.jpg?isFirstImage=true", "firstSeen": "2026-01-08", "priceHistory": [{"date": "2026-01-08", "p": 9600}]}, {"id": "a47", "addr": "Av. Ramirez 4908", "barrio": "Núñez", "type": "Oficina", "m2": 495, "price": 7500, "priceLabel": "USD 7.500/mes", "m2price": 15, "amb": 7, "bath": 4, "coch": 2, "days": 5, "trend": "down", "desc": "Oficina 495m², 4 baños, 2 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/57/18/22/52/360x266/2001552587.jpg?isFirstImage=true", "firstSeen": "2026-02-04", "priceHistory": [{"date": "2026-01-25", "p": 7875}, {"date": "2026-02-04", "p": 7500}]}, {"id": "a48", "addr": "Av. Balbin 2609", "barrio": "Núñez", "type": "Oficina", "m2": 233, "price": 4700, "priceLabel": "USD 4.700/mes", "m2price": 20, "amb": 0, "bath": 2, "coch": 3, "days": 60, "trend": "down", "desc": "Oficina 233m², 2 baños, 3 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/16/89/15/360x266/2027438573.jpg?isFirstImage=true", "firstSeen": "2026-02-17", "priceHistory": [{"date": "2026-02-07", "p": 4935}, {"date": "2026-02-17", "p": 4700}]}, {"id": "a49", "addr": "Av. del Libertador 3653", "barrio": "Núñez", "type": "Oficina", "m2": 206, "price": 53, "priceLabel": "$ 5.350.000/mes", "m2price": 0, "amb": 8, "bath": 2, "coch": 1, "days": 86, "trend": "down", "desc": "Oficina 206m², 2 baños, 1 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/28/61/07/360x266/2030631439.jpg?isFirstImage=true", "firstSeen": "2026-01-29", "priceHistory": [{"date": "2026-01-19", "p": 55}, {"date": "2026-01-29", "p": 53}]}, {"id": "a50", "addr": "Ibera 4365", "barrio": "Núñez", "type": "Oficina", "m2": 520, "price": 10700, "priceLabel": "USD 10.700/mes", "m2price": 21, "amb": 0, "bath": 4, "coch": 2, "days": 9, "trend": "down", "desc": "Oficina 520m², 4 baños, 2 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/53/72/76/42/360x266/2024275646.jpg?isFirstImage=true", "firstSeen": "2026-01-23", "priceHistory": [{"date": "2026-01-13", "p": 11235}, {"date": "2026-01-23", "p": 10700}]}, {"id": "a51", "addr": "Victorino de la Plaza 2939", "barrio": "Núñez", "type": "Oficina", "m2": 520, "price": 10700, "priceLabel": "USD 10.700/mes", "m2price": 21, "amb": 0, "bath": 2, "coch": 2, "days": 84, "trend": "down", "desc": "Oficina 520m², 2 baños, 2 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/53/25/01/33/360x266/2024254771.jpg?isFirstImage=true", "firstSeen": "2026-02-23", "priceHistory": [{"date": "2026-02-13", "p": 11235}, {"date": "2026-02-23", "p": 10700}]}, {"id": "a52", "addr": "Av. Córdoba 3957", "barrio": "Núñez", "type": "Oficina", "m2": 212, "price": 4600, "priceLabel": "USD 4.600/mes", "m2price": 22, "amb": 0, "bath": 4, "coch": 2, "days": 56, "trend": "up", "desc": "Oficina 212m², 4 baños, 2 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/56/45/59/74/360x266/1981243852.jpg?isFirstImage=true", "firstSeen": "2026-02-09", "priceHistory": [{"date": "2026-02-09", "p": 4600}]}, {"id": "a53", "addr": "Av. Córdoba 4762", "barrio": "Núñez", "type": "Oficina", "m2": 212, "price": 3800, "priceLabel": "USD 3.800/mes", "m2price": 18, "amb": 0, "bath": 4, "coch": 1, "days": 16, "trend": "down", "desc": "Oficina 212m², 4 baños, 1 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/53/97/74/33/360x266/1919184649.jpg?isFirstImage=true", "firstSeen": "2026-01-11", "priceHistory": [{"date": "2026-01-01", "p": 3990}, {"date": "2026-01-11", "p": 3800}]}, {"id": "a54", "addr": "Del Libertador 4062", "barrio": "Núñez", "type": "Oficina", "m2": 212, "price": 3400, "priceLabel": "USD 3.400/mes", "m2price": 16, "amb": 0, "bath": 4, "coch": 2, "days": 49, "trend": "stable", "desc": "Oficina 212m², 4 baños, 2 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/20/53/14/360x266/2028455402.jpg?isFirstImage=true", "firstSeen": "2026-02-19", "priceHistory": [{"date": "2026-02-19", "p": 3400}]}, {"id": "a55", "addr": "Conesa 2554", "barrio": "Saavedra", "type": "Oficina", "m2": 270, "price": 6900, "priceLabel": "USD 6.900/mes", "m2price": 26, "amb": 0, "bath": 3, "coch": 0, "days": 66, "trend": "stable", "desc": "Oficina 270m², 3 baños, 0 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/56/34/71/05/360x266/1979737303.jpg?isFirstImage=true", "firstSeen": "2026-01-31", "priceHistory": [{"date": "2026-01-31", "p": 6900}]}, {"id": "a56", "addr": "Tronador 2045", "barrio": "Núñez", "type": "Oficina", "m2": 214, "price": 4200, "priceLabel": "USD 4.200/mes", "m2price": 20, "amb": 5, "bath": 4, "coch": 2, "days": 88, "trend": "up", "desc": "Oficina 214m², 4 baños, 2 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/54/86/79/67/360x266/1942484816.jpg?isFirstImage=true", "firstSeen": "2026-02-10", "priceHistory": [{"date": "2026-02-10", "p": 4200}]}, {"id": "a57", "addr": "Conesa 4747", "barrio": "Saavedra", "type": "Oficina", "m2": 451, "price": 5960, "priceLabel": "USD 5.960/mes", "m2price": 13, "amb": 0, "bath": 2, "coch": 1, "days": 45, "trend": "stable", "desc": "Oficina 451m², 2 baños, 1 cocheras", "img": "https://imgar.zonapropcdn.com/avisos/1/00/56/43/40/61/360x266/1980656938.jpg?isFirstImage=true", "firstSeen": "2026-01-30", "priceHistory": [{"date": "2026-01-30", "p": 5960}]}, {"id": "a58", "addr": "Conde al 4800", "barrio": "Saavedra", "type": "Depósito", "m2": 375, "price": 3400, "priceLabel": "USD 3.400/mes", "m2price": 9.1, "amb": 0, "bath": 2, "coch": 0, "days": 35, "trend": "down", "desc": "Depósito 375m², bajó 5%, 2 baños", "img": "https://imgar.zonapropcdn.com/avisos/1/00/58/39/44/57/360x266/2033667147.jpg?isFirstImage=true", "firstSeen": "2026-01-29", "priceHistory": [{"date": "2026-01-29", "p": 3570}, {"date": "2026-02-20", "p": 3400}]}, {"id": "a59", "addr": "Av. General Paz y Constituyentes", "barrio": "Saavedra", "type": "Depósito", "m2": 205, "price": 1300, "priceLabel": "USD 1.300/mes", "m2price": 6.3, "amb": 4, "bath": 0, "coch": 0, "days": 42, "trend": "stable", "desc": "Depósito 205m², sobre Av. General Paz", "img": "https://imgar.zonapropcdn.com/avisos/1/00/50/95/20/24/360x266/1948774337.jpg?isFirstImage=true", "firstSeen": "2026-01-22", "priceHistory": [{"date": "2026-01-22", "p": 1300}]}];
+const BAJAS = [{"id": "b1", "addr": "Congreso 3200", "barrio": "Coghlan", "type": "PH", "m2": 280, "price": 235000, "priceLabel": "USD 235.000", "m2price": 839, "amb": 4, "bath": 2, "coch": 1, "days": 78, "trend": "stable", "desc": "PH 4 amb con jardin. Estuvo publicado 78 dias.", "img": "https://imgar.zonapropcdn.com/avisos/1/00/50/34/28/76/360x266/1830683255.jpg?isFirstImage=true", "firstSeen": "2025-12-18", "removedDate": "2026-03-05", "removedFrom": "venta", "daysToSell": 78, "reason": "Posible venta cerrada", "priceHistory": [{"date": "2025-12-18", "p": 235000}]}];
 
-let NEWS = [
-  {title:"Yellow Letters de Ilker Çatak gana el Oso de Oro en la Berlinale 2026",source:"Cineuropa",date:"JUE 5 MAR 2026",venue:"Berlinale — Berlín",image:"https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=800&q=80",cat:"FESTIVALES",excerpt:"El film del director germano-turco se impuso en la competencia oficial de la 76ª Berlinale, confirmando a Çatak como una de las voces más potentes del cine europeo contemporáneo.",url:"https://cineuropa.org"},
-  {title:"Cannes 2026: selección oficial el 9 de abril — Park Chan-wook presidente del jurado",source:"Cineuropa",date:"MIÉ 4 MAR 2026",venue:"Cannes — Francia",image:"https://images.unsplash.com/photo-1524712245354-2c4e5e7121c0?w=800&q=80",cat:"FESTIVALES",excerpt:"La 79ª edición del festival revelará su programación oficial en una conferencia de prensa en París.",url:"https://cineuropa.org"},
-  {title:"BAFICI 26: 298 películas de 44 países con 112 estrenos mundiales",source:"A Sala Llena",date:"MIÉ 4 MAR 2026",venue:"Buenos Aires — Argentina",image:"https://images.unsplash.com/photo-1485846234645-a62644f84728?w=800&q=80",cat:"ARGENTINA",excerpt:"El festival porteño se celebra del 1 al 13 de abril con una programación ambiciosa que incluye retrospectivas, competencia internacional y secciones paralelas.",url:"https://asalallena.com.ar"},
-  {title:"D'A Barcelona 2026 suma a Lucrecia Martel, Hong Sangsoo y Valérie Donzelli",source:"Kinotico",date:"LUN 3 MAR 2026",venue:"D'A Film Festival — Barcelona",image:"https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=800&q=80",cat:"FESTIVALES",excerpt:"122 films, 27 estrenos mundiales y 55 obras dirigidas por mujeres en la edición más ambiciosa del festival barcelonés.",url:"https://kinotico.es"},
-  {title:"MUBI en marzo: Gianfranco Rosi y Jafar Panahi encabezan la cartelera",source:"Otros Cines",date:"LUN 3 MAR 2026",venue:"Plataforma",cat:"PLATAFORMAS",excerpt:"Pompeya: Bajo las Nubes y Fue solo un accidente. Ciclos de Verhoeven y Wiseman.",url:"https://otroscines.com",image:"https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?w=800&q=80"},
-  {title:"Angela Schanelec y Brameshuber brillan en la competencia de Berlinale",source:"A Sala Llena",date:"SÁB 1 MAR 2026",venue:"Berlinale — Berlín",cat:"FESTIVALES",excerpt:"Schanelec y Brameshuber fueron destacadas como lo mejor de la sección oficial.",url:"https://asalallena.com.ar",image:"https://images.unsplash.com/photo-1594909122845-11baa439b7bf?w=800&q=80"},
-  {title:"Filmin en marzo: Valor sentimental, La voz de Hind y más",source:"Otros Cines",date:"VIE 28 FEB 2026",venue:"Plataforma",cat:"PLATAFORMAS",excerpt:"Cine político, documentales y cine de autor europeo llegan a la plataforma.",url:"https://otroscines.com",image:"https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=800&q=80"},
-  {title:"D'A 2026: Un Impulso Colectivo, el oasis del cine español independiente",source:"El Antepenúltimo Mohicano",date:"MIÉ 25 FEB 2026",venue:"D'A — Barcelona",cat:"FESTIVALES",excerpt:"Selección audaz de nuevas voces del cine español contemporáneo.",url:"https://elantepenultimomohicano.com",image:"https://images.unsplash.com/photo-1595769816263-9b910be24d5f?w=800&q=80"},
-  {title:"La Fiesta del Cine 2026 convocó a 430.000 personas en tres días",source:"Otros Cines",date:"MIÉ 26 FEB 2026",venue:"Argentina",cat:"ARGENTINA",excerpt:"La séptima edición con entradas a $4.000 fue un éxito masivo de convocatoria.",url:"https://otroscines.com",image:"https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=800&q=80"},
-  {title:"Todos los ganadores de los Actor Awards 2026",source:"Escribiendo Cine",date:"DOM 2 MAR 2026",venue:"Ceremonia",cat:"FESTIVALES",excerpt:"La ceremonia de premios reveló sus ganadores con sorpresas.",url:"https://escribiendocine.com",image:"https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?w=800&q=80"},
-  {title:"Oscar 2026: la ceremonia será el 15 de marzo en el Dolby Theatre",source:"Escribiendo Cine",date:"SÁB 1 MAR 2026",venue:"Los Ángeles",cat:"FESTIVALES",excerpt:"La Academia entregará los premios con varias películas europeas nominadas.",url:"https://escribiendocine.com",image:"https://images.unsplash.com/photo-1532635241-17e820acc59f?w=800&q=80"},
-  {title:"Werner Herzog, Petzold y Mumenthaler encabezan el D'A 2026",source:"El Antepenúltimo Mohicano",date:"JUE 20 FEB 2026",venue:"D'A — Barcelona",cat:"FESTIVALES",excerpt:"Grandes nombres del cine de autor europeo y latinoamericano.",url:"https://elantepenultimomohicano.com",image:"https://images.unsplash.com/photo-1460881680858-30d872d5b430?w=800&q=80"},
-];
-
-let RELEASES = [
-  {title:"Calle Málaga",director:"Maryam Touzani",country:"Marruecos / España",day:"6",month:"MAR",platform:"CINES",rating:7.7,url:"https://www.fotogramas.es"},
-  {title:"Fue solo un accidente",director:"Jafar Panahi",country:"Irán",day:"6",month:"MAR",platform:"MUBI",rating:8.0,url:"https://mubi.com"},
-  {title:"La Grazia",director:"Paolo Sorrentino",country:"Italia",day:"13",month:"MAR",platform:"CINES",rating:7.9,url:"https://www.fotogramas.es"},
-  {title:"Amarga Navidad",director:"Pedro Almodóvar",country:"España",day:"20",month:"MAR",platform:"CINES",rating:8.2,url:"https://www.fotogramas.es"},
-  {title:"Pompeya: Bajo las Nubes",director:"Gianfranco Rosi",country:"Italia",day:"27",month:"MAR",platform:"MUBI",rating:8.1,url:"https://mubi.com"},
-  {title:"El síndrome Rembrandt",director:"Pierre Schoeller",country:"Francia",day:"—",month:"ABR",platform:"CINES",rating:7.5,url:"https://www.fotogramas.es"},
-];
-
-let FESTIVALS = [
-  {name:"Festival de Málaga",dates:"6 — 15 Mar 2026",status:"En curso",live:true,city:"Málaga, España",desc:"Cine en español y mercado MAFIZ. Sección oficial y Zonazine.",url:"https://festivaldemalaga.com",color:"#C0392B",edition:"29ª edición",jury:""},
-  {name:"Thessaloniki Doc",dates:"5 — 15 Mar 2026",status:"En curso",live:true,city:"Tesalónica, Grecia",desc:"38 títulos en competencia documental.",url:"https://www.filmfestival.gr",color:"#2C3E50",edition:"28ª edición",jury:""},
-  {name:"D'A Barcelona",dates:"19 — 29 Mar 2026",status:"Próximo",live:false,city:"Barcelona, España",desc:"122 films · 27 estrenos mundiales · 55 films dirigidos por mujeres",url:"https://dafilmfestival.com",color:"#8E44AD",edition:"15ª edición",jury:"Hansen-Løve, Petzold, Martel, Sangsoo"},
-  {name:"Series Mania",dates:"20 — 27 Mar 2026",status:"Próximo",live:false,city:"Lille, Francia",desc:"Festival europeo de series de televisión.",url:"https://seriesmania.com",color:"#16A085",edition:"8ª edición",jury:""},
-  {name:"BAFICI",dates:"1 — 13 Abr 2026",status:"Próximo",live:false,city:"Buenos Aires, Argentina",desc:"298 films · 44 países · 112 estrenos mundiales",url:"https://festivales.buenosaires.gob.ar/bafici",color:"#E67E22",edition:"27ª edición",jury:""},
-  {name:"Festival de Cannes",dates:"12 — 23 May 2026",status:"Selección 9 Abr",live:false,city:"Cannes, Francia",desc:"La cita más importante del cine mundial. Selección oficial el 9 de abril.",url:"https://www.festival-cannes.com",color:"#D4AF37",edition:"79ª edición",jury:"Presidente: Park Chan-wook"},
-  {name:"Mostra de Venecia",dates:"27 Ago — 6 Sep 2026",status:"Próximo",live:false,city:"Venecia, Italia",desc:"La mostra más antigua del mundo.",url:"https://www.labiennale.org",color:"#1A5276",edition:"83ª edición",jury:""},
-];
-
-let PLATFORMS = [
-  {name:"MUBI",highlight:"Gianfranco Rosi + Jafar Panahi",films:["Fue solo un accidente (Panahi)","Pompeya: Bajo las Nubes (Rosi)","Programa triple Verhoeven","Los Estados Unidos de Wiseman"]},
-  {name:"Filmin",highlight:"Cine político y de autor",films:["Valor sentimental","La voz de Hind","Mr. Nobody contra Putin","Ciudad sin sueño"]},
-  {name:"HBO Max",highlight:"Series europeas de marzo",films:["Portobello (Italia)","Como agua para chocolate S2"]},
-  {name:"Prime Video",highlight:"Cuando el Cielo se Equivoca",films:["Cuando el Cielo se Equivoca (5 Mar)"]},
-];
-
-let REVIEWS = [
-  {title:"Yellow Letters",director:"Ilker Çatak",score:8.5,badge:"Oso de Oro",text:"Cuestiona la identidad y la pertenencia con elegancia formal extraordinaria."},
-  {title:"Meine Frau weint",director:"Angela Schanelec",score:8.3,badge:"Berlinale",text:"Rigor formal y humanismo austero en una obra luminosa."},
-  {title:"London",director:"Sebastian Brameshuber",score:8.1,badge:"Berlinale",text:"Cine austríaco en estado de gracia. Uno de los grandes títulos del año."},
-  {title:"Fue solo un accidente",director:"Jafar Panahi",score:8.0,badge:"MUBI",text:"La experiencia en prisión se convierte en un dilema moral extraordinario."},
-];
-
-let TRAILERS = [
-  {title:"Yellow Letters",sub:"Ilker Çatak",thumb:"https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=800&q=80",dur:"2:22",ytId:"dQw4w9WgXcQ"},
-  {title:"Amarga Navidad",sub:"Pedro Almodóvar",thumb:"https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=800&q=80",dur:"2:31",ytId:"dQw4w9WgXcQ"},
-  {title:"Pompeya: Bajo las Nubes",sub:"Gianfranco Rosi",thumb:"https://images.unsplash.com/photo-1518676590747-1e3dcf5a0e32?w=800&q=80",dur:"2:12",ytId:"dQw4w9WgXcQ"},
-  {title:"La Grazia",sub:"Paolo Sorrentino",thumb:"https://images.unsplash.com/photo-1460881680858-30d872d5b430?w=800&q=80",dur:"2:45",ytId:"dQw4w9WgXcQ"},
-];
-
-const playIcon = '<svg width="24" height="24" viewBox="0 0 24 24" fill="#fff" stroke="none"><polygon points="8 5 20 12 8 19"/></svg>';
-
-/* ═══════ ARTICLE VIEW ═══════ */
-let savedScrollY = 0;
-
-function openArticle(type, index) {
-  let item, content, related = [];
-
-  if (type === 'news') {
-    item = NEWS[index];
-    // Generate expanded content from the excerpt
-    content = buildNewsContent(item);
-    // Related: other news from same category
-    related = NEWS.filter((n,i) => i !== index && n.cat === item.cat).slice(0,3);
-  } else if (type === 'release') {
-    item = RELEASES[index];
-    content = buildReleaseContent(item);
-    related = RELEASES.filter((r,i) => i !== index).slice(0,3).map(r => ({title:r.title,date:r.day+' '+r.month,source:r.director,_type:'release',_idx:RELEASES.indexOf(r)}));
-  } else if (type === 'festival') {
-    item = FESTIVALS[index];
-    content = buildFestivalContent(item);
-    related = FESTIVALS.filter((f,i) => i !== index).slice(0,3).map(f => ({title:f.name,date:f.dates,source:f.city,_type:'festival',_idx:FESTIVALS.indexOf(f)}));
-  } else if (type === 'review') {
-    item = REVIEWS[index];
-    content = buildReviewContent(item);
-    related = REVIEWS.filter((r,i) => i !== index).slice(0,3).map(r => ({title:r.title,date:r.badge,source:r.director,_type:'review',_idx:REVIEWS.indexOf(r)}));
-  }
-
-  if (!item) return;
-
-  // Set source link
-  const sourceLink = document.getElementById('avSourceLink');
-  sourceLink.href = item.url || '#';
-  sourceLink.style.display = item.url ? '' : 'none';
-
-  // Build body
-  const cat = item.cat || (type === 'release' ? item.platform : type === 'festival' ? 'FESTIVAL' : type === 'review' ? 'CRÍTICA' : '');
-  const date = item.date || item.dates || '';
-  const venue = item.venue || item.city || '';
-  const title = item.title || item.name || '';
-  const source = item.source || item.director || '';
-  const image = item.image || item.thumb || '';
-
-  let bodyHTML = '<span class="av-cat">' + cat + '</span>';
-  if (date) bodyHTML += '<div class="av-meta">' + date + '</div>';
-  if (venue) bodyHTML += '<div class="av-meta">' + venue + '</div>';
-  bodyHTML += '<h1 class="av-title">' + title + '</h1>';
-  bodyHTML += '<div class="av-author">por <strong>' + source + '</strong></div>';
-  if (image) bodyHTML += '<figure class="av-img"><img src="' + image + '" alt="" loading="lazy"><figcaption>' + title + '</figcaption></figure>';
-  bodyHTML += '<div class="av-content">' + content + '</div>';
-
-  document.getElementById('avBody').innerHTML = bodyHTML;
-
-  // Build related
-  let relItems = [];
-  if (type === 'news') {
-    relItems = related.map(n => ({title:n.title,meta:n.source+' · '+n.date,_type:'news',_idx:NEWS.indexOf(n)}));
-  } else {
-    relItems = related;
-  }
-
-  let relHTML = '';
-  if (relItems.length) {
-    relHTML = '<div class="av-related-title">ARTÍCULOS RELACIONADOS</div>';
-    relItems.forEach(r => {
-      const t = r._type || 'news';
-      const i = r._idx !== undefined ? r._idx : 0;
-      relHTML += '<div class="av-related-item" data-open-article="'+t+'" data-open-idx="'+i+'">' +
-        '<h4>'+(r.title||'')+'</h4>' +
-        '<div class="av-related-meta">'+(r.meta || (r.source||'')+' · '+(r.date||''))+'</div>' +
-      '</div>';
-    });
-  }
-  document.getElementById('avRelated').innerHTML = relHTML;
-
-  // Show view
-  savedScrollY = window.scrollY;
-  document.getElementById('articleView').classList.add('open');
-  document.getElementById('articleView').scrollTop = 0;
-  document.body.style.overflow = 'hidden';
-}
-
-function closeArticle() {
-  document.getElementById('articleView').classList.remove('open');
-  document.body.style.overflow = '';
-  window.scrollTo(0, savedScrollY);
-}
-
-function buildNewsContent(item) {
-  // Expand the excerpt into a full article-like reading experience
-  let html = '<p>' + item.excerpt + '</p>';
-  // Add contextual paragraphs based on the category/topic
-  if (item.cat === 'FESTIVALES') {
-    html += '<p>El evento ha captado la atención de la prensa internacional y los cinéfilos, consolidando su posición como uno de los encuentros cinematográficos más relevantes del circuito europeo. Las proyecciones y actividades complementarias ofrecen una visión amplia del estado actual del cine de autor.</p>';
-    html += '<p>Los críticos especializados han destacado la calidad de la programación, señalando que esta edición marca un punto de inflexión en la representación de nuevas voces cinematográficas. La selección incluye obras que abordan temáticas contemporáneas desde perspectivas innovadoras.</p>';
-  } else if (item.cat === 'PLATAFORMAS') {
-    html += '<p>La oferta de las plataformas de streaming continúa expandiéndose con títulos que antes solo se encontraban en el circuito de festivales. Esta democratización del acceso al cine de autor europeo representa una oportunidad única para el público argentino.</p>';
-    html += '<p>La curación de contenido se ha convertido en un elemento diferenciador clave entre las distintas plataformas, cada una construyendo una identidad propia a través de su selección cinematográfica.</p>';
-  } else if (item.cat === 'ARGENTINA') {
-    html += '<p>El panorama cinematográfico en Argentina muestra signos de vitalidad renovada. La audiencia local demuestra un interés creciente por el cine europeo, tendencia que se refleja tanto en las cifras de asistencia a salas como en el consumo a través de plataformas digitales.</p>';
-    html += '<p>Las iniciativas de difusión y los festivales locales juegan un papel fundamental en acercar el cine europeo al público argentino, creando puentes culturales que enriquecen la experiencia cinematográfica.</p>';
-  }
-  html += '<p style="font-style:italic;color:var(--text-light);font-size:15px;margin-top:32px;padding-top:20px;border-top:1px solid var(--border)">Fuente: ' + item.source + ' · Publicado ' + item.date + '</p>';
-  return html;
-}
-
-function buildReleaseContent(item) {
-  let html = '<p>'+item.title+', dirigida por '+item.director+', llega a '+item.platform+' en Argentina. La película, una producción de '+item.country+', ha recibido una puntuación de '+item.rating+' por la crítica especializada.</p>';
-  html += '<p>El film se enmarca dentro de la tradición del mejor cine europeo contemporáneo, ofreciendo una experiencia cinematográfica que combina rigor formal con una narrativa accesible. Los espectadores pueden esperar una obra que dialoga con las grandes tradiciones del cine de autor.</p>';
-  html += '<p>El estreno está programado para el '+item.day+' de '+item.month+' en '+item.platform+', sumándose a una cartelera que promete ser una de las más interesantes de la temporada.</p>';
-  return html;
-}
-
-function buildFestivalContent(item) {
-  let html = '<p>'+item.name+' se celebra del '+item.dates+' en '+item.city+'. '+item.desc+'</p>';
-  html += '<p>El festival es uno de los encuentros cinematográficos más importantes del calendario europeo, reuniendo a cineastas, productores, distribuidores y cinéfilos de todo el mundo. Su programación refleja las tendencias más actuales del cine contemporáneo.</p>';
-  html += '<p>Para los cinéfilos argentinos, este festival representa una oportunidad de descubrir los títulos que marcarán la agenda cinematográfica de los próximos meses, muchos de los cuales llegarán eventualmente a salas y plataformas locales.</p>';
-  return html;
-}
-
-function buildReviewContent(item) {
-  let html = '<p>"'+item.text+'"</p>';
-  html += '<p>'+item.title+', de '+item.director+', se presenta como una de las obras más destacadas del panorama cinematográfico actual. Con una puntuación de '+item.score+' sobre 10, la película ha generado un consenso ampliamente positivo entre la crítica especializada.</p>';
-  html += '<p>La propuesta formal y narrativa del film demuestra la madurez artística de su director, quien logra equilibrar las demandas del lenguaje cinematográfico contemporáneo con una visión personal que resulta a la vez íntima y universal.</p>';
-  html += '<p>Reconocida con el premio '+item.badge+', la película se perfila como uno de los títulos imprescindibles de la temporada, tanto para los seguidores del cine de autor como para aquellos que buscan experiencias cinematográficas que trasciendan lo convencional.</p>';
-  return html;
-}
-
-/* ═══════ RENDER ═══════ */
-function render() {
-  renderNav();
-  renderFilters();
-  renderFeatured();
-  renderCards();
-  renderReleases();
-  renderFestivals();
-  renderPlatforms();
-  renderReviews();
-  renderTrailers();
-}
-
-function renderNav() {
-  const secs = [['noticias','Noticias'],['estrenos','Estrenos'],['festivales','Festivales'],['plataformas','Plataformas'],['criticas','Críticas'],['trailers','Trailers']];
-  document.getElementById('desktopNav').innerHTML = secs.map(([id,l]) =>
-    '<button class="nav-btn" data-s="'+id+'">'+l+'</button>'
-  ).join('');
-}
-
-function renderFilters() {
-  document.getElementById('filterBar').innerHTML = CATEGORIES.map(c =>
-    '<button class="filter-pill'+(c===activeFilter?' active':'')+'" data-filter="'+c+'">'+c+'</button>'
-  ).join('');
-}
-
-function getFiltered() {
-  return activeFilter === 'TODOS' ? NEWS : NEWS.filter(n => n.cat === activeFilter);
-}
-
-function renderFeatured() {
-  const items = getFiltered();
-  if(!items.length){
-    document.getElementById('featuredRow').innerHTML = '<div style="padding:40px 0;text-align:center;color:var(--text-light);grid-column:1/-1">No hay artículos en esta categoría.</div>';
-    return;
-  }
-  const main = items[0];
-  const mainIdx = NEWS.indexOf(main);
-  let mainHTML = '<div class="featured-main">' +
-    '<div class="event-item" data-open-article="news" data-open-idx="'+mainIdx+'">' +
-      '<span class="event-cat">'+main.cat+'</span>' +
-      '<div class="event-meta">'+main.date+'</div>' +
-      '<div class="event-meta">'+main.venue+'</div>' +
-      '<h2 class="event-title">'+main.title+'</h2>' +
-      (main.image ? '<div class="event-img"><img src="'+main.image+'" alt="" loading="lazy"></div>' : '') +
-      '<p class="event-excerpt">'+main.excerpt+'</p>' +
-      '<div class="event-meta" style="margin-top:10px">por <strong>'+main.source+'</strong></div>' +
-    '</div>' +
-  '</div>';
-
-  let sideHTML = '<div class="featured-side">';
-  items.slice(1,5).forEach(n => {
-    const idx = NEWS.indexOf(n);
-    sideHTML += '<div class="event-item event-item-sm" data-open-article="news" data-open-idx="'+idx+'">' +
-      '<span class="event-cat">'+n.cat+'</span>' +
-      '<div class="event-meta">'+n.date+'</div>' +
-      '<div class="event-meta">'+n.source+' — '+n.venue+'</div>' +
-      '<h2 class="event-title">'+n.title+'</h2>' +
-    '</div>';
-  });
-  sideHTML += '</div>';
-  document.getElementById('featuredRow').innerHTML = mainHTML + sideHTML;
-}
-
-function renderCards() {
-  const items = getFiltered().slice(5);
-  document.getElementById('cardGrid').innerHTML = items.map(n => {
-    const idx = NEWS.indexOf(n);
-    return '<div class="card" data-open-article="news" data-open-idx="'+idx+'">' +
-      '<span class="card-cat">'+n.cat+'</span>' +
-      (n.image ? '<div class="card-img"><img src="'+n.image+'" alt="" loading="lazy"></div>' : '') +
-      '<h3>'+n.title+'</h3>' +
-      (n.excerpt ? '<p class="card-excerpt">'+n.excerpt+'</p>' : '') +
-      '<div class="card-author">por <strong>'+n.source+'</strong></div>' +
-    '</div>';
-  }).join('');
-}
-
-function renderReleases() {
-  document.getElementById('relList').innerHTML = RELEASES.map((r,i) =>
-    '<div class="rel-row" data-open-article="release" data-open-idx="'+i+'">' +
-      '<div class="rel-date"><div class="day">'+r.day+'</div><div class="month">'+r.month+'</div></div>' +
-      '<div class="rel-info">' +
-        '<span class="event-cat">'+r.platform+'</span>' +
-        '<h3>'+r.title+'</h3>' +
-        '<div class="dir">'+r.director+'</div>' +
-        '<div class="country">'+r.country+'</div>' +
-      '</div>' +
-      '<div class="rel-badge">'+r.rating+'</div>' +
-    '</div>'
-  ).join('');
-}
-
-function renderFestivals() {
-  document.getElementById('festGrid').innerHTML = FESTIVALS.map((f,i) =>
-    '<div class="fest-item" style="background:'+f.color+'" data-open-article="festival" data-open-idx="'+i+'">' +
-      '<div>' +
-        '<div class="fest-status '+(f.live?'fest-status-live':'fest-status-next')+'">'+f.status+'</div>' +
-        '<div class="fest-edition">'+f.edition+'</div>' +
-        '<h3>'+f.name+'</h3>' +
-        '<div class="fest-dates">'+f.dates+'</div>' +
-        '<div class="fest-city">'+f.city+'</div>' +
-      '</div>' +
-      '<div>' +
-        '<div class="fest-desc">'+f.desc+'</div>' +
-        (f.jury ? '<div class="fest-jury">Jurado: '+f.jury+'</div>' : '') +
-      '</div>' +
-    '</div>'
-  ).join('');
-}
-
-function renderPlatforms() {
-  document.getElementById('platGrid').innerHTML = PLATFORMS.map(p =>
-    '<div class="plat-card">' +
-      '<div class="plat-name">'+p.name+'</div>' +
-      '<div class="plat-hl">'+p.highlight+'</div>' +
-      '<div>'+p.films.map(f=>'<div class="plat-film">'+f+'</div>').join('')+'</div>' +
-    '</div>'
-  ).join('');
-}
-
-function renderReviews() {
-  document.getElementById('revList').innerHTML = REVIEWS.map((r,i) =>
-    '<div class="rev-row" data-open-article="review" data-open-idx="'+i+'">' +
-      '<div class="rev-score">'+r.score+'</div>' +
-      '<div class="rev-info">' +
-        '<h3>'+r.title+'</h3>' +
-        '<div class="dir">'+r.director+'</div>' +
-        '<div class="rev-text">"'+r.text+'"</div>' +
-      '</div>' +
-      '<div class="rev-badge">'+r.badge+'</div>' +
-    '</div>'
-  ).join('');
-}
-
-function renderTrailers() {
-  document.getElementById('trGrid').innerHTML = TRAILERS.map((t,i) =>
-    '<div class="tr-card" data-tr-idx="'+i+'" data-yt-id="'+t.ytId+'">' +
-      '<div class="tr-thumb">' +
-        '<img src="'+t.thumb+'" alt="" loading="lazy">' +
-        '<div class="tr-play">'+playIcon+'</div>' +
-        '<div class="tr-overlay">' +
-          '<div class="tr-sub">'+t.sub+'</div>' +
-          '<div class="tr-title">'+t.title+'</div>' +
-        '</div>' +
-      '</div>' +
-    '</div>'
-  ).join('');
-}
-
-function playTrailer(card) {
-  if (card.classList.contains('playing')) return;
-  const ytId = card.dataset.ytId;
-  const iframe = document.createElement('iframe');
-  iframe.src = 'https://www.youtube.com/embed/'+ytId+'?autoplay=1&rel=0';
-  iframe.allow = 'autoplay; encrypted-media';
-  iframe.allowFullscreen = true;
-  card.appendChild(iframe);
-  card.classList.add('playing');
-}
-
-/* ═══════ NAVIGATION ═══════ */
-function goTo(id) {
-  closeArticle();
-  const el = document.getElementById('s-'+id);
-  if(el) el.scrollIntoView({behavior:'smooth'});
-  setActive(id);
-  document.getElementById('mobileNav').classList.remove('open');
-}
-function setActive(id) {
-  document.querySelectorAll('.nav-btn[data-s]').forEach(b =>
-    b.classList.toggle('active', b.dataset.s === id)
-  );
-}
-function toggleMenu() { document.getElementById('mobileNav').classList.toggle('open') }
-
-/* ═══════ EVENT DELEGATION ═══════ */
-document.addEventListener('click', e => {
-  // Trailer inline play
-  const trCard = e.target.closest('.tr-card[data-yt-id]');
-  if(trCard && !trCard.classList.contains('playing')){
-    e.preventDefault();
-    playTrailer(trCard);
-    return;
-  }
-
-  // Article open
-  const artEl = e.target.closest('[data-open-article]');
-  if(artEl){
-    e.preventDefault();
-    openArticle(artEl.dataset.openArticle, parseInt(artEl.dataset.openIdx));
-    return;
-  }
-
-  // Back button
-  if(e.target.closest('#avBack')){
-    closeArticle();
-    return;
-  }
-
-  // Nav buttons
-  const navBtn = e.target.closest('[data-s]');
-  if(navBtn){ goTo(navBtn.dataset.s); return; }
-
-  // Filter pills
-  const pill = e.target.closest('[data-filter]');
-  if(pill){
-    const f = pill.dataset.filter;
-    // ESTRENOS y CRÍTICAS no tienen noticias — navegar a su sección
-    if(f === 'ESTRENOS'){ goTo('estrenos'); return; }
-    if(f === 'CRÍTICAS'){ goTo('criticas'); return; }
-    activeFilter = f;
-    renderFilters();
-    renderFeatured();
-    renderCards();
-    return;
-  }
-
-  // CTA buttons (TODAS LAS NOTICIAS / VER MÁS)
-  const cta = e.target.closest('.cta-btn');
-  if(cta){
-    activeFilter = 'TODOS';
-    renderFilters();
-    renderFeatured();
-    renderCards();
-    const grid = document.getElementById('cardGrid');
-    if(grid) grid.scrollIntoView({behavior:'smooth'});
-    return;
-  }
-
-  // Tabs
-  const tab = e.target.closest('[data-tab]');
-  if(tab){
+// ====== RENDER ======
+function showSection(name, btn) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById('sec-' + name).classList.add('active');
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    tab.classList.add('active');
-    return;
-  }
-});
-
-document.addEventListener('keydown', e => {
-  if(e.key === 'Escape'){
-    if(document.getElementById('articleView').classList.contains('open')){
-      closeArticle();
-    } else {
-      document.getElementById('mobileNav').classList.remove('open');
-    }
-  }
-});
-
-// Scroll spy
-const SECTIONS = ['noticias','estrenos','festivales','plataformas','criticas','trailers'];
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(en => {
-    if(en.isIntersecting) setActive(en.target.id.replace('s-',''));
-  });
-}, {threshold:0.1, rootMargin:'-50px 0px 0px 0px'});
-
-/* ═══════ CARGA DINÁMICA DE DATOS ═══════ */
-async function loadData() {
-  try {
-    const resp = await fetch('data.json?t=' + Date.now());
-    if (!resp.ok) throw new Error('No data.json');
-    const data = await resp.json();
-
-    if (data.news && data.news.length) NEWS = data.news;
-    if (data.releases && data.releases.length) RELEASES = data.releases;
-    if (data.festivals && data.festivals.length) FESTIVALS = data.festivals;
-    if (data.platforms && data.platforms.length) PLATFORMS = data.platforms;
-    if (data.reviews && data.reviews.length) REVIEWS = data.reviews;
-    if (data.trailers && data.trailers.length) TRAILERS = data.trailers;
-
-    // Mostrar última actualización
-    if (data.last_updated) {
-      const d = new Date(data.last_updated);
-      const ts = d.toLocaleDateString('es-AR') + ' ' + d.toLocaleTimeString('es-AR', {hour:'2-digit',minute:'2-digit'});
-      const el = document.querySelector('.footer-copy');
-      if (el) el.textContent = 'Última actualización: ' + ts;
-    }
-
-    console.log('✅ Datos cargados desde data.json');
-  } catch (e) {
-    console.log('ℹ️ Usando datos estáticos (data.json no disponible)');
-  }
+    btn.classList.add('active');
 }
 
-document.addEventListener('DOMContentLoaded', async () => {
-  await loadData();
-  render();
-  SECTIONS.forEach(id => {
-    const el = document.getElementById('s-'+id);
-    if(el) obs.observe(el);
-  });
-});
+function pillClass(type) {
+    if (type === 'PH') return 'pill-ph';
+    if (type === 'Oficina') return 'pill-ofi';
+    if (type.includes('Galp')) return 'pill-gal';
+    return 'pill-dep';
+}
+function daysClass(d) { return d <= 14 ? 'days-new' : d <= 45 ? 'days-med' : 'days-old'; }
+function trendHtml(t) {
+    if (t === 'up') return '<span class="trend-up">▲ Subió</span>';
+    if (t === 'down') return '<span class="trend-down">▼ Bajó</span>';
+    return '<span class="trend-stable">◆ Estable</span>';
+}
+
+function renderCard(p, isBaja) {
+    const priceChange = p.priceHistory && p.priceHistory.length > 1
+        ? (() => {
+            const first = p.priceHistory[0].p;
+            const last = p.priceHistory[p.priceHistory.length-1].p;
+            const diff = last - first;
+            const pct = ((diff/first)*100).toFixed(1);
+            return diff < 0 ? `<span class="trend-down">${pct}%</span>` : diff > 0 ? `<span class="trend-up">+${pct}%</span>` : '';
+        })()
+        : '';
+
+    return `<div class="card ${isBaja ? 'baja' : ''}">
+        <div class="card-img">
+            <img src="${p.img}" alt="${p.addr}" loading="lazy" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 360 266%22><rect fill=%22%2327272a%22 width=%22360%22 height=%22266%22/><text x=%22180%22 y=%22140%22 text-anchor=%22middle%22 fill=%22%2371717a%22 font-size=%2216%22>Sin imagen</text></svg>'">
+            <div class="overlay"></div>
+            <span class="days-pill ${daysClass(p.days)}">${p.days} días</span>
+            <span class="type-pill ${pillClass(p.type)}">${p.type}</span>
+            <div class="price-tag">${p.priceLabel}</div>
+            <div class="price-m2">$${p.m2price}${isBaja ? '' : '/m²'}</div>
+        </div>
+        <div class="card-body">
+            <div class="card-addr">${p.addr}</div>
+            <div class="card-barrio">${p.barrio}</div>
+            <div class="card-meta">
+                <span>📋 ${p.m2} m²</span>
+                ${p.amb ? `<span>🏠 ${p.amb} amb</span>` : ''}
+                ${p.bath ? `<span>🚿 ${p.bath} baño</span>` : ''}
+                ${p.coch ? `<span>🚗 ${p.coch} coch</span>` : ''}
+            </div>
+            <div class="card-desc">${p.desc}</div>
+            ${isBaja ? `<div class="baja-info">❌ Removida el <strong>${p.removedDate}</strong> (${p.removedFrom}) — ${p.daysToSell} días publicada<br>${p.reason}</div>` : ''}
+        </div>
+        <div class="card-footer">
+            <span style="color:var(--t3);font-size:.72rem;">Desde ${p.firstSeen}</span>
+            <span>${trendHtml(p.trend)} ${priceChange}</span>
+        </div>
+    </div>`;
+}
+
+function renderGrid(containerId, data, isBaja) {
+    document.getElementById(containerId).innerHTML = data.map(p => renderCard(p, isBaja)).join('');
+}
+
+function renderSummary(containerId, data, isRent) {
+    const el = document.getElementById(containerId);
+    const total = data.length;
+    const types = {};
+    data.forEach(p => { types[p.type] = (types[p.type]||0) + 1; });
+    const avgPrice = total ? Math.round(data.reduce((a,p) => a+p.price, 0)/total) : 0;
+    const avgDays = total ? Math.round(data.reduce((a,p) => a+p.days, 0)/total) : 0;
+    const downs = data.filter(p => p.trend === 'down').length;
+    const news = data.filter(p => p.days <= 14).length;
+
+    el.innerHTML = `
+        <div class="summary-card"><div class="label">Total activas</div><div class="value">${total}</div><div class="sub neutral">${Object.entries(types).map(([k,v])=>`${v} ${k}`).join(' • ')}</div></div>
+        <div class="summary-card"><div class="label">Precio promedio</div><div class="value">${isRent ? 'USD $'+avgPrice.toLocaleString()+'/mes' : 'USD $'+(avgPrice/1000).toFixed(0)+'k'}</div><div class="sub neutral">del segmento</div></div>
+        <div class="summary-card"><div class="label">Días prom. publicado</div><div class="value">${avgDays}</div><div class="sub ${avgDays > 40 ? 'down' : 'neutral'}">${avgDays > 40 ? 'mercado lento' : 'ritmo normal'}</div></div>
+        <div class="summary-card"><div class="label">Bajaron precio</div><div class="value down">${downs}</div><div class="sub neutral">de ${total} activas</div></div>
+        <div class="summary-card"><div class="label">Nuevas (<14d)</div><div class="value up">${news}</div><div class="sub neutral">publicaciones recientes</div></div>
+    `;
+}
+
+function renderBajasSummary() {
+    const el = document.getElementById('summaryBajas');
+    const total = BAJAS.length;
+    const avgDaysToSell = total ? Math.round(BAJAS.reduce((a,p) => a + (p.daysToSell||0), 0)/total) : 0;
+    el.innerHTML = `
+        <div class="summary-card"><div class="label">Total bajas detectadas</div><div class="value" style="color:var(--red);">${total}</div><div class="sub neutral">desde inicio monitoreo</div></div>
+        <div class="summary-card"><div class="label">Tiempo promedio activa</div><div class="value">${avgDaysToSell} días</div><div class="sub neutral">antes de ser removida</div></div>
+        <div class="summary-card"><div class="label">Bajas últimos 7 días</div><div class="value">${BAJAS.filter(b => {const d=new Date(b.removedDate);const now=new Date();return(now-d)/(1000*60*60*24)<=7;}).length}</div><div class="sub neutral">movimiento reciente</div></div>
+        <div class="summary-card"><div class="label">Velocidad absorción</div><div class="value">${total > 0 ? (total/1).toFixed(1) : '0'}/sem</div><div class="sub neutral">propiedades removidas x semana</div></div>
+    `;
+}
+
+// Stats bar
+function renderStats() {
+    const vDown = VENTA.filter(p=>p.trend==='down').length;
+    const aDown = ALQUILER.filter(p=>p.trend==='down').length;
+    document.getElementById('statsBar').innerHTML = `
+        <div class="stat"><strong>${VENTA.length}</strong> en venta</div>
+        <div class="stat"><strong>${ALQUILER.length}</strong> en alquiler</div>
+        <div class="stat"><strong class="down">${BAJAS.length}</strong> bajas detectadas</div>
+        <div class="stat"><strong class="down">${vDown+aDown}</strong> bajaron precio</div>
+        <div class="stat" style="margin-left:auto;font-size:.72rem;color:var(--t3);">últ. actualización: ${new Date().toLocaleString('es-AR',{dateStyle:'short',timeStyle:'short'})}</div>
+    `;
+    document.getElementById('countVenta').textContent = VENTA.length;
+    document.getElementById('countAlquiler').textContent = ALQUILER.length;
+    document.getElementById('countBajas').textContent = BAJAS.length;
+}
+
+// Filters
+function setupFilters(containerId, data, gridId, isRent) {
+    const el = document.getElementById(containerId);
+    const types = [...new Set(data.map(p=>p.type))];
+    const barrios = [...new Set(data.map(p=>p.barrio))];
+    let html = '<label>Tipo:</label>';
+    html += `<button class="fbtn on" onclick="applyFilter(this,'${gridId}','type','all',${isRent})">Todos</button>`;
+    types.forEach(t => { html += `<button class="fbtn" onclick="applyFilter(this,'${gridId}','type','${t}',${isRent})">${t}</button>`; });
+    html += '<label style="margin-left:12px;">Barrio:</label>';
+    html += `<button class="fbtn on" onclick="applyFilter(this,'${gridId}','barrio','all',${isRent})">Todos</button>`;
+    barrios.forEach(b => { html += `<button class="fbtn" onclick="applyFilter(this,'${gridId}','barrio','${b}',${isRent})">${b}</button>`; });
+    html += '<label style="margin-left:12px;">Ordenar:</label>';
+    html += `<button class="fbtn on" onclick="sortGrid('${gridId}','days',${isRent})">Días ↓</button>`;
+    html += `<button class="fbtn" onclick="sortGrid('${gridId}','price',${isRent})">Precio ↓</button>`;
+    html += `<button class="fbtn" onclick="sortGrid('${gridId}','m2',${isRent})">m² ↓</button>`;
+    el.innerHTML = html;
+}
+
+let currentFilters = { gridVenta: {type:'all',barrio:'all'}, gridAlquiler: {type:'all',barrio:'all'} };
+
+function applyFilter(btn, gridId, key, val, isRent) {
+    currentFilters[gridId] = currentFilters[gridId] || {type:'all',barrio:'all'};
+    currentFilters[gridId][key] = val;
+    const siblings = btn.parentElement.querySelectorAll('.fbtn');
+    const src = gridId === 'gridVenta' ? VENTA : ALQUILER;
+    let filtered = src.filter(p => {
+        if (currentFilters[gridId].type !== 'all' && p.type !== currentFilters[gridId].type) return false;
+        if (currentFilters[gridId].barrio !== 'all' && p.barrio !== currentFilters[gridId].barrio) return false;
+        return true;
+    });
+    renderGrid(gridId, filtered, false);
+}
+
+function sortGrid(gridId, by, isRent) {
+    const src = gridId === 'gridVenta' ? [...VENTA] : [...ALQUILER];
+    if (by === 'days') src.sort((a,b) => b.days - a.days);
+    else if (by === 'price') src.sort((a,b) => b.price - a.price);
+    else if (by === 'm2') src.sort((a,b) => b.m2 - a.m2);
+    renderGrid(gridId, src, false);
+}
+
+// INIT
+renderStats();
+renderSummary('summaryVenta', VENTA, false);
+renderSummary('summaryAlquiler', ALQUILER, true);
+renderBajasSummary();
+renderGrid('gridVenta', VENTA, false);
+renderGrid('gridAlquiler', ALQUILER, false);
+renderGrid('gridBajas', BAJAS, true);
+setupFilters('filtersVenta', VENTA, 'gridVenta', false);
+setupFilters('filtersAlquiler', ALQUILER, 'gridAlquiler', true);
 </script>
 </body>
 </html>
