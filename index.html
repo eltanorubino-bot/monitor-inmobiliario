@@ -66,11 +66,11 @@ a{color:inherit;text-decoration:none}
 
 <div id="venta-section">
   <div class="stats-bar">
-    <div class="stat"><div class="stat-val">53 PHs · 30 Galpóns · 30 Depósitos</div><div class="stat-label">por tipo</div></div>
-    <div class="stat"><div class="stat-val">113</div><div class="stat-label">total activas</div></div>
-    <div class="stat"><div class="stat-val">USD 318.960</div><div class="stat-label">precio prom. PH</div></div>
-    <div class="stat"><div class="stat-val">2</div><div class="stat-label">bajaron precio</div></div>
-    <div class="stat"><div class="stat-val">11</div><div class="stat-label">nuevas</div></div>
+    <div class="stat"><div class="stat-val" id="stat-tipos-venta">—</div><div class="stat-label">por tipo</div></div>
+    <div class="stat"><div class="stat-val" id="stat-total-venta">—</div><div class="stat-label">total activas</div></div>
+    <div class="stat"><div class="stat-val" id="stat-precio-venta">—</div><div class="stat-label">precio prom. PH</div></div>
+    <div class="stat"><div class="stat-val" id="stat-bajo-venta">—</div><div class="stat-label">bajaron precio</div></div>
+    <div class="stat"><div class="stat-val" id="stat-new-venta">—</div><div class="stat-label">nuevas</div></div>
   </div>
   <div class="filters">
     <span class="filter-label">Barrio:</span>
@@ -1318,11 +1318,11 @@ a{color:inherit;text-decoration:none}
 
 <div id="alquiler-section" class="hidden">
   <div class="stats-bar">
-    <div class="stat"><div class="stat-val">10 PHs · 29 Galpóns · 25 Depósitos</div><div class="stat-label">por tipo</div></div>
-    <div class="stat"><div class="stat-val">64</div><div class="stat-label">total activas</div></div>
-    <div class="stat"><div class="stat-val">$ 2.650.000</div><div class="stat-label">precio prom. PH alquiler</div></div>
-    <div class="stat"><div class="stat-val">0</div><div class="stat-label">bajaron precio</div></div>
-    <div class="stat"><div class="stat-val">12</div><div class="stat-label">nuevas</div></div>
+    <div class="stat"><div class="stat-val" id="stat-tipos-alquiler">—</div><div class="stat-label">por tipo</div></div>
+    <div class="stat"><div class="stat-val" id="stat-total-alquiler">—</div><div class="stat-label">total activas</div></div>
+    <div class="stat"><div class="stat-val" id="stat-precio-alquiler">—</div><div class="stat-label">precio prom. PH alquiler</div></div>
+    <div class="stat"><div class="stat-val" id="stat-bajo-alquiler">—</div><div class="stat-label">bajaron precio</div></div>
+    <div class="stat"><div class="stat-val" id="stat-new-alquiler">—</div><div class="stat-label">nuevas</div></div>
   </div>
   <div class="filters">
     <span class="filter-label">Barrio:</span>
@@ -1565,5 +1565,36 @@ function renderCard(p) {
     (p.desc ? '<div class="card-desc">' + p.desc + '</div>' : '') +
     '</div></div>';
 }
+
+function updateStats() {
+  ['venta','alquiler'].forEach(op => {
+    const data = allData.filter(p => p.operacion === op);
+    const tipos = {};
+    data.forEach(p => { tipos[p.tipo] = (tipos[p.tipo]||0) + 1; });
+    const tipoStr = Object.entries(tipos).map(([t,c]) => c + ' ' + t + (c>1?'s':'')).join(' · ');
+    const phs = data.filter(p => p.tipo === 'PH');
+    let avgPrice = '—';
+    if (phs.length > 0) {
+      const avg = Math.round(phs.reduce((s,p) => s + p.priceNum, 0) / phs.length);
+      if (op === 'venta') {
+        avgPrice = 'USD ' + avg.toLocaleString('es-AR');
+      } else {
+        avgPrice = '$ ' + avg.toLocaleString('es-AR');
+      }
+    }
+    const bajo = data.filter(p => p.priceBajo).length;
+    const nuevas = data.filter(p => p.isNew).length;
+    const el = id => document.getElementById(id);
+    if (el('stat-tipos-'+op)) el('stat-tipos-'+op).textContent = tipoStr;
+    if (el('stat-total-'+op)) el('stat-total-'+op).textContent = data.length;
+    if (el('stat-precio-'+op)) el('stat-precio-'+op).textContent = avgPrice;
+    if (el('stat-bajo-'+op)) el('stat-bajo-'+op).textContent = bajo;
+    if (el('stat-new-'+op)) el('stat-new-'+op).textContent = nuevas;
+  });
+}
+
+// Initialize on page load
+updateStats();
+applyFilters();
 </script>
 </body></html>
