@@ -52,8 +52,12 @@ a{color:inherit;text-decoration:none}
 .card-desc{font-size:11px;color:#6e7681;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .hidden{display:none}
 @media(max-width:600px){.grid{grid-template-columns:1fr}.stats-bar{gap:12px}}
+
+.card-price-m2-alq{font-size:15px;font-weight:700;color:#79c0ff;margin-bottom:4px}
+.card-dias{display:inline-flex;align-items:center;gap:4px;font-size:12px;color:#d29922;font-weight:600;background:#1c1206;border:1px solid #d29922;border-radius:12px;padding:2px 10px;margin-bottom:6px}
+.tag.tipo-oficina{background:#1f2d3d;color:#79c0ff}
 </style></head><body>
-<div class="topbar"><h1>Monitor Inmobiliario <span>Saavedra · Núñez · Coghlan · V. Urquiza | 200–600 m² | Actualizado 10/03/2026</span></h1></div>
+<div class="topbar"><h1>Monitor Inmobiliario <span>Saavedra · Núñez · Coghlan · V. Urquiza | 100–600 m² | Actualizado 10/03/2026</span></h1></div>
 <div class="tabs">
   <div class="tab active" data-tab="venta" onclick="showTab('venta')">Venta (56)</div>
   <div class="tab" data-tab="alquiler" onclick="showTab('alquiler')">Alquiler (7)</div>
@@ -74,7 +78,7 @@ a{color:inherit;text-decoration:none}
     <button class="filter-btn" data-barrio="Saavedra" onclick="setBarrio('Saavedra')">Saavedra</button><button class="filter-btn" data-barrio="Núñez" onclick="setBarrio('Núñez')">Núñez</button><button class="filter-btn" data-barrio="Coghlan" onclick="setBarrio('Coghlan')">Coghlan</button><button class="filter-btn" data-barrio="Villa Urquiza" onclick="setBarrio('Villa Urquiza')">V. Urquiza</button>
     <span class="filter-label" style="margin-left:12px">Tipo:</span>
     <button class="filter-btn active" data-tipo="all" onclick="curTipo='all';applyFilters()">Todos</button>
-    <button class="filter-btn" data-tipo="PH" onclick="setTipo('PH')">PH</button><button class="filter-btn" data-tipo="Galpón" onclick="setTipo('Galpón')">Galpón</button><button class="filter-btn" data-tipo="Depósito" onclick="setTipo('Depósito')">Depósito</button>
+    <button class="filter-btn" data-tipo="PH" onclick="setTipo('PH')">PH</button><button class="filter-btn" data-tipo="Galpón" onclick="setTipo('Galpón')">Galpón</button><button class="filter-btn" data-tipo="Depósito" onclick="setTipo('Depósito')">Depósito</button><button class="filter-btn" data-tipo="Oficina" onclick="setTipo('Oficina')">Oficina</button>
   </div>
   <div class="count-bar">113 propiedades</div>
   <div class="grid"><div class="card" data-op="venta" data-tipo="PH" data-barrio="Saavedra">
@@ -1326,7 +1330,7 @@ a{color:inherit;text-decoration:none}
     <button class="filter-btn" data-barrio="Saavedra" onclick="setBarrio('Saavedra')">Saavedra</button><button class="filter-btn" data-barrio="Núñez" onclick="setBarrio('Núñez')">Núñez</button><button class="filter-btn" data-barrio="Coghlan" onclick="setBarrio('Coghlan')">Coghlan</button><button class="filter-btn" data-barrio="Villa Urquiza" onclick="setBarrio('Villa Urquiza')">V. Urquiza</button>
     <span class="filter-label" style="margin-left:12px">Tipo:</span>
     <button class="filter-btn active" data-tipo="all" onclick="curTipo='all';applyFilters()">Todos</button>
-    <button class="filter-btn" data-tipo="PH" onclick="setTipo('PH')">PH</button><button class="filter-btn" data-tipo="Galpón" onclick="setTipo('Galpón')">Galpón</button><button class="filter-btn" data-tipo="Depósito" onclick="setTipo('Depósito')">Depósito</button>
+    <button class="filter-btn" data-tipo="PH" onclick="setTipo('PH')">PH</button><button class="filter-btn" data-tipo="Galpón" onclick="setTipo('Galpón')">Galpón</button><button class="filter-btn" data-tipo="Depósito" onclick="setTipo('Depósito')">Depósito</button><button class="filter-btn" data-tipo="Oficina" onclick="setTipo('Oficina')">Oficina</button>
   </div>
   <div class="count-bar">64 propiedades</div>
   <div class="grid"><div class="card" data-op="alquiler" data-tipo="PH" data-barrio="Saavedra">
@@ -1535,8 +1539,17 @@ function setTipo(t) { curTipo = t; applyFilters(); }
 function renderCard(p) {
   const link = 'https://www.zonaprop.com.ar' + p.link;
   const m2num = parseInt((p.m2||'').replace(/[^\d]/g,'')) || 0;
-  const priceM2 = (m2num > 0 && p.priceNum > 0 && p.price.includes('USD')) ? 'USD ' + Math.round(p.priceNum/m2num).toLocaleString('es-AR') + '/m²' : '';
+  const isAlq = p.operacion === 'alquiler';
+  let priceM2 = '';
+  if (m2num > 0 && p.priceNum > 0) {
+    if (p.price.includes('USD')) {
+      priceM2 = 'USD ' + Math.round(p.priceNum/m2num).toLocaleString('es-AR') + '/m²';
+    } else if (isAlq && p.price.includes('$')) {
+      priceM2 = '$ ' + Math.round(p.priceNum/m2num).toLocaleString('es-AR') + '/m²';
+    }
+  }
   const bClassBq = p.barrio === 'Núñez' ? 'barrio-nez' : p.barrio === 'Villa Urquiza' ? 'barrio-villaurquiza' : 'barrio-' + p.barrio.toLowerCase().replace(/[^a-z]/g,'');
+  const priceM2Class = isAlq ? 'card-price-m2-alq' : 'card-price-m2';
   return '<div class="card">' +
     '<a href="' + link + '" target="_blank" class="card-img-wrap">' +
     (p.img ? '<img src="' + p.img + '" loading="lazy" alt="">' : '<div class="no-img">Sin foto</div>') +
@@ -1544,10 +1557,11 @@ function renderCard(p) {
     '</a><div class="card-body">' +
     '<div class="card-tags"><span class="tag ' + bClassBq + '">' + p.barrio + '</span><span class="tag tipo">' + p.tipo + '</span></div>' +
     '<div class="card-price">' + (p.price||'—') + '</div>' +
-    (priceM2 ? '<div class="card-price-m2">' + priceM2 + '</div>' : '') +
+    (priceM2 ? '<div class="' + priceM2Class + '">' + priceM2 + '</div>' : '') +
+    (isAlq && p.diasPublicado != null ? '<div class="card-dias">📅 Publicado hace ' + p.diasPublicado + ' días</div>' : '') +
     '<div class="card-address"><a href="' + link + '" target="_blank">' + (p.address||'') + '</a></div>' +
     '<div class="card-features">' + [p.m2?'📐 '+p.m2:'',p.amb?'🏠 '+p.amb:'',p.dorm?'🛏 '+p.dorm:'',p.ban?'🚿 '+p.ban:'',p.coch?'🚗 '+p.coch:''].filter(Boolean).map(f=>'<span>'+f+'</span>').join('') + '</div>' +
-    '<div class="card-meta">' + (p.diasPublicado != null ? '<span>📅 ' + p.diasPublicado + 'd</span>' : '') + (p.visualizaciones != null ? '<span' + (p.visualizaciones > 200 ? ' class="meta-hot"' : '') + '>👁 ' + p.visualizaciones + ' vistas</span>' : '') + '</div>' +
+    '<div class="card-meta">' + (!isAlq && p.diasPublicado != null ? '<span>📅 ' + p.diasPublicado + 'd</span>' : '') + (p.visualizaciones != null ? '<span' + (p.visualizaciones > 200 ? ' class="meta-hot"' : '') + '>👁 ' + p.visualizaciones + ' vistas</span>' : '') + '</div>' +
     (p.desc ? '<div class="card-desc">' + p.desc + '</div>' : '') +
     '</div></div>';
 }
