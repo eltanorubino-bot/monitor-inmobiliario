@@ -40,12 +40,12 @@ body { background: #0f0f23; color: #e0e0e0; font-family: -apple-system, BlinkMac
 <body>
 <div class="topbar">
 <h1>Monitor Inmobiliario</h1>
-<p>Saavedra • Núñez • Coghlan • Villa Urquiza &mdash; Actualizado 22/03/2026</p>
+<p>Saavedra • Núñez • Coghlan • Villa Urquiza &mdash; Actualizado 23/03/2026</p>
 </div>
 <div class="tabs">
-<button class="tab active" onclick="showTab('venta')">Venta (82)</button>
-<button class="tab" onclick="showTab('alquiler')">Alquiler (85)</button>
-<button class="tab" onclick="showTab('bajas')">Bajas (141)</button>
+<button class="tab active" onclick="showTab('venta')">Venta (42)</button>
+<button class="tab" onclick="showTab('alquiler')">Alquiler (52)</button>
+<button class="tab" onclick="showTab('bajas')">Bajas (217)</button>
 </div>
 <div id="filters"><button class="filter-btn active" data-v="all" onclick="filterBy('all')">Todos</button>
 <button class="filter-btn" data-v="PH" onclick="filterBy('PH')">PH</button>
@@ -57,13 +57,20 @@ body { background: #0f0f23; color: #e0e0e0; font-family: -apple-system, BlinkMac
 <button class="filter-btn" data-v="Coghlan" onclick="filterBy('Coghlan')">Coghlan</button>
 <button class="filter-btn" data-v="Villa Urquiza" onclick="filterBy('Villa Urquiza')">Villa Urquiza</button></div>
 <div class="stats-bar">
-<div class="stat"><div class="dot" style="background:#22c55e"></div> 4 nuevas</div>
-<div class="stat"><div class="dot" style="background:#ef4444"></div> 141 bajas</div>
-<div class="stat"><div class="dot" style="background:#6c5ce7"></div> 167 total</div>
+<div class="stat"><div class="dot" style="background:#22c55e"></div> 3 nuevas</div>
+<div class="stat"><div class="dot" style="background:#ef4444"></div> 217 bajas</div>
+<div class="stat"><div class="dot" style="background:#6c5ce7"></div> 94 total</div>
 </div>
 <div class="grid" id="venta-grid">
 <div class="card" data-tipo="PH" data-barrio="Saavedra">
-<div class="card-img-wrap"><div class="badge new">NUEVA</div><a href="https://www.zonaprop.com.ar/propiedades/58424638.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/42/46/38/360x266/2034540073.jpg" alt="PH en Saavedra" loading="lazy"></a></div>
+<div class="card-img-wrap"><div class="badge new">NUEVA</div><a href="https://www.zonaprop.com.ar/propiedades/57811100.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/81/11/00/360x266/2017616697.jpg" alt="PH en Saavedra" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>PH en Saavedra</span></div>
+<div class="price">USD 210.000</div>
+<div class="features">📐 217 m² tot.🏠 4 amb.🛏️ 3 dorm.🚿 1 baño🚗 1 coch.</div>
+</div></div>
+<div class="card" data-tipo="PH" data-barrio="Saavedra">
+<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58424638.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/42/46/38/360x266/2034540073.jpg" alt="PH en Saavedra" loading="lazy"></a></div>
 <div class="card-body">
 <div class="card-header"><span>PH en Saavedra</span></div>
 <div class="price">USD 400.000</div>
@@ -153,20 +160,6 @@ body { background: #0f0f23; color: #e0e0e0; font-family: -apple-system, BlinkMac
 <div class="price">USD 380.000</div>
 <div class="features">📐 342 m² tot.🏠 5 amb🚿 3 baños</div>
 </div></div>
-<div class="card" data-tipo="PH" data-barrio="Villa Urquiza">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/48572814.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/48/57/28/14/360x266/1782662447.jpg" alt="PH en Villa Urquiza" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>PH en Villa Urquiza</span></div>
-<div class="price">USD 195.000</div>
-<div class="features">📐 238 m² tot.🏠 6 amb🚿 3 baños</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Villa Urquiza">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/56186877.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/18/68/77/360x266/1974500312.jpg" alt="PH en Villa Urquiza" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>PH en Villa Urquiza</span></div>
-<div class="price">USD 235.000</div>
-<div class="features">📐 410 m² tot.🏠 6 amb🚿 2 baños</div>
-</div></div>
 <div class="card" data-tipo="PH" data-barrio="Coghlan">
 <div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/55091508.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/55/09/15/08/360x266/1947192218.jpg" alt="PH en Coghlan" loading="lazy"></a></div>
 <div class="card-body">
@@ -195,13 +188,6 @@ body { background: #0f0f23; color: #e0e0e0; font-family: -apple-system, BlinkMac
 <div class="price">USD 460.000</div>
 <div class="features">📐 181 m² tot.🏠 3 amb🚿 2 baños</div>
 </div></div>
-<div class="card" data-tipo="PH" data-barrio="Villa Urquiza">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57987451.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/98/74/51/360x266/2022289694.jpg" alt="PH en Villa Urquiza" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>PH en Villa Urquiza</span></div>
-<div class="price" style="color:#ef4444">USD 325.000 ⬇</div>
-<div class="features">📐 261 m² tot.</div>
-</div></div>
 <div class="card" data-tipo="PH" data-barrio="Núñez">
 <div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58316965.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/31/69/65/360x266/2031512042.jpg" alt="PH en Núñez" loading="lazy"></a></div>
 <div class="card-body">
@@ -222,20 +208,6 @@ body { background: #0f0f23; color: #e0e0e0; font-family: -apple-system, BlinkMac
 <div class="card-header"><span>PH en Núñez</span></div>
 <div class="price">USD 350.000</div>
 <div class="features">📐 271 m² tot.🏠 6 amb🚿 3 baños</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Villa Urquiza">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/56824155.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/82/41/55/360x266/1991417535.jpg" alt="PH en Villa Urquiza" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>PH en Villa Urquiza</span></div>
-<div class="price">USD 389.000</div>
-<div class="features">📐 320 m² tot.🏠 8 amb🚿 4 baños</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/47338691.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/47/33/86/91/360x266/1756073620.jpg" alt="PH en Núñez" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>PH en Núñez</span></div>
-<div class="price" style="color:#ef4444">USD 285.000 ⬇</div>
-<div class="features">📐 280 m² tot.</div>
 </div></div>
 <div class="card" data-tipo="Depósito" data-barrio="Coghlan">
 <div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58503603.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/50/36/03/360x266/2037071764.jpg" alt="Depósito en Coghlan" loading="lazy"></a></div>
@@ -258,25 +230,11 @@ body { background: #0f0f23; color: #e0e0e0; font-family: -apple-system, BlinkMac
 <div class="price">USD 330.000</div>
 <div class="features"></div>
 </div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/54833151.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/54/83/31/51/360x266/1942117340.jpg" alt="Depósito en Núñez" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Depósito en Núñez</span></div>
-<div class="price">USD 1.500.000</div>
-<div class="features"></div>
-</div></div>
 <div class="card" data-tipo="Depósito" data-barrio="Villa Urquiza">
 <div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/56874751.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/87/47/51/360x266/1992539424.jpg" alt="Depósito en Villa Urquiza" loading="lazy"></a></div>
 <div class="card-body">
 <div class="card-header"><span>Depósito en Villa Urquiza</span></div>
 <div class="price">USD 790.000</div>
-<div class="features"></div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Villa Urquiza">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/56186871.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/18/68/71/360x266/1974500260.jpg" alt="Depósito en Villa Urquiza" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Depósito en Villa Urquiza</span></div>
-<div class="price">USD 380.000</div>
 <div class="features"></div>
 </div></div>
 <div class="card" data-tipo="Oficina" data-barrio="Coghlan">
@@ -349,33 +307,12 @@ body { background: #0f0f23; color: #e0e0e0; font-family: -apple-system, BlinkMac
 <div class="price" style="color:#ef4444">USD 240.000 ⬇</div>
 <div class="features">📐 227 m² tot.</div>
 </div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Villa Urquiza">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57390004.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/39/00/04/360x266/2006725416.jpg" alt="Oficina en Villa Urquiza" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Villa Urquiza</span></div>
-<div class="price" style="color:#ef4444">USD 390.000 ⬇</div>
-<div class="features">📐 200 m² tot.🚿 2 baño</div>
-</div></div>
 <div class="card" data-tipo="Oficina" data-barrio="Núñez">
 <div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58544544.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/54/45/44/360x266/2037861432.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
 <div class="card-body">
 <div class="card-header"><span>Oficina en Núñez</span></div>
 <div class="price">USD 240.000</div>
 <div class="features">📐 133 m² tot.🏠 4 amb🚿 2 baño</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/53427980.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/53/42/79/80/360x266/1906523736.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Núñez</span></div>
-<div class="price">USD 240.000</div>
-<div class="features">📐 133 m² tot.🏠 5 amb🚿 2 baño</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Villa Urquiza">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57810697.html" target="_blank"><div style="height:180px;background:#2a2a4a;display:flex;align-items:center;justify-content:center;color:#666">Sin imagen</div></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Villa Urquiza</span></div>
-<div class="price">USD 450.000</div>
-<div class="features">📐 227 m² tot.</div>
 </div></div>
 <div class="card" data-tipo="Oficina" data-barrio="Villa Urquiza">
 <div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/55201433.html" target="_blank"><div style="height:180px;background:#2a2a4a;display:flex;align-items:center;justify-content:center;color:#666">Sin imagen</div></a></div>
@@ -398,13 +335,6 @@ body { background: #0f0f23; color: #e0e0e0; font-family: -apple-system, BlinkMac
 <div class="price">USD 175.000</div>
 <div class="features">📐 143 m² tot.</div>
 </div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58226827.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/22/68/27/360x266/2028965267.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Núñez</span></div>
-<div class="price">USD 180.000</div>
-<div class="features">📐 126 m² tot.🏠 1 amb🚿 1 baño</div>
-</div></div>
 <div class="card" data-tipo="Oficina" data-barrio="Saavedra">
 <div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/55807645.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/55/80/76/45/360x266/1965818714.jpg" alt="Oficina en Saavedra" loading="lazy"></a></div>
 <div class="card-body">
@@ -419,48 +349,6 @@ body { background: #0f0f23; color: #e0e0e0; font-family: -apple-system, BlinkMac
 <div class="price">USD 340.000</div>
 <div class="features">📐 400 m² tot.</div>
 </div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58180597.html" target="_blank"><div style="height:180px;background:#2a2a4a;display:flex;align-items:center;justify-content:center;color:#666">Sin imagen</div></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Núñez</span></div>
-<div class="price" style="color:#ef4444">USD 250.000 ⬇</div>
-<div class="features">📐 230 m² tot.</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/55568026.html" target="_blank"><div style="height:180px;background:#2a2a4a;display:flex;align-items:center;justify-content:center;color:#666">Sin imagen</div></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Núñez</span></div>
-<div class="price">USD 260.000</div>
-<div class="features">📐 203 m² tot.</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/55568028.html" target="_blank"><div style="height:180px;background:#2a2a4a;display:flex;align-items:center;justify-content:center;color:#666">Sin imagen</div></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Núñez</span></div>
-<div class="price">USD 310.000</div>
-<div class="features">📐 231 m² tot.</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57666403.html" target="_blank"><div style="height:180px;background:#2a2a4a;display:flex;align-items:center;justify-content:center;color:#666">Sin imagen</div></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Núñez</span></div>
-<div class="price">USD 410.000</div>
-<div class="features">📐 252 m² tot.</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58563346.html" target="_blank"><div style="height:180px;background:#2a2a4a;display:flex;align-items:center;justify-content:center;color:#666">Sin imagen</div></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Núñez</span></div>
-<div class="price" style="color:#ef4444">USD 215.000 ⬇</div>
-<div class="features">📐 253 m² tot.</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/52435527.html" target="_blank"><div style="height:180px;background:#2a2a4a;display:flex;align-items:center;justify-content:center;color:#666">Sin imagen</div></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Saavedra</span></div>
-<div class="price">USD 880.000</div>
-<div class="features">📐 960 m² tot.</div>
-</div></div>
 <div class="card" data-tipo="Oficina" data-barrio="Saavedra">
 <div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/56312279.html" target="_blank"><div style="height:180px;background:#2a2a4a;display:flex;align-items:center;justify-content:center;color:#666">Sin imagen</div></a></div>
 <div class="card-body">
@@ -468,194 +356,37 @@ body { background: #0f0f23; color: #e0e0e0; font-family: -apple-system, BlinkMac
 <div class="price" style="color:#ef4444">USD 430.000 ⬇</div>
 <div class="features">📐 400 m² tot.</div>
 </div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/55417955.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/55/41/79/55/360x266/2007413057.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Núñez</span></div>
-<div class="price">USD 544.603</div>
-<div class="features">📐 147 m² tot.🚿 2 baño</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57182251.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/18/22/51/360x266/2001552819.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Núñez</span></div>
-<div class="price">USD 1.250.000</div>
-<div class="features">📐 495 m² tot.🏠 7 amb🚿 4 baño🚗 2 coch</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58556074.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/55/60/74/360x266/2038153395.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Núñez</span></div>
-<div class="price">USD 468.000</div>
-<div class="features">📐 156 m² tot.🏠 1 amb🚿 3 baño</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/54792798.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/54/79/27/98/360x266/1940613917.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Núñez</span></div>
-<div class="price">USD 41.500</div>
-<div class="features">📐 600 m² tot.</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58499189.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/49/91/89/360x266/2036598295.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Núñez</span></div>
-<div class="price">USD 365.000</div>
-<div class="features">📐 144 m² tot.🏠 5 amb🚿 2 baño</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58646521.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/64/65/21/360x266/2040648254.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Núñez</span></div>
-<div class="price">USD 380.000</div>
-<div class="features">📐 128 m² tot.🏠 2 amb🚿 2 baño🚗 1 coch</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/56858155.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/85/81/55/360x266/1992379305.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Núñez</span></div>
-<div class="price">USD 1.500.000</div>
-<div class="features">📐 916 m² tot.</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57388940.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/38/89/40/360x266/2006787988.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Núñez</span></div>
-<div class="price">USD 520.000</div>
-<div class="features">📐 200 m² tot.🚿 2 baño</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Villa Urquiza">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58648235.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/64/82/35/360x266/2040712282.jpg" alt="Oficina en Villa Urquiza" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Villa Urquiza</span></div>
-<div class="price">USD 310.000</div>
-<div class="features">📐 210 m² tot.</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Villa Urquiza">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58464461.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/46/44/61/360x266/2035604128.jpg" alt="Oficina en Villa Urquiza" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Villa Urquiza</span></div>
-<div class="price" style="color:#ef4444">USD 239.000 ⬇</div>
-<div class="features">📐 170 m² tot.</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Villa Urquiza">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/49872593.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/49/87/25/93/360x266/1998698367.jpg" alt="Oficina en Villa Urquiza" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Villa Urquiza</span></div>
-<div class="price" style="color:#ef4444">USD 169.000 ⬇</div>
-<div class="features">📐 416 m² tot.🏠 7 amb🚿 2 baño</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/54837031.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/54/83/70/31/360x266/1942283547.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Núñez</span></div>
-<div class="price">USD 400.000</div>
-<div class="features">📐 204 m² tot.🏠 3 amb🚿 1 baño🚗 1 coch</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/54588637.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/54/58/86/37/360x266/1935715020.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Núñez</span></div>
-<div class="price" style="color:#ef4444">Consultar precio ⬇</div>
-<div class="features">📐 136 m² tot.</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Villa Urquiza">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58225837.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/22/58/37/360x266/2028933741.jpg" alt="Oficina en Villa Urquiza" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Villa Urquiza</span></div>
-<div class="price">USD 270.000</div>
-<div class="features">📐 178 m² tot.</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57944341.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/94/43/41/360x266/2021122994.jpg" alt="Oficina en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Saavedra</span></div>
-<div class="price">USD 185.000</div>
-<div class="features">📐 178 m² tot.🏠 4 amb</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Villa Urquiza">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58621312.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/62/13/12/360x266/2039972660.jpg" alt="Oficina en Villa Urquiza" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Villa Urquiza</span></div>
-<div class="price" style="color:#ef4444">USD 165.000 ⬇</div>
-<div class="features">📐 120 m² tot.🏠 4 amb🚿 1 baño</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57021177.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/02/11/77/360x266/1996735048.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Núñez</span></div>
-<div class="price" style="color:#ef4444">USD 210.000 ⬇</div>
-<div class="features">📐 120 m² tot.🚿 1 baño</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Coghlan">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57767254.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/76/72/54/360x266/2016649672.jpg" alt="Oficina en Coghlan" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Coghlan</span></div>
-<div class="price">USD 370.000</div>
-<div class="features">📐 173 m² tot.</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/56770324.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/77/03/24/360x266/1989803204.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Núñez</span></div>
-<div class="price">USD 700.000</div>
-<div class="features">📐 600 m² tot.</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58622487.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/62/24/87/360x266/2040002210.jpg" alt="Oficina en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Saavedra</span></div>
-<div class="price">USD 84.000</div>
-<div class="features">📐 103 m² tot.🏠 3 amb🚿 1 baño</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58556306.html" target="_blank"><div style="height:180px;background:#2a2a4a;display:flex;align-items:center;justify-content:center;color:#666">Sin imagen</div></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Núñez</span></div>
-<div class="price" style="color:#ef4444">USD 275.000 ⬇</div>
-<div class="features">📐 190 m² tot.</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Villa Urquiza">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/56186880.html" target="_blank"><div style="height:180px;background:#2a2a4a;display:flex;align-items:center;justify-content:center;color:#666">Sin imagen</div></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Villa Urquiza</span></div>
-<div class="price">USD 180.000</div>
-<div class="features">📐 133 m² tot.</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Villa Urquiza">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/56186879.html" target="_blank"><div style="height:180px;background:#2a2a4a;display:flex;align-items:center;justify-content:center;color:#666">Sin imagen</div></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Villa Urquiza</span></div>
-<div class="price">USD 150.000</div>
-<div class="features">📐 100 m² tot.</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Villa Urquiza">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/56186876.html" target="_blank"><div style="height:180px;background:#2a2a4a;display:flex;align-items:center;justify-content:center;color:#666">Sin imagen</div></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Villa Urquiza</span></div>
-<div class="price">USD 195.000</div>
-<div class="features">📐 153 m² tot.</div>
-</div></div>
-</div>
-<div class="grid hidden" 
-</div>
 <div class="grid hidden" id="alquiler-grid">
 <div class="card" data-tipo="Oficina" data-barrio="Saavedra">
-<div class="card-img-wrap"><div class="badge new">NUEVA</div><a href="https://www.zonaprop.com.ar/propiedades/53177021.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/53/17/70/21/360x266/2024261785.jpg" alt="Oficina en Saavedra" loading="lazy"></a></div>
+<div class="card-img-wrap"><div class="badge new">NUEVA</div><a href="https://www.zonaprop.com.ar/propiedades/44770298.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/44/77/02/98/360x266/1791785606.jpg" alt="Oficina en Saavedra" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Saavedra</span></div>
+<div class="price">USD 24.300</div>
+<div class="features">📐 900 m² tot.🚿 10 baños🚗 10 coch.</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Saavedra">
+<div class="card-img-wrap"><div class="badge new">NUEVA</div><a href="https://www.zonaprop.com.ar/propiedades/46919484.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/46/91/94/84/360x266/1745013365.jpg" alt="Oficina en Saavedra" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Saavedra</span></div>
+<div class="price">USD 20.750</div>
+<div class="features">📐 830 m² tot.🚿 2 baños🚗 10 coch.</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Saavedra">
+<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/53177021.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/53/17/70/21/360x266/2024261785.jpg" alt="Oficina en Saavedra" loading="lazy"></a></div>
 <div class="card-body">
 <div class="card-header"><span>Oficina en Saavedra</span></div>
 <div class="price">USD 19.152</div>
 <div class="features">📐 798 m2 tot.🏠 1 amb.🚿 2 banos🚗 7 coch.</div>
 </div></div>
 <div class="card" data-tipo="Oficina" data-barrio="Saavedra">
-<div class="card-img-wrap"><div class="badge new">NUEVA</div><a href="https://www.zonaprop.com.ar/propiedades/56276885.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/27/68/85/360x266/1976751453.jpg" alt="Oficina en Saavedra" loading="lazy"></a></div>
+<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/56276885.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/27/68/85/360x266/1976751453.jpg" alt="Oficina en Saavedra" loading="lazy"></a></div>
 <div class="card-body">
 <div class="card-header"><span>Oficina en Saavedra</span></div>
 <div class="price">USD 21.360</div>
 <div class="features">📐 890 m2 tot.🏠 1 amb.🚿 6 banos🚗 9 coch.</div>
 </div></div>
 <div class="card" data-tipo="Oficina" data-barrio="Nunez">
-<div class="card-img-wrap"><div class="badge new">NUEVA</div><a href="https://www.zonaprop.com.ar/propiedades/56406258.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/40/62/58/360x266/1979953722.jpg" alt="Oficina en Nunez" loading="lazy"></a></div>
+<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/56406258.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/40/62/58/360x266/1979953722.jpg" alt="Oficina en Nunez" loading="lazy"></a></div>
 <div class="card-body">
 <div class="card-header"><span>Oficina en Nunez</span></div>
 <div class="price">USD 4.200</div>
@@ -718,25 +449,11 @@ body { background: #0f0f23; color: #e0e0e0; font-family: -apple-system, BlinkMac
 <div class="features">📐 265 m² tot.🚗 1 coch</div>
 </div></div>
 <div class="card" data-tipo="Oficina" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/56322374.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/32/23/74/360x266/1977926173.jpg" alt="Oficina en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Saavedra</span></div>
-<div class="price">USD 19.194</div>
-<div class="features">📐 914 m² tot.🚗 9 coch</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Saavedra">
 <div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/56276889.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/27/68/89/360x266/1976751591.jpg" alt="Oficina en Saavedra" loading="lazy"></a></div>
 <div class="card-body">
 <div class="card-header"><span>Oficina en Saavedra</span></div>
 <div class="price">USD 10.680</div>
 <div class="features">📐 445 m² tot.🏠 1 amb🚿 3 baños🚗 4 coch</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Villa Urquiza">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58201085.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/20/10/85/360x266/2028336194.jpg" alt="Oficina en Villa Urquiza" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Villa Urquiza</span></div>
-<div class="price">USD 3.300</div>
-<div class="features">📐 230 m² tot.🚿 3 baños🚗 2 coch</div>
 </div></div>
 <div class="card" data-tipo="Oficina" data-barrio="Núñez">
 <div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/54993737.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/54/99/37/37/360x266/1999558897.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
@@ -744,13 +461,6 @@ body { background: #0f0f23; color: #e0e0e0; font-family: -apple-system, BlinkMac
 <div class="card-header"><span>Oficina en Núñez</span></div>
 <div class="price">USD 71.325</div>
 <div class="features">📐 2853 m² tot.</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/55878925.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/55/87/89/25/360x266/1966932940.jpg" alt="Oficina en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Saavedra</span></div>
-<div class="price">USD 17.664</div>
-<div class="features">📐 736 m² tot.🏠 1 amb🚿 6 baños🚗 7 coch</div>
 </div></div>
 <div class="card" data-tipo="Oficina" data-barrio="Núñez">
 <div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/55941386.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/55/94/13/86/360x266/1979734196.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
@@ -801,13 +511,6 @@ body { background: #0f0f23; color: #e0e0e0; font-family: -apple-system, BlinkMac
 <div class="price" style="color:#ef4444">USD 3.000 ⬇</div>
 <div class="features">📐 214 m² tot.🚿 2 baños🚗 2 coch</div>
 </div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/49721258.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/49/72/12/58/360x266/1819155073.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Núñez</span></div>
-<div class="price">USD 11.500</div>
-<div class="features">📐 572 m² tot.🚿 5 baños🚗 8 coch</div>
-</div></div>
 <div class="card" data-tipo="Oficina" data-barrio="Saavedra">
 <div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57767285.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/76/72/85/360x266/2016640476.jpg" alt="Oficina en Saavedra" loading="lazy"></a></div>
 <div class="card-body">
@@ -830,13 +533,6 @@ body { background: #0f0f23; color: #e0e0e0; font-family: -apple-system, BlinkMac
 <div class="features">📐 915 m² tot.🏠 1 amb🚿 2 baños🚗 10 coch</div>
 </div></div>
 <div class="card" data-tipo="Oficina" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/47584238.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/47/58/42/38/360x266/1763913429.jpg" alt="Oficina en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Saavedra</span></div>
-<div class="price">USD 20.866</div>
-<div class="features">📐 870 m² tot.🚿 4 baños🚗 9 coch</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Saavedra">
 <div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/54910257.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/54/91/02/57/360x266/2024956616.jpg" alt="Oficina en Saavedra" loading="lazy"></a></div>
 <div class="card-body">
 <div class="card-header"><span>Oficina en Saavedra</span></div>
@@ -849,27 +545,6 @@ body { background: #0f0f23; color: #e0e0e0; font-family: -apple-system, BlinkMac
 <div class="card-header"><span>Oficina en Núñez</span></div>
 <div class="price">USD 5.960</div>
 <div class="features">📐 265 m² tot.🚗 2 coch</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58205314.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/20/53/14/360x266/2028455402.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Núñez</span></div>
-<div class="price">USD 3.400</div>
-<div class="features">📐 275 m² tot.🚿 3 baños🚗 2 coch</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/50668635.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/50/66/86/35/360x266/1908458975.jpg" alt="Oficina en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Saavedra</span></div>
-<div class="price">USD 117.000</div>
-<div class="features">📐 4550 m² tot.🚿 20 baños🚗 60 coch</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/50668636.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/50/66/86/36/360x266/1908458975.jpg" alt="Oficina en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Saavedra</span></div>
-<div class="price">USD 117.000</div>
-<div class="features">📐 4550 m² tot.🚿 20 baños🚗 60 coch</div>
 </div></div>
 <div class="card" data-tipo="Oficina" data-barrio="Núñez">
 <div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/56433977.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/43/39/77/360x266/1980646766.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
@@ -921,13 +596,6 @@ body { background: #0f0f23; color: #e0e0e0; font-family: -apple-system, BlinkMac
 <div class="features">📐 713 m² tot.🚗 7 coch</div>
 </div></div>
 <div class="card" data-tipo="Oficina" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58054590.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/05/45/90/360x266/2024160548.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Núñez</span></div>
-<div class="price">USD 5.960</div>
-<div class="features">📐 265 m² tot.🚿 5 baños🚗 2 coch</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Núñez">
 <div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/56217277.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/21/72/77/360x266/1975269950.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
 <div class="card-body">
 <div class="card-header"><span>Oficina en Núñez</span></div>
@@ -969,27 +637,6 @@ body { background: #0f0f23; color: #e0e0e0; font-family: -apple-system, BlinkMac
 <div class="price" style="color:#ef4444">USD 4.660 ⬇</div>
 <div class="features">📐 263 m² tot.🚿 4 baños🚗 2 coch</div>
 </div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/53984121.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/53/98/41/21/360x266/1918553281.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Núñez</span></div>
-<div class="price" style="color:#ef4444">USD 4.200 ⬇</div>
-<div class="features">📐 280 m² tot.🚿 3 baños🚗 3 coch</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/51810913.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/51/81/09/13/360x266/1869771893.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Núñez</span></div>
-<div class="price" style="color:#ef4444">USD 3.980 ⬇</div>
-<div class="features">📐 250 m² tot.🚿 2 baños🚗 1 coch</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/53509186.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/53/50/91/86/360x266/1907368268.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Núñez</span></div>
-<div class="price">USD 10.000</div>
-<div class="features">📐 169 m² tot.🚿 2 baños🚗 2 coch</div>
-</div></div>
 <div class="card" data-tipo="Oficina" data-barrio="Saavedra">
 <div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58511207.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/51/12/07/360x266/2036923371.jpg" alt="Oficina en Saavedra" loading="lazy"></a></div>
 <div class="card-body">
@@ -1005,34 +652,6 @@ body { background: #0f0f23; color: #e0e0e0; font-family: -apple-system, BlinkMac
 <div class="features">📐 1484 m² tot.🚗 10 coch</div>
 </div></div>
 <div class="card" data-tipo="Oficina" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57642528.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/64/25/28/360x266/2013315361.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Núñez</span></div>
-<div class="price">USD 5.960</div>
-<div class="features">📐 310 m² tot.🚗 2 coch</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57016553.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/01/65/53/360x266/1996761422.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Núñez</span></div>
-<div class="price">USD 4.600</div>
-<div class="features">📐 212 m² tot.🚿 4 baños🚗 2 coch</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/51613987.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/51/61/39/87/360x266/1865130993.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Núñez</span></div>
-<div class="price">USD 3.900</div>
-<div class="features">📐 233 m² tot.🚗 3 coch</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/56834223.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/83/42/23/360x266/2029605529.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Núñez</span></div>
-<div class="price">$ 2.500.000</div>
-<div class="features">📐 155 m² tot.🏠 6 amb</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Núñez">
 <div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58291462.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/29/14/62/360x266/2030783971.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
 <div class="card-body">
 <div class="card-header"><span>Oficina en Núñez</span></div>
@@ -1045,13 +664,6 @@ body { background: #0f0f23; color: #e0e0e0; font-family: -apple-system, BlinkMac
 <div class="card-header"><span>Oficina en Núñez</span></div>
 <div class="price">USD 4.200</div>
 <div class="features">📐 215 m² tot.🚿 4 baños🚗 1 coch</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57479389.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/47/93/89/360x266/2009223040.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Núñez</span></div>
-<div class="price">USD 3.980</div>
-<div class="features">📐 212 m² tot.🚿 4 baños🚗 2 coch</div>
 </div></div>
 <div class="card" data-tipo="Oficina" data-barrio="Núñez">
 <div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/56455974.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/45/59/74/360x266/1981243852.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
@@ -1074,13 +686,6 @@ body { background: #0f0f23; color: #e0e0e0; font-family: -apple-system, BlinkMac
 <div class="price">USD 17.271</div>
 <div class="features">📐 909 m² tot.🚿 2 baños🚗 7 coch</div>
 </div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Villa Urquiza">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/56012219.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/01/22/19/360x266/1969782534.jpg" alt="Oficina en Villa Urquiza" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Villa Urquiza</span></div>
-<div class="price" style="color:#ef4444">USD 4.000 ⬇</div>
-<div class="features">📐 312 m² tot.🏠 6 amb🚿 3 baños</div>
-</div></div>
 <div class="card" data-tipo="Oficina" data-barrio="Núñez">
 <div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/42922509.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/42/92/25/09/360x266/1753711376.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
 <div class="card-body">
@@ -1102,54 +707,12 @@ body { background: #0f0f23; color: #e0e0e0; font-family: -apple-system, BlinkMac
 <div class="price">USD 17.271</div>
 <div class="features">📐 909 m² tot.🚿 2 baños🚗 7 coch</div>
 </div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Villa Urquiza">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57771229.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/77/12/29/360x266/2016729395.jpg" alt="Oficina en Villa Urquiza" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Villa Urquiza</span></div>
-<div class="price">USD 2.000</div>
-<div class="features">📐 254 m² tot.🏠 8 amb🚿 3 baños</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57898007.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/89/80/07/360x266/2019595938.jpg" alt="Oficina en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Saavedra</span></div>
-<div class="price">USD 2.400</div>
-<div class="features">📐 152 m² tot.🏠 4 amb🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Villa Urquiza">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57713376.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/71/33/76/360x266/2015780779.jpg" alt="Oficina en Villa Urquiza" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Villa Urquiza</span></div>
-<div class="price">USD 2.700</div>
-<div class="features">📐 130 m² tot.🏠 4 amb🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58428315.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/42/83/15/360x266/2034619146.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Núñez</span></div>
-<div class="price">USD 2.200</div>
-<div class="features">📐 180 m² tot.🚿 3 baños</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/56347064.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/34/70/64/360x266/1979737297.jpg" alt="Oficina en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Saavedra</span></div>
-<div class="price">USD 22.000</div>
-<div class="features">📐 914 m² tot.🚿 3 baños🚗 6 coch</div>
-</div></div>
 <div class="card" data-tipo="Oficina" data-barrio="Saavedra">
 <div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58338092.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/33/80/92/360x266/2032070444.jpg" alt="Oficina en Saavedra" loading="lazy"></a></div>
 <div class="card-body">
 <div class="card-header"><span>Oficina en Saavedra</span></div>
 <div class="price" style="color:#ef4444">USD 7.140 ⬇</div>
 <div class="features">📐 494 m² tot.🚿 2 baños🚗 4 coch</div>
-</div></div>
-<div class="card" data-tipo="Oficina" data-barrio="Villa Urquiza">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58211605.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/21/16/05/360x266/2028615794.jpg" alt="Oficina en Villa Urquiza" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>Oficina en Villa Urquiza</span></div>
-<div class="price">USD 3.300</div>
-<div class="features">📐 230 m² tot.🚿 3 baños🚗 2 coch</div>
 </div></div>
 <div class="card" data-tipo="Oficina" data-barrio="Saavedra">
 <div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/56347153.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/34/71/53/360x266/1979737297.jpg" alt="Oficina en Saavedra" loading="lazy"></a></div>
@@ -1158,85 +721,543 @@ body { background: #0f0f23; color: #e0e0e0; font-family: -apple-system, BlinkMac
 <div class="price" style="color:#ef4444">USD 9.600 ⬇</div>
 <div class="features">📐 914 m² tot.🚿 3 baños🚗 6 coch</div>
 </div></div>
+<div class="grid hidden" id="bajas-grid"><div class="card" data-tipo="PH" data-barrio="Villa Urquiza">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/48572814.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/48/57/28/14/360x266/1782662447.jpg" alt="PH en Villa Urquiza" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>PH en Villa Urquiza</span></div>
+<div class="price">USD 195.000</div>
+<div class="features">📐 238 m² tot.🏠 6 amb🚿 3 baños</div>
+</div></div>
+<div class="card" data-tipo="PH" data-barrio="Villa Urquiza">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/56186877.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/18/68/77/360x266/1974500312.jpg" alt="PH en Villa Urquiza" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>PH en Villa Urquiza</span></div>
+<div class="price">USD 235.000</div>
+<div class="features">📐 410 m² tot.🏠 6 amb🚿 2 baños</div>
+</div></div>
+<div class="card" data-tipo="PH" data-barrio="Villa Urquiza">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/57987451.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/98/74/51/360x266/2022289694.jpg" alt="PH en Villa Urquiza" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>PH en Villa Urquiza</span></div>
+<div class="price" style="color:#ef4444">USD 325.000 ⬇</div>
+<div class="features">📐 261 m² tot.</div>
+</div></div>
+<div class="card" data-tipo="PH" data-barrio="Villa Urquiza">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/56824155.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/82/41/55/360x266/1991417535.jpg" alt="PH en Villa Urquiza" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>PH en Villa Urquiza</span></div>
+<div class="price">USD 389.000</div>
+<div class="features">📐 320 m² tot.🏠 8 amb🚿 4 baños</div>
+</div></div>
+<div class="card" data-tipo="PH" data-barrio="Núñez">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/47338691.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/47/33/86/91/360x266/1756073620.jpg" alt="PH en Núñez" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>PH en Núñez</span></div>
+<div class="price" style="color:#ef4444">USD 285.000 ⬇</div>
+<div class="features">📐 280 m² tot.</div>
+</div></div>
+<div class="card" data-tipo="Depósito" data-barrio="Núñez">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/54833151.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/54/83/31/51/360x266/1942117340.jpg" alt="Depósito en Núñez" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Depósito en Núñez</span></div>
+<div class="price">USD 1.500.000</div>
+<div class="features"></div>
+</div></div>
+<div class="card" data-tipo="Depósito" data-barrio="Villa Urquiza">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/56186871.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/18/68/71/360x266/1974500260.jpg" alt="Depósito en Villa Urquiza" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Depósito en Villa Urquiza</span></div>
+<div class="price">USD 380.000</div>
+<div class="features"></div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Villa Urquiza">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/57390004.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/39/00/04/360x266/2006725416.jpg" alt="Oficina en Villa Urquiza" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Villa Urquiza</span></div>
+<div class="price" style="color:#ef4444">USD 390.000 ⬇</div>
+<div class="features">📐 200 m² tot.🚿 2 baño</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Núñez">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/53427980.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/53/42/79/80/360x266/1906523736.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Núñez</span></div>
+<div class="price">USD 240.000</div>
+<div class="features">📐 133 m² tot.🏠 5 amb🚿 2 baño</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Villa Urquiza">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/57810697.html" target="_blank"><div style="height:180px;background:#2a2a4a;display:flex;align-items:center;justify-content:center;color:#666">Sin imagen</div></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Villa Urquiza</span></div>
+<div class="price">USD 450.000</div>
+<div class="features">📐 227 m² tot.</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Núñez">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/58226827.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/22/68/27/360x266/2028965267.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Núñez</span></div>
+<div class="price">USD 180.000</div>
+<div class="features">📐 126 m² tot.🏠 1 amb🚿 1 baño</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Núñez">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/58180597.html" target="_blank"><div style="height:180px;background:#2a2a4a;display:flex;align-items:center;justify-content:center;color:#666">Sin imagen</div></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Núñez</span></div>
+<div class="price" style="color:#ef4444">USD 250.000 ⬇</div>
+<div class="features">📐 230 m² tot.</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Núñez">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/55568026.html" target="_blank"><div style="height:180px;background:#2a2a4a;display:flex;align-items:center;justify-content:center;color:#666">Sin imagen</div></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Núñez</span></div>
+<div class="price">USD 260.000</div>
+<div class="features">📐 203 m² tot.</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Núñez">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/55568028.html" target="_blank"><div style="height:180px;background:#2a2a4a;display:flex;align-items:center;justify-content:center;color:#666">Sin imagen</div></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Núñez</span></div>
+<div class="price">USD 310.000</div>
+<div class="features">📐 231 m² tot.</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Núñez">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/57666403.html" target="_blank"><div style="height:180px;background:#2a2a4a;display:flex;align-items:center;justify-content:center;color:#666">Sin imagen</div></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Núñez</span></div>
+<div class="price">USD 410.000</div>
+<div class="features">📐 252 m² tot.</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Núñez">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/58563346.html" target="_blank"><div style="height:180px;background:#2a2a4a;display:flex;align-items:center;justify-content:center;color:#666">Sin imagen</div></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Núñez</span></div>
+<div class="price" style="color:#ef4444">USD 215.000 ⬇</div>
+<div class="features">📐 253 m² tot.</div>
+</div></div>
 <div class="card" data-tipo="Oficina" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58483512.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/48/35/12/360x266/2036204626.jpg" alt="Oficina en Saavedra" loading="lazy"></a></div>
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/52435527.html" target="_blank"><div style="height:180px;background:#2a2a4a;display:flex;align-items:center;justify-content:center;color:#666">Sin imagen</div></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Saavedra</span></div>
+<div class="price">USD 880.000</div>
+<div class="features">📐 960 m² tot.</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Núñez">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/55417955.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/55/41/79/55/360x266/2007413057.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Núñez</span></div>
+<div class="price">USD 544.603</div>
+<div class="features">📐 147 m² tot.🚿 2 baño</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Núñez">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/57182251.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/18/22/51/360x266/2001552819.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Núñez</span></div>
+<div class="price">USD 1.250.000</div>
+<div class="features">📐 495 m² tot.🏠 7 amb🚿 4 baño🚗 2 coch</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Núñez">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/58556074.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/55/60/74/360x266/2038153395.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Núñez</span></div>
+<div class="price">USD 468.000</div>
+<div class="features">📐 156 m² tot.🏠 1 amb🚿 3 baño</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Núñez">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/54792798.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/54/79/27/98/360x266/1940613917.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Núñez</span></div>
+<div class="price">USD 41.500</div>
+<div class="features">📐 600 m² tot.</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Núñez">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/58499189.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/49/91/89/360x266/2036598295.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Núñez</span></div>
+<div class="price">USD 365.000</div>
+<div class="features">📐 144 m² tot.🏠 5 amb🚿 2 baño</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Núñez">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/58646521.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/64/65/21/360x266/2040648254.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Núñez</span></div>
+<div class="price">USD 380.000</div>
+<div class="features">📐 128 m² tot.🏠 2 amb🚿 2 baño🚗 1 coch</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Núñez">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/56858155.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/85/81/55/360x266/1992379305.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Núñez</span></div>
+<div class="price">USD 1.500.000</div>
+<div class="features">📐 916 m² tot.</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Núñez">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/57388940.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/38/89/40/360x266/2006787988.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Núñez</span></div>
+<div class="price">USD 520.000</div>
+<div class="features">📐 200 m² tot.🚿 2 baño</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Villa Urquiza">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/58648235.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/64/82/35/360x266/2040712282.jpg" alt="Oficina en Villa Urquiza" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Villa Urquiza</span></div>
+<div class="price">USD 310.000</div>
+<div class="features">📐 210 m² tot.</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Villa Urquiza">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/58464461.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/46/44/61/360x266/2035604128.jpg" alt="Oficina en Villa Urquiza" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Villa Urquiza</span></div>
+<div class="price" style="color:#ef4444">USD 239.000 ⬇</div>
+<div class="features">📐 170 m² tot.</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Villa Urquiza">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/49872593.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/49/87/25/93/360x266/1998698367.jpg" alt="Oficina en Villa Urquiza" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Villa Urquiza</span></div>
+<div class="price" style="color:#ef4444">USD 169.000 ⬇</div>
+<div class="features">📐 416 m² tot.🏠 7 amb🚿 2 baño</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Núñez">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/54837031.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/54/83/70/31/360x266/1942283547.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Núñez</span></div>
+<div class="price">USD 400.000</div>
+<div class="features">📐 204 m² tot.🏠 3 amb🚿 1 baño🚗 1 coch</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Núñez">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/54588637.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/54/58/86/37/360x266/1935715020.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Núñez</span></div>
+<div class="price" style="color:#ef4444">Consultar precio ⬇</div>
+<div class="features">📐 136 m² tot.</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Villa Urquiza">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/58225837.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/22/58/37/360x266/2028933741.jpg" alt="Oficina en Villa Urquiza" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Villa Urquiza</span></div>
+<div class="price">USD 270.000</div>
+<div class="features">📐 178 m² tot.</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Saavedra">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/57944341.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/94/43/41/360x266/2021122994.jpg" alt="Oficina en Saavedra" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Saavedra</span></div>
+<div class="price">USD 185.000</div>
+<div class="features">📐 178 m² tot.🏠 4 amb</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Villa Urquiza">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/58621312.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/62/13/12/360x266/2039972660.jpg" alt="Oficina en Villa Urquiza" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Villa Urquiza</span></div>
+<div class="price" style="color:#ef4444">USD 165.000 ⬇</div>
+<div class="features">📐 120 m² tot.🏠 4 amb🚿 1 baño</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Núñez">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/57021177.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/02/11/77/360x266/1996735048.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Núñez</span></div>
+<div class="price" style="color:#ef4444">USD 210.000 ⬇</div>
+<div class="features">📐 120 m² tot.🚿 1 baño</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Coghlan">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/57767254.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/76/72/54/360x266/2016649672.jpg" alt="Oficina en Coghlan" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Coghlan</span></div>
+<div class="price">USD 370.000</div>
+<div class="features">📐 173 m² tot.</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Núñez">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/56770324.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/77/03/24/360x266/1989803204.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Núñez</span></div>
+<div class="price">USD 700.000</div>
+<div class="features">📐 600 m² tot.</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Saavedra">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/58622487.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/62/24/87/360x266/2040002210.jpg" alt="Oficina en Saavedra" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Saavedra</span></div>
+<div class="price">USD 84.000</div>
+<div class="features">📐 103 m² tot.🏠 3 amb🚿 1 baño</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Núñez">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/58556306.html" target="_blank"><div style="height:180px;background:#2a2a4a;display:flex;align-items:center;justify-content:center;color:#666">Sin imagen</div></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Núñez</span></div>
+<div class="price" style="color:#ef4444">USD 275.000 ⬇</div>
+<div class="features">📐 190 m² tot.</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Villa Urquiza">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/56186880.html" target="_blank"><div style="height:180px;background:#2a2a4a;display:flex;align-items:center;justify-content:center;color:#666">Sin imagen</div></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Villa Urquiza</span></div>
+<div class="price">USD 180.000</div>
+<div class="features">📐 133 m² tot.</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Villa Urquiza">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/56186879.html" target="_blank"><div style="height:180px;background:#2a2a4a;display:flex;align-items:center;justify-content:center;color:#666">Sin imagen</div></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Villa Urquiza</span></div>
+<div class="price">USD 150.000</div>
+<div class="features">📐 100 m² tot.</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Villa Urquiza">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/56186876.html" target="_blank"><div style="height:180px;background:#2a2a4a;display:flex;align-items:center;justify-content:center;color:#666">Sin imagen</div></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Villa Urquiza</span></div>
+<div class="price">USD 195.000</div>
+<div class="features">📐 153 m² tot.</div>
+</div></div>
+</div>
+<div class="grid hidden" 
+</div>
+<div class="card" data-tipo="Oficina" data-barrio="Saavedra">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/56322374.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/32/23/74/360x266/1977926173.jpg" alt="Oficina en Saavedra" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Saavedra</span></div>
+<div class="price">USD 19.194</div>
+<div class="features">📐 914 m² tot.🚗 9 coch</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Villa Urquiza">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/58201085.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/20/10/85/360x266/2028336194.jpg" alt="Oficina en Villa Urquiza" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Villa Urquiza</span></div>
+<div class="price">USD 3.300</div>
+<div class="features">📐 230 m² tot.🚿 3 baños🚗 2 coch</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Saavedra">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/55878925.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/55/87/89/25/360x266/1966932940.jpg" alt="Oficina en Saavedra" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Saavedra</span></div>
+<div class="price">USD 17.664</div>
+<div class="features">📐 736 m² tot.🏠 1 amb🚿 6 baños🚗 7 coch</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Núñez">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/49721258.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/49/72/12/58/360x266/1819155073.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Núñez</span></div>
+<div class="price">USD 11.500</div>
+<div class="features">📐 572 m² tot.🚿 5 baños🚗 8 coch</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Saavedra">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/47584238.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/47/58/42/38/360x266/1763913429.jpg" alt="Oficina en Saavedra" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Saavedra</span></div>
+<div class="price">USD 20.866</div>
+<div class="features">📐 870 m² tot.🚿 4 baños🚗 9 coch</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Núñez">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/58205314.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/20/53/14/360x266/2028455402.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Núñez</span></div>
+<div class="price">USD 3.400</div>
+<div class="features">📐 275 m² tot.🚿 3 baños🚗 2 coch</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Saavedra">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/50668635.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/50/66/86/35/360x266/1908458975.jpg" alt="Oficina en Saavedra" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Saavedra</span></div>
+<div class="price">USD 117.000</div>
+<div class="features">📐 4550 m² tot.🚿 20 baños🚗 60 coch</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Saavedra">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/50668636.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/50/66/86/36/360x266/1908458975.jpg" alt="Oficina en Saavedra" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Saavedra</span></div>
+<div class="price">USD 117.000</div>
+<div class="features">📐 4550 m² tot.🚿 20 baños🚗 60 coch</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Núñez">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/58054590.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/05/45/90/360x266/2024160548.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Núñez</span></div>
+<div class="price">USD 5.960</div>
+<div class="features">📐 265 m² tot.🚿 5 baños🚗 2 coch</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Núñez">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/53984121.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/53/98/41/21/360x266/1918553281.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Núñez</span></div>
+<div class="price" style="color:#ef4444">USD 4.200 ⬇</div>
+<div class="features">📐 280 m² tot.🚿 3 baños🚗 3 coch</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Núñez">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/51810913.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/51/81/09/13/360x266/1869771893.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Núñez</span></div>
+<div class="price" style="color:#ef4444">USD 3.980 ⬇</div>
+<div class="features">📐 250 m² tot.🚿 2 baños🚗 1 coch</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Núñez">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/53509186.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/53/50/91/86/360x266/1907368268.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Núñez</span></div>
+<div class="price">USD 10.000</div>
+<div class="features">📐 169 m² tot.🚿 2 baños🚗 2 coch</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Núñez">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/57642528.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/64/25/28/360x266/2013315361.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Núñez</span></div>
+<div class="price">USD 5.960</div>
+<div class="features">📐 310 m² tot.🚗 2 coch</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Núñez">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/57016553.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/01/65/53/360x266/1996761422.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Núñez</span></div>
+<div class="price">USD 4.600</div>
+<div class="features">📐 212 m² tot.🚿 4 baños🚗 2 coch</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Núñez">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/51613987.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/51/61/39/87/360x266/1865130993.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Núñez</span></div>
+<div class="price">USD 3.900</div>
+<div class="features">📐 233 m² tot.🚗 3 coch</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Núñez">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/56834223.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/83/42/23/360x266/2029605529.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Núñez</span></div>
+<div class="price">$ 2.500.000</div>
+<div class="features">📐 155 m² tot.🏠 6 amb</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Núñez">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/57479389.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/47/93/89/360x266/2009223040.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Núñez</span></div>
+<div class="price">USD 3.980</div>
+<div class="features">📐 212 m² tot.🚿 4 baños🚗 2 coch</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Villa Urquiza">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/56012219.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/01/22/19/360x266/1969782534.jpg" alt="Oficina en Villa Urquiza" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Villa Urquiza</span></div>
+<div class="price" style="color:#ef4444">USD 4.000 ⬇</div>
+<div class="features">📐 312 m² tot.🏠 6 amb🚿 3 baños</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Villa Urquiza">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/57771229.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/77/12/29/360x266/2016729395.jpg" alt="Oficina en Villa Urquiza" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Villa Urquiza</span></div>
+<div class="price">USD 2.000</div>
+<div class="features">📐 254 m² tot.🏠 8 amb🚿 3 baños</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Saavedra">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/57898007.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/89/80/07/360x266/2019595938.jpg" alt="Oficina en Saavedra" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Saavedra</span></div>
+<div class="price">USD 2.400</div>
+<div class="features">📐 152 m² tot.🏠 4 amb🚿 2 baños</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Villa Urquiza">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/57713376.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/71/33/76/360x266/2015780779.jpg" alt="Oficina en Villa Urquiza" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Villa Urquiza</span></div>
+<div class="price">USD 2.700</div>
+<div class="features">📐 130 m² tot.🏠 4 amb🚿 2 baños</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Núñez">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/58428315.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/42/83/15/360x266/2034619146.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Núñez</span></div>
+<div class="price">USD 2.200</div>
+<div class="features">📐 180 m² tot.🚿 3 baños</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Saavedra">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/56347064.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/34/70/64/360x266/1979737297.jpg" alt="Oficina en Saavedra" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Saavedra</span></div>
+<div class="price">USD 22.000</div>
+<div class="features">📐 914 m² tot.🚿 3 baños🚗 6 coch</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Villa Urquiza">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/58211605.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/21/16/05/360x266/2028615794.jpg" alt="Oficina en Villa Urquiza" loading="lazy"></a></div>
+<div class="card-body">
+<div class="card-header"><span>Oficina en Villa Urquiza</span></div>
+<div class="price">USD 3.300</div>
+<div class="features">📐 230 m² tot.🚿 3 baños🚗 2 coch</div>
+</div></div>
+<div class="card" data-tipo="Oficina" data-barrio="Saavedra">
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/58483512.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/48/35/12/360x266/2036204626.jpg" alt="Oficina en Saavedra" loading="lazy"></a></div>
 <div class="card-body">
 <div class="card-header"><span>Oficina en Saavedra</span></div>
 <div class="price">USD 2.100</div>
 <div class="features">📐 130 m² tot.🏠 4 amb🚿 2 baños</div>
 </div></div>
 <div class="card" data-tipo="Oficina" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58266404.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/26/64/04/360x266/2029711938.jpg" alt="Oficina en Saavedra" loading="lazy"></a></div>
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/58266404.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/26/64/04/360x266/2029711938.jpg" alt="Oficina en Saavedra" loading="lazy"></a></div>
 <div class="card-body">
 <div class="card-header"><span>Oficina en Saavedra</span></div>
 <div class="price" style="color:#ef4444">USD 1.200 ⬇</div>
 <div class="features">📐 130 m² tot.🏠 4 amb🚿 2 baños</div>
 </div></div>
 <div class="card" data-tipo="Oficina" data-barrio="Villa Urquiza">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57711746.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/71/17/46/360x266/2024255963.jpg" alt="Oficina en Villa Urquiza" loading="lazy"></a></div>
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/57711746.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/71/17/46/360x266/2024255963.jpg" alt="Oficina en Villa Urquiza" loading="lazy"></a></div>
 <div class="card-body">
 <div class="card-header"><span>Oficina en Villa Urquiza</span></div>
 <div class="price">USD 3.300</div>
 <div class="features">📐 229 m² tot.🚿 2 baños🚗 2 coch</div>
 </div></div>
 <div class="card" data-tipo="Oficina" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58540232.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/54/02/32/360x266/2037849753.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/58540232.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/54/02/32/360x266/2037849753.jpg" alt="Oficina en Núñez" loading="lazy"></a></div>
 <div class="card-body">
 <div class="card-header"><span>Oficina en Núñez</span></div>
 <div class="price">USD 3.500</div>
 <div class="features">📐 275 m² tot.🚿 2 baños🚗 5 coch</div>
 </div></div>
 <div class="card" data-tipo="Oficina" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58526472.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/52/64/72/360x266/2037428862.jpg" alt="Oficina en Saavedra" loading="lazy"></a></div>
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/58526472.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/52/64/72/360x266/2037428862.jpg" alt="Oficina en Saavedra" loading="lazy"></a></div>
 <div class="card-body">
 <div class="card-header"><span>Oficina en Saavedra</span></div>
 <div class="price" style="color:#ef4444">USD 2.200 ⬇</div>
 <div class="features">📐 309 m² tot.🚿 2 baños🚗 2 coch</div>
 </div></div>
 <div class="card" data-tipo="Oficina" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58430357.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/43/03/57/360x266/2034644682.jpg" alt="Oficina en Saavedra" loading="lazy"></a></div>
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/58430357.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/43/03/57/360x266/2034644682.jpg" alt="Oficina en Saavedra" loading="lazy"></a></div>
 <div class="card-body">
 <div class="card-header"><span>Oficina en Saavedra</span></div>
 <div class="price">USD 5.000</div>
 <div class="features">📐 309 m² tot.🚿 2 baños🚗 2 coch</div>
 </div></div>
 <div class="card" data-tipo="Oficina" data-barrio="Villa Urquiza">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58197877.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/19/78/77/360x266/2028245987.jpg" alt="Oficina en Villa Urquiza" loading="lazy"></a></div>
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/58197877.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/19/78/77/360x266/2028245987.jpg" alt="Oficina en Villa Urquiza" loading="lazy"></a></div>
 <div class="card-body">
 <div class="card-header"><span>Oficina en Villa Urquiza</span></div>
 <div class="price">$ 3.500.000</div>
 <div class="features">📐 170 m² tot.🏠 5 amb🚿 3 baños</div>
 </div></div>
 <div class="card" data-tipo="Oficina" data-barrio="Villa Urquiza">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58476851.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/47/68/51/360x266/2036131717.jpg" alt="Oficina en Villa Urquiza" loading="lazy"></a></div>
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/58476851.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/47/68/51/360x266/2036131717.jpg" alt="Oficina en Villa Urquiza" loading="lazy"></a></div>
 <div class="card-body">
 <div class="card-header"><span>Oficina en Villa Urquiza</span></div>
 <div class="price">$ 1.800.000</div>
 <div class="features">📐 90 m² tot.🏠 2 amb🚿 2 baños</div>
 </div></div>
 <div class="card" data-tipo="Oficina" data-barrio="Villa Urquiza">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/55159077.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/55/15/90/77/360x266/1949588667.jpg" alt="Oficina en Villa Urquiza" loading="lazy"></a></div>
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/55159077.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/55/15/90/77/360x266/1949588667.jpg" alt="Oficina en Villa Urquiza" loading="lazy"></a></div>
 <div class="card-body">
 <div class="card-header"><span>Oficina en Villa Urquiza</span></div>
 <div class="price">USD 4.000</div>
 <div class="features">📐 493 m² tot.🏠 12 amb🚿 8 baños</div>
 </div></div>
 <div class="card" data-tipo="Oficina" data-barrio="Villa Urquiza">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58385533.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/38/55/33/360x266/2034246424.jpg" alt="Oficina en Villa Urquiza" loading="lazy"></a></div>
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/58385533.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/38/55/33/360x266/2034246424.jpg" alt="Oficina en Villa Urquiza" loading="lazy"></a></div>
 <div class="card-body">
 <div class="card-header"><span>Oficina en Villa Urquiza</span></div>
 <div class="price">$ 4.620.000</div>
 <div class="features">📐 300 m² tot.🚿 3 baños</div>
 </div></div>
 <div class="card" data-tipo="Oficina" data-barrio="Villa Urquiza">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57505238.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/50/52/38/360x266/2024255048.jpg" alt="Oficina en Villa Urquiza" loading="lazy"></a></div>
+<div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA</div><a href="https://www.zonaprop.com.ar/propiedades/57505238.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/50/52/38/360x266/2024255048.jpg" alt="Oficina en Villa Urquiza" loading="lazy"></a></div>
 <div class="card-body">
 <div class="card-header"><span>Oficina en Villa Urquiza</span></div>
 <div class="price">USD 4.000</div>
 <div class="features">📐 297 m² tot.🚿 2 baños🚗 3 coch</div>
 </div></div>
 </div>
-<div class="grid hidden" id="bajas-grid">
+
 <div class="card" data-tipo="Galpón" data-barrio="Villa Urquiza">
 <div class="card-img-wrap"><div class="baja-stamp">DADO DE BAJA<br>22/03/2026</div><a href="https://www.zonaprop.com.ar/propiedades/55122515.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/55/12/25/15/360x266/1948962344.jpg" alt="Galpón en Villa Urquiza" loading="lazy"></a></div>
 <div class="card-body">
