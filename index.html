@@ -5,1443 +5,1361 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Monitor Inmobiliario - Saavedra/Núñez/Coghlan</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#0f1117;--card:#1a1d27;--border:#2a2d3a;--text:#e4e4e7;--muted:#9ca3af;--accent:#6366f1;--green:#22c55e;--yellow:#eab308;--red:#ef4444;--blue:#3b82f6}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
-.topbar{background:#1a1d27;border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
-.topbar h1{font-size:1.2rem;font-weight:700}
-.topbar .date{color:var(--muted);font-size:0.85rem}
-.tabs{display:flex;gap:0;background:#1a1d27;border-bottom:1px solid var(--border);padding:0 24px;position:sticky;top:52px;z-index:99}
-.tab{padding:12px 24px;cursor:pointer;border-bottom:2px solid transparent;color:var(--muted);font-weight:500;transition:all .2s}
-.tab:hover{color:var(--text)}
-.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
-.stats-bar{display:flex;gap:16px;padding:16px 24px;flex-wrap:wrap}
-.stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 20px;flex:1;min-width:150px}
-.stat-label{font-size:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em}
-.stat-value{font-size:1.5rem;font-weight:700;margin-top:4px}
-.stat-value.green{color:var(--green)}
-.stat-value.blue{color:var(--blue)}
-.stat-value.red{color:var(--red)}
-.filters{display:flex;gap:8px;padding:8px 24px;flex-wrap:wrap}
-.filter-btn{padding:6px 16px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-size:0.8rem;transition:all .2s}
-.filter-btn:hover,.filter-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;padding:16px 24px}
-.card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:transform .2s,box-shadow .2s}
-.card:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(0,0,0,.3)}
-.card-img-wrap{position:relative;height:200px;overflow:hidden;background:#2a2d3a}
-.card-img-wrap img{width:100%;height:100%;object-fit:cover}
-.card-img-wrap .no-img{display:flex;align-items:center;justify-content:center;height:100%;color:var(--muted)}
-.badge{position:absolute;top:8px;left:8px;padding:4px 10px;border-radius:6px;font-size:0.7rem;font-weight:700;z-index:2}
-.badge.new{background:var(--green);color:#000}
-.badge.baja{background:var(--red);color:#fff;font-size:1rem;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-15deg);padding:8px 20px}
-.card-body{padding:14px}
-.card-header{font-size:0.85rem;color:var(--muted);margin-bottom:6px}
-.price{font-size:1.25rem;font-weight:700;display:flex;align-items:center;gap:8px}
-.prev-price{font-size:0.75rem;color:var(--muted);text-decoration:line-through;margin-top:2px}
-.price-m2{font-size:0.8rem;color:var(--blue);margin-top:2px}
-.trend{font-size:0.7rem;padding:2px 8px;border-radius:10px;font-weight:600}
-.trend.down{background:rgba(34,197,94,.15);color:var(--green)}
-.trend.up{background:rgba(239,68,68,.15);color:var(--red)}
-.features{margin-top:8px;font-size:0.8rem;color:var(--muted)}
-.tab-content{display:none}
-.tab-content.active{display:block}
-.empty-state{text-align:center;padding:60px 24px;color:var(--muted)}
-.empty-state h3{font-size:1.2rem;margin-bottom:8px}
-footer{text-align:center;padding:24px;color:var(--muted);font-size:0.75rem;border-top:1px solid var(--border);margin-top:40px}
-@media(max-width:768px){.grid{grid-template-columns:1fr}.stats-bar{gap:8px}.stat{min-width:calc(50% - 8px)}.topbar{padding:12px 16px}.tabs{padding:0 16px}.grid{padding:16px}}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#0f1117; color:#e0e0e0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; }
+.topbar { background:#1a1d27; padding:12px 20px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #2a2d3a; position:sticky; top:0; z-index:100; }
+.topbar h1 { font-size:18px; color:#fff; }
+.topbar .date { color:#888; font-size:13px; }
+.tabs { display:flex; gap:0; background:#1a1d27; border-bottom:2px solid #2a2d3a; padding:0 20px; position:sticky; top:52px; z-index:99; }
+.tab { padding:12px 24px; cursor:pointer; color:#888; border-bottom:3px solid transparent; transition:all .2s; font-size:14px; font-weight:500; }
+.tab:hover { color:#ccc; }
+.tab.active { color:#ff6b35; border-bottom-color:#ff6b35; }
+.tab-content { display:none; }
+.tab-content.active { display:block; }
+.stats-bar { background:#1e2130; padding:16px 20px; display:flex; gap:20px; flex-wrap:wrap; border-bottom:1px solid #2a2d3a; }
+.stat { text-align:center; min-width:140px; }
+.stat-value { font-size:22px; font-weight:700; color:#fff; }
+.stat-label { font-size:11px; color:#888; text-transform:uppercase; letter-spacing:1px; margin-top:2px; }
+.filters { padding:12px 20px; display:flex; gap:8px; flex-wrap:wrap; background:#161822; border-bottom:1px solid #2a2d3a; }
+.filter-btn { padding:6px 14px; border-radius:20px; border:1px solid #3a3d4a; background:transparent; color:#aaa; cursor:pointer; font-size:12px; transition:all .2s; }
+.filter-btn:hover { border-color:#ff6b35; color:#ff6b35; }
+.filter-btn.active { background:#ff6b35; color:#fff; border-color:#ff6b35; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:16px; padding:20px; }
+.card { background:#1a1d27; border-radius:12px; overflow:hidden; border:1px solid #2a2d3a; transition:transform .2s, box-shadow .2s; }
+.card:hover { transform:translateY(-2px); box-shadow:0 8px 25px rgba(0,0,0,.3); }
+.card-img-wrap { position:relative; height:180px; overflow:hidden; background:#252836; }
+.card-img-wrap img { width:100%; height:100%; object-fit:cover; }
+.no-img { display:flex; align-items:center; justify-content:center; height:100%; color:#555; font-size:14px; }
+.card-header { padding:10px 14px 4px; font-size:13px; font-weight:600; color:#bbb; }
+.card-body { padding:4px 14px 14px; }
+.price { font-size:20px; font-weight:700; color:#4ade80; }
+.price-m2 { font-size:12px; color:#888; margin-top:2px; }
+.prev-price { color:#888; text-decoration:line-through; }
+.addr { font-size:13px; color:#aaa; margin-top:6px; }
+.metrics { font-size:12px; color:#888; margin-top:4px; }
+.card-link { display:inline-block; margin-top:8px; color:#ff6b35; text-decoration:none; font-size:13px; font-weight:500; }
+.card-link:hover { text-decoration:underline; }
+.badge-new { background:#22c55e; color:#fff; font-size:10px; padding:2px 8px; border-radius:10px; font-weight:700; margin-left:6px; vertical-align:middle; }
+.trend-down { display:inline-block; background:#22c55e22; color:#4ade80; font-size:11px; padding:2px 8px; border-radius:6px; margin-top:4px; }
+.trend-up { display:inline-block; background:#ef444422; color:#f87171; font-size:11px; padding:2px 8px; border-radius:6px; margin-top:4px; }
+.dias-pill { position:absolute; top:8px; right:8px; padding:3px 10px; border-radius:12px; font-size:11px; font-weight:600; }
+.dias-green { background:#22c55e33; color:#4ade80; }
+.dias-yellow { background:#eab30833; color:#fbbf24; }
+.dias-red { background:#ef444433; color:#f87171; }
+.baja-stamp { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) rotate(-20deg); background:#ef4444cc; color:#fff; font-size:18px; font-weight:900; padding:8px 24px; border-radius:8px; border:3px solid #fff; letter-spacing:2px; pointer-events:none; }
+.baja-card { opacity:.7; }
+.baja-card:hover { opacity:1; }
+.empty-state { text-align:center; padding:60px 20px; color:#555; }
+.empty-state h3 { font-size:18px; margin-bottom:8px; }
+@media(max-width:640px) {
+  .grid { grid-template-columns:1fr; padding:12px; gap:12px; }
+  .stats-bar { justify-content:center; }
+  .tabs { overflow-x:auto; }
+}
 </style>
 </head>
 <body>
 
 <div class="topbar">
-<h1>🏘️ Monitor Inmobiliario</h1>
-<span class="date">Saavedra / Núñez / Coghlan — Actualizado: 2026-03-27</span>
+  <h1>🏘️ Monitor Inmobiliario — Saavedra / Núñez / Coghlan</h1>
+  <div class="date">Actualizado: 28/03/2026 10:04</div>
 </div>
 
 <div class="tabs">
-<div class="tab active" data-tab="venta">🏷️ Venta (41)</div>
-<div class="tab" data-tab="alquiler">🔑 Alquiler (13)</div>
-<div class="tab" data-tab="otros">🗺️ Zona ampliada (105)</div>
+  <div class="tab active" onclick="switchTab('venta')">🏷️ Venta (40)</div>
+  <div class="tab" onclick="switchTab('alquiler')">🔑 Alquiler (4)</div>
+  <div class="tab" onclick="switchTab('bajas')">❌ Bajas (29)</div>
 </div>
 
-<div class="tab-content active" id="tab-venta">
-<div class="stats-bar">
-<div class="stat"><div class="stat-label">Total activas</div><div class="stat-value">41</div></div>
-<div class="stat"><div class="stat-label">Precio promedio USD</div><div class="stat-value blue">$321.510</div></div>
-<div class="stat"><div class="stat-label">Nuevas</div><div class="stat-value green">2</div></div>
-<div class="stat"><div class="stat-label">Bajaron precio</div><div class="stat-value red">1</div></div>
-</div>
-<div class="filters">
-<button class="filter-btn active" data-filter="all">Todos</button>
-<button class="filter-btn" data-filter="PH">PH</button>
-<button class="filter-btn" data-filter="Galpón">Galpón</button>
-<button class="filter-btn" data-filter="Depósito">Depósito</button>
-<button class="filter-btn" data-filter="Oficina">Oficina</button>
-<span style="width:1px;background:var(--border);margin:0 4px"></span>
-<button class="filter-btn" data-filter="Saavedra">Saavedra</button>
-<button class="filter-btn" data-filter="Núñez">Núñez</button>
-<button class="filter-btn" data-filter="Coghlan">Coghlan</button>
-</div>
-<div class="grid" id="grid-venta">
-<div class="card" data-tipo="PH" data-barrio="Saavedra">
-<div class="card-img-wrap"><div class="badge new">NUEVA</div><a href="https://www.zonaprop.com.ar/propiedades/50342876.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/50/34/28/76/360x266/1830683255.jpg" alt="PH en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Saavedra</span></div>
-<div class="price">USD 209.000 </div>
-<div class="price-m2">USD 804/m²</div>
-<div class="features">📐 260 m² 🏠 3 amb. 🛏 2 dorm. 🚿 2 baños 🚗 1 coch.</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Núñez">
-<div class="card-img-wrap"><div class="badge new">NUEVA</div><a href="https://www.zonaprop.com.ar/propiedades/50237523.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/50/23/75/23/360x266/1827550287.jpg" alt="PH en Núñez" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Núñez</span></div>
-<div class="price">USD 295.000 </div>
-<div class="price-m2">USD 1.475/m²</div>
-<div class="features">📐 200 m² 🏠 4 amb. 🛏 3 dorm. 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58497006.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/49/70/06/360x266/2038463139.jpg" alt="Galpón en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Saavedra</span></div>
-<div class="price">USD 165.000 </div>
-<div class="price-m2">USD 786/m²</div>
-<div class="features">📐 210 m²</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/54833210.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/54/83/32/10/360x266/1941679501.jpg" alt="PH en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Saavedra</span></div>
-<div class="price">USD 180.000 </div>
-<div class="price-m2">USD 826/m²</div>
-<div class="features">📐 218 m² 🏠 7 amb. 🛏 4 dorm. 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58655212.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/65/52/12/360x266/2040881441.jpg" alt="PH en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Saavedra</span></div>
-<div class="price">USD 189.900 </div>
-<div class="price-m2">USD 760/m²</div>
-<div class="features">📐 250 m² 🏠 4 amb. 🛏 3 dorm. 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57670779.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/67/07/79/360x266/2014060353.jpg" alt="PH en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Saavedra</span></div>
-<div class="price">USD 218.000 </div>
-<div class="price-m2">USD 858/m²</div>
-<div class="features">📐 254 m² 🏠 6 amb. 🛏 4 dorm. 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57683835.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/68/38/35/360x266/2014426416.jpg" alt="PH en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Saavedra</span></div>
-<div class="price">USD 220.000 </div>
-<div class="price-m2">USD 957/m²</div>
-<div class="features">📐 230 m² 🏠 7 amb. 🛏 1 dorm. 🚿 3 baños</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/56555898.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/55/58/98/360x266/1983818549.jpg" alt="PH en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Saavedra</span></div>
-<div class="price">USD 239.000 </div>
-<div class="price-m2">USD 1.177/m²</div>
-<div class="features">📐 203 m² 🏠 6 amb. 🛏 4 dorm. 🚿 3 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58554171.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/55/41/71/360x266/2038128424.jpg" alt="Galpón en Núñez" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Núñez</span></div>
-<div class="price">USD 245.000 </div>
-<div class="price-m2">USD 1.156/m²</div>
-<div class="features">📐 212 m² 🏠 4 amb. 🛏 3 dorm. 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57376115.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/37/61/15/360x266/2006617595.jpg" alt="PH en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Saavedra</span></div>
-<div class="price">USD 250.000 </div>
-<div class="price-m2">USD 1.000/m²</div>
-<div class="features">📐 250 m² 🏠 3 amb. 🛏 2 dorm. 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58414112.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/41/41/12/360x266/2034314478.jpg" alt="PH en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Saavedra</span></div>
-<div class="price">USD 250.000 <span class="trend down">⬇ Bajó</span></div>
-<div class="prev-price">Antes: USD 338.000</div><div class="price-m2">USD 758/m²</div>
-<div class="features">📐 330 m² 🏠 5 amb. 🛏 3 dorm. 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58260401.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/26/04/01/360x266/2029957811.jpg" alt="PH en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Saavedra</span></div>
-<div class="price">USD 250.000 </div>
-<div class="price-m2">USD 1.250/m²</div>
-<div class="features">📐 200 m² 🏠 6 amb. 🛏 4 dorm. 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58015783.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/01/57/83/360x266/2023128658.jpg" alt="PH en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Saavedra</span></div>
-<div class="price">USD 250.000 </div>
-<div class="price-m2">USD 1.220/m²</div>
-<div class="features">📐 205 m² 🏠 3 amb. 🛏 2 dorm. 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Coghlan">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57048261.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/04/82/61/360x266/2007141873.jpg" alt="PH en Coghlan" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Coghlan</span></div>
-<div class="price">USD 255.000 </div>
-<div class="price-m2">USD 944/m²</div>
-<div class="features">📐 270 m² 🏠 4 amb. 🛏 3 dorm. 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58628282.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/62/82/82/360x266/2040641879.jpg" alt="PH en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Saavedra</span></div>
-<div class="price">USD 259.000 </div>
-<div class="price-m2">USD 1.093/m²</div>
-<div class="features">📐 237 m² 🏠 4 amb. 🛏 3 dorm. 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58634133.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/63/41/33/360x266/2040336679.jpg" alt="PH en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Saavedra</span></div>
-<div class="price">USD 259.000 </div>
-<div class="price-m2">USD 799/m²</div>
-<div class="features">📐 324 m² 🏠 4 amb. 🛏 3 dorm. 🚿 1 baños</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57622524.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/62/25/24/360x266/2020441401.jpg" alt="PH en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Saavedra</span></div>
-<div class="price">USD 270.000 </div>
-<div class="price-m2">USD 1.116/m²</div>
-<div class="features">📐 242 m² 🏠 3 amb. 🛏 2 dorm. 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/55075695.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/55/07/56/95/360x266/2019019942.jpg" alt="PH en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Saavedra</span></div>
-<div class="price">USD 270.000 </div>
-<div class="price-m2">USD 1.125/m²</div>
-<div class="features">📐 240 m² 🏠 5 amb. 🛏 4 dorm. 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58060762.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/06/07/62/360x266/2024394229.jpg" alt="PH en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Saavedra</span></div>
-<div class="price">USD 270.000 </div>
-<div class="price-m2">USD 1.093/m²</div>
-<div class="features">📐 247 m² 🏠 5 amb. 🛏 4 dorm. 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57855475.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/85/54/75/360x266/2018786936.jpg" alt="PH en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Saavedra</span></div>
-<div class="price">USD 280.000 </div>
-<div class="price-m2">USD 1.217/m²</div>
-<div class="features">📐 230 m² 🏠 5 amb. 🛏 3 dorm. 🚿 2 baños 🚗 1 coch.</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/47338691.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/47/33/86/91/360x266/1929075413.jpg" alt="PH en Núñez" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Núñez</span></div>
-<div class="price">USD 285.000 </div>
-<div class="price-m2">USD 1.425/m²</div>
-<div class="features">📐 200 m² 🏠 4 amb. 🛏 3 dorm. 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58212376.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/21/23/76/360x266/2028634590.jpg" alt="PH en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Saavedra</span></div>
-<div class="price">USD 292.000 </div>
-<div class="price-m2">USD 1.397/m²</div>
-<div class="features">📐 209 m² 🏠 5 amb. 🛏 3 dorm. 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/54212487.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/54/21/24/87/360x266/1925180361.jpg" alt="PH en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Saavedra</span></div>
-<div class="price">USD 299.000 </div>
-<div class="price-m2">USD 1.444/m²</div>
-<div class="features">📐 207 m² 🏠 4 amb. 🛏 3 dorm. 🚿 2 baños 🚗 1 coch.</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57894556.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/89/45/56/360x266/2019851834.jpg" alt="PH en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Saavedra</span></div>
-<div class="price">USD 300.000 </div>
-<div class="price-m2">USD 1.339/m²</div>
-<div class="features">📐 224 m² 🏠 4 amb. 🛏 3 dorm. 🚿 2 baños 🚗 1 coch.</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/53977433.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/53/97/74/33/360x266/1919184649.jpg" alt="PH en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Saavedra</span></div>
-<div class="price">USD 310.000 </div>
-<div class="price-m2">USD 1.099/m²</div>
-<div class="features">📐 282 m² 🏠 7 amb. 🛏 4 dorm. 🚿 3 baños 🚗 1 coch.</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Coghlan">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/54907580.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/54/90/75/80/360x266/1941679501.jpg" alt="PH en Coghlan" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Coghlan</span></div>
-<div class="price">USD 315.000 </div>
-<div class="price-m2">USD 1.221/m²</div>
-<div class="features">📐 258 m² 🏠 5 amb. 🛏 3 dorm. 🚿 3 baños 🚗 1 coch.</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/54269910.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/54/26/99/10/360x266/1996129297.jpg" alt="PH en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Saavedra</span></div>
-<div class="price">USD 315.000 </div>
-<div class="price-m2">USD 1.240/m²</div>
-<div class="features">📐 254 m² 🏠 5 amb. 🛏 3 dorm. 🚿 2 baños 🚗 2 coch.</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58446027.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/44/60/27/360x266/2035118772.jpg" alt="PH en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Saavedra</span></div>
-<div class="price">USD 345.000 </div>
-<div class="price-m2">USD 1.683/m²</div>
-<div class="features">📐 205 m² 🏠 4 amb. 🛏 3 dorm. 🚿 1 baños 🚗 1 coch.</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58656895.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/65/68/95/360x266/2040929098.jpg" alt="PH en Núñez" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Núñez</span></div>
-<div class="price">USD 349.000 </div>
-<div class="price-m2">USD 1.662/m²</div>
-<div class="features">📐 210 m² 🏠 3 amb. 🛏 2 dorm. 🚿 3 baños</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58594649.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/59/46/49/360x266/2039234604.jpg" alt="PH en Núñez" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Núñez</span></div>
-<div class="price">USD 350.000 </div>
-<div class="price-m2">USD 1.591/m²</div>
-<div class="features">📐 220 m² 🏠 5 amb. 🛏 4 dorm. 🚿 3 baños 🚗 1 coch.</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58461395.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/46/13/95/360x266/2035542936.jpg" alt="PH en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Saavedra</span></div>
-<div class="price">USD 369.000 </div>
-<div class="price-m2">USD 1.512/m²</div>
-<div class="features">📐 244 m² 🏠 4 amb. 🛏 3 dorm. 🚿 2 baños 🚗 1 coch.</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57835249.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/83/52/49/360x266/2018306848.jpg" alt="PH en Núñez" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Núñez</span></div>
-<div class="price">USD 370.000 </div>
-<div class="price-m2">USD 1.682/m²</div>
-<div class="features">📐 220 m² 🏠 4 amb. 🛏 3 dorm. 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Coghlan">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58664143.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/66/41/43/360x266/2041133181.jpg" alt="PH en Coghlan" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Coghlan</span></div>
-<div class="price">USD 370.000 </div>
-<div class="price-m2">USD 1.194/m²</div>
-<div class="features">📐 310 m² 🏠 43 amb. 🛏 3 dorm. 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/56577969.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/57/79/69/360x266/1984466986.jpg" alt="PH en Núñez" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Núñez</span></div>
-<div class="price">USD 380.000 </div>
-<div class="price-m2">USD 1.719/m²</div>
-<div class="features">📐 221 m² 🏠 4 amb. 🛏 3 dorm. 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Coghlan">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57856363.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/85/63/63/360x266/2018807079.jpg" alt="PH en Coghlan" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Coghlan</span></div>
-<div class="price">USD 380.000 </div>
-<div class="price-m2">USD 1.496/m²</div>
-<div class="features">📐 254 m² 🏠 6 amb. 🛏 5 dorm. 🚿 3 baños 🚗 1 coch.</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Coghlan">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57506644.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/50/66/44/360x266/2009900709.jpg" alt="PH en Coghlan" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Coghlan</span></div>
-<div class="price">USD 389.000 </div>
-<div class="price-m2">USD 1.935/m²</div>
-<div class="features">📐 201 m² 🏠 4 amb. 🛏 3 dorm. 🚿 4 baños 🚗 1 coch.</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58584898.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/58/48/98/360x266/2038972698.jpg" alt="PH en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Saavedra</span></div>
-<div class="price">USD 390.000 </div>
-<div class="price-m2">USD 992/m²</div>
-<div class="features">📐 393 m² 🏠 10 amb. 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58679864.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/67/98/64/360x266/2041600170.jpg" alt="PH en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Saavedra</span></div>
-<div class="price">USD 420.000 </div>
-<div class="price-m2">USD 1.810/m²</div>
-<div class="features">📐 232 m² 🏠 4 amb. 🛏 2 dorm. 🚿 2 baños 🚗 2 coch.</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/52200247.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/52/20/02/47/360x266/1878413803.jpg" alt="PH en Núñez" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Núñez</span></div>
-<div class="price">USD 450.000 </div>
-<div class="price-m2">USD 1.343/m²</div>
-<div class="features">📐 335 m² 🏠 11 amb. 🛏 6 dorm. 🚿 3 baños</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Coghlan">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/55091508.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/55/09/15/08/360x266/1947901076.jpg" alt="PH en Coghlan" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Coghlan</span></div>
-<div class="price">USD 535.000 </div>
-<div class="price-m2">USD 2.296/m²</div>
-<div class="features">📐 233 m² 🏠 8 amb. 🛏 5 dorm. 🚿 2 baños 🚗 1 coch.</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/56666009.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/66/60/09/360x266/1986337050.jpg" alt="Galpón en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Saavedra</span></div>
-<div class="price">USD 1.145.000 </div>
-<div class="price-m2">USD 2.093/m²</div>
-<div class="features">📐 547 m²</div>
-</div></div>
-</div>
+<!-- VENTA -->
+<div id="tab-venta" class="tab-content active">
+  <div class="stats-bar">
+    <div class="stat"><div class="stat-value">40</div><div class="stat-label">Total activas</div></div>
+    <div class="stat"><div class="stat-value">USD 375.900</div><div class="stat-label">Precio promedio</div></div>
+    <div class="stat"><div class="stat-value">18</div><div class="stat-label">Nuevas</div></div>
+    <div class="stat"><div class="stat-value">3</div><div class="stat-label">Bajaron precio</div></div>
+  </div>
+  <div class="filters" data-target="venta">
+    <button class="filter-btn active" onclick="filter(this,'venta','all')">Todos</button>
+    <button class="filter-btn" onclick="filter(this,'venta','PH')">PH</button>
+    <button class="filter-btn" onclick="filter(this,'venta','Galpón')">Galpón</button>
+    <button class="filter-btn" onclick="filter(this,'venta','Depósito')">Depósito</button>
+    <button class="filter-btn" onclick="filter(this,'venta','Saavedra')">Saavedra</button>
+    <button class="filter-btn" onclick="filter(this,'venta','Núñez')">Núñez</button>
+    <button class="filter-btn" onclick="filter(this,'venta','Coghlan')">Coghlan</button>
+  </div>
+  <div class="grid" id="grid-venta">
+    
+    <div class="card" data-tipo="PH" data-barrio="Coghlan" data-op="venta">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/57/95/60/32/360x266/2020990752.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏠 PH en Coghlan
+      </div>
+      <div class="card-body">
+        <div class="price">USD 135.000 <span class="badge-new">NUEVA</span></div>
+        <div class="price-m2">USD 655/m²</div>
+        
+        <div class="addr">📍 Superí al 3400</div>
+        <div class="metrics">📐 206 m² 🏠 4 amb. 🛏 3 dorm. 🚿 2 baños</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/57956032.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="PH" data-barrio="Núñez" data-op="venta">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/57/69/75/74/360x266/2015118949.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏠 PH en Núñez
+      </div>
+      <div class="card-body">
+        <div class="price">USD 190.000 <span class="badge-new">NUEVA</span></div>
+        <div class="price-m2">USD 950/m²</div>
+        
+        <div class="addr">📍 Iberá al 2200</div>
+        <div class="metrics">📐 200 m² 🏠 6 amb. 🛏 4 dorm. 🚿 3 baños</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/57697574.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="PH" data-barrio="Saavedra" data-op="venta">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/50/34/28/76/360x266/1830683255.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏠 PH en Saavedra
+      </div>
+      <div class="card-body">
+        <div class="price">USD 209.000 </div>
+        <div class="price-m2">USD 804/m²</div>
+        
+        <div class="addr">📍 Arias 4600</div>
+        <div class="metrics">📐 260 m² 🏠 3 amb. 🛏 2 dorm. 🚿 2 baños 🚗 1 coch.</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/50342876.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="PH" data-barrio="Saavedra" data-op="venta">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/57/67/07/79/360x266/2014060353.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏠 PH en Saavedra
+      </div>
+      <div class="card-body">
+        <div class="price">USD 218.000 </div>
+        <div class="price-m2">USD 858/m²</div>
+        
+        <div class="addr">📍 Plaza al 4500</div>
+        <div class="metrics">📐 254 m² 🏠 6 amb. 🛏 4 dorm. 🚿 2 baños</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/57670779.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="PH" data-barrio="Núñez" data-op="venta">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/63/43/49/360x266/2040520744.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏠 PH en Núñez
+      </div>
+      <div class="card-body">
+        <div class="price">USD 220.000 <span class="badge-new">NUEVA</span></div>
+        <div class="price-m2">USD 1.019/m²</div>
+        
+        <div class="addr">📍 Leónidas Aguirre al 2500</div>
+        <div class="metrics">📐 216 m²</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/58634349.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="PH" data-barrio="Coghlan" data-op="venta">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/56/89/48/360x266/2038520754.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏠 PH en Coghlan
+      </div>
+      <div class="card-body">
+        <div class="price">USD 230.000 <span class="badge-new">NUEVA</span></div>
+        <div class="price-m2">USD 1.150/m²</div>
+        
+        <div class="addr">📍 Superí 2900</div>
+        <div class="metrics">📐 200 m² 🏠 7 amb. 🛏 4 dorm. 🚿 2 baños</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/58568948.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="Galpón" data-barrio="Núñez" data-op="venta">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/55/41/71/360x266/2038106957.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏭 Galpón en Núñez
+      </div>
+      <div class="card-body">
+        <div class="price">USD 245.000 </div>
+        <div class="price-m2">USD 1.156/m²</div>
+        
+        <div class="addr">📍 O'higgin al 3900</div>
+        <div class="metrics">📐 212 m² 🏠 4 amb. 🛏 3 dorm. 🚿 2 baños</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/58554171.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="PH" data-barrio="Saavedra" data-op="venta">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/57/37/61/15/360x266/2006617595.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏠 PH en Saavedra
+      </div>
+      <div class="card-body">
+        <div class="price">USD 250.000 </div>
+        <div class="price-m2">USD 1.000/m²</div>
+        
+        <div class="addr">📍 Larralde 3290</div>
+        <div class="metrics">📐 250 m² 🏠 3 amb. 🛏 2 dorm. 🚿 2 baños</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/57376115.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="PH" data-barrio="Saavedra" data-op="venta">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/47/33/86/91/360x266/1780764028.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏠 PH en Saavedra
+      </div>
+      <div class="card-body">
+        <div class="price">USD 260.000 </div>
+        <div class="price-m2">USD 942/m²</div>
+        <span class="trend-down">⬇ Bajó de USD 285.000</span>
+        <div class="addr">📍 Zapiola al 4500</div>
+        <div class="metrics">📐 276 m² 🏠 6 amb. 🛏 5 dorm. 🚿 2 baños</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/47338691.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="PH" data-barrio="Núñez" data-op="venta">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/65/68/95/360x266/2041260419.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏠 PH en Núñez
+      </div>
+      <div class="card-body">
+        <div class="price">USD 268.000 </div>
+        <div class="price-m2">USD 879/m²</div>
+        <span class="trend-down">⬇ Bajó de USD 349.000</span>
+        <div class="addr">📍 Manzanares al 2100</div>
+        <div class="metrics">📐 305 m² 🏠 6 amb. 🛏 5 dorm. 🚿 3 baños</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/58656895.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="PH" data-barrio="Saavedra" data-op="venta">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/57/62/25/24/360x266/2013124549.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏠 PH en Saavedra
+      </div>
+      <div class="card-body">
+        <div class="price">USD 270.000 </div>
+        <div class="price-m2">USD 1.116/m²</div>
+        
+        <div class="addr">📍 MACHAIN 4370</div>
+        <div class="metrics">📐 242 m² 🏠 3 amb. 🛏 2 dorm. 🚿 2 baños</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/57622524.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="PH" data-barrio="Núñez" data-op="venta">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/42/35/06/360x266/2038278168.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏠 PH en Núñez
+      </div>
+      <div class="card-body">
+        <div class="price">USD 280.000 <span class="badge-new">NUEVA</span></div>
+        <div class="price-m2">USD 1.353/m²</div>
+        
+        <div class="addr">📍 Vuelta de Obligado al 4700</div>
+        <div class="metrics">📐 207 m² 🏠 4 amb. 🛏 4 dorm. 🚿 3 baños</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/58423506.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="PH" data-barrio="Saavedra" data-op="venta">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/65/52/12/360x266/2041260432.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏠 PH en Saavedra
+      </div>
+      <div class="card-body">
+        <div class="price">USD 280.000 </div>
+        <div class="price-m2">USD 1.148/m²</div>
+        <span class="trend-up">⬆ Subió de USD 189.900</span>
+        <div class="addr">📍 Arias al 3900</div>
+        <div class="metrics">📐 244 m² 🏠 5 amb. 🛏 3 dorm. 🚿 2 baños</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/58655212.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="Depósito" data-barrio="Coghlan" data-op="venta">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/50/36/03/360x266/2036707654.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        📦 Depósito en Coghlan
+      </div>
+      <div class="card-body">
+        <div class="price">USD 280.000 <span class="badge-new">NUEVA</span></div>
+        <div class="price-m2">USD 1.022/m²</div>
+        
+        <div class="addr">📍 Washington 3300</div>
+        <div class="metrics">📐 274 m²</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/58503603.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="PH" data-barrio="Núñez" data-op="venta">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/50/23/75/23/360x266/1827550287.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏠 PH en Núñez
+      </div>
+      <div class="card-body">
+        <div class="price">USD 295.000 </div>
+        <div class="price-m2">USD 1.475/m²</div>
+        
+        <div class="addr">📍 Vuelta de Obligado al 4700</div>
+        <div class="metrics">📐 200 m² 🏠 4 amb. 🛏 3 dorm. 🚿 2 baños</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/50237523.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="PH" data-barrio="Saavedra" data-op="venta">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/54/55/05/360x266/2037864654.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏠 PH en Saavedra
+      </div>
+      <div class="card-body">
+        <div class="price">USD 299.000 <span class="badge-new">NUEVA</span></div>
+        <div class="price-m2">USD 1.311/m²</div>
+        
+        <div class="addr">📍 Amenabar al 3600 1°</div>
+        <div class="metrics">📐 228 m² 🏠 4 amb. 🛏 3 dorm. 🚿 3 baños</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/58545505.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="PH" data-barrio="Saavedra" data-op="venta">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/55/09/15/08/360x266/1949879553.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏠 PH en Saavedra
+      </div>
+      <div class="card-body">
+        <div class="price">USD 320.000 </div>
+        <div class="price-m2">USD 1.600/m²</div>
+        <span class="trend-down">⬇ Bajó de USD 535.000</span>
+        <div class="addr">📍 García Del Río 2900</div>
+        <div class="metrics">📐 200 m² 🏠 6 amb. 🛏 4 dorm. 🚿 2 baños</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/55091508.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="PH" data-barrio="Coghlan" data-op="venta">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/56/36/58/87/360x266/1989327113.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏠 PH en Coghlan
+      </div>
+      <div class="card-body">
+        <div class="price">USD 320.000 <span class="badge-new">NUEVA</span></div>
+        <div class="price-m2">USD 1.081/m²</div>
+        
+        <div class="addr">📍 RICARDO GUTIERREZ al 1800</div>
+        <div class="metrics">📐 296 m² 🏠 5 amb. 🛏 4 dorm. 🚿 3 baños 🚗 1 coch.</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/56365887.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="PH" data-barrio="Saavedra" data-op="venta">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/41/40/61/360x266/2034243632.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏠 PH en Saavedra
+      </div>
+      <div class="card-body">
+        <div class="price">USD 338.000 <span class="badge-new">NUEVA</span></div>
+        <div class="price-m2">USD 1.414/m²</div>
+        
+        <div class="addr">📍 Iberá 4600</div>
+        <div class="metrics">📐 239 m² 🏠 4 amb. 🛏 3 dorm. 🚿 2 baños</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/58414061.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="PH" data-barrio="Saavedra" data-op="venta">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/44/60/27/360x266/2035118772.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏠 PH en Saavedra
+      </div>
+      <div class="card-body">
+        <div class="price">USD 345.000 </div>
+        <div class="price-m2">USD 1.683/m²</div>
+        
+        <div class="addr">📍 Mariano Acha al 4500</div>
+        <div class="metrics">📐 205 m² 🏠 4 amb. 🛏 3 dorm. 🚿 1 baños 🚗 1 coch.</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/58446027.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="PH" data-barrio="Saavedra" data-op="venta">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/50/73/79/56/360x266/1838680625.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏠 PH en Saavedra
+      </div>
+      <div class="card-body">
+        <div class="price">USD 350.000 <span class="badge-new">NUEVA</span></div>
+        <div class="price-m2">USD 1.528/m²</div>
+        
+        <div class="addr">📍 Tronador al 1100</div>
+        <div class="metrics">📐 229 m² 🏠 5 amb. 🛏 4 dorm. 🚿 3 baños</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/50737956.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="PH" data-barrio="Saavedra" data-op="venta">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/39/05/02/360x266/2033392820.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏠 PH en Saavedra
+      </div>
+      <div class="card-body">
+        <div class="price">USD 360.000 <span class="badge-new">NUEVA</span></div>
+        <div class="price-m2">USD 1.029/m²</div>
+        
+        <div class="addr">📍 Cabildo al 4400</div>
+        <div class="metrics">📐 350 m² 🏠 5 amb. 🛏 4 dorm. 🚿 2 baños</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/58390502.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="PH" data-barrio="Saavedra" data-op="venta">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/46/13/95/360x266/2035542936.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏠 PH en Saavedra
+      </div>
+      <div class="card-body">
+        <div class="price">USD 369.000 </div>
+        <div class="price-m2">USD 1.512/m²</div>
+        
+        <div class="addr">📍 Plaza 3800</div>
+        <div class="metrics">📐 244 m² 🏠 4 amb. 🛏 3 dorm. 🚿 2 baños 🚗 1 coch.</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/58461395.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="PH" data-barrio="Núñez" data-op="venta">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/57/83/52/49/360x266/2018306848.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏠 PH en Núñez
+      </div>
+      <div class="card-body">
+        <div class="price">USD 370.000 </div>
+        <div class="price-m2">USD 1.682/m²</div>
+        
+        <div class="addr">📍 Besares al 1800</div>
+        <div class="metrics">📐 220 m² 🏠 4 amb. 🛏 3 dorm. 🚿 2 baños</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/57835249.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="PH" data-barrio="Núñez" data-op="venta">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/56/57/79/69/360x266/1984466986.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏠 PH en Núñez
+      </div>
+      <div class="card-body">
+        <div class="price">USD 380.000 </div>
+        <div class="price-m2">USD 1.719/m²</div>
+        
+        <div class="addr">📍 Manzanares al 2200</div>
+        <div class="metrics">📐 221 m² 🏠 4 amb. 🛏 3 dorm. 🚿 2 baños</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/56577969.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="PH" data-barrio="Coghlan" data-op="venta">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/57/85/63/63/360x266/2018807079.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏠 PH en Coghlan
+      </div>
+      <div class="card-body">
+        <div class="price">USD 380.000 </div>
+        <div class="price-m2">USD 1.496/m²</div>
+        
+        <div class="addr">📍 MELIAN 3162. Entre Ibera y Tamborini, jose p.</div>
+        <div class="metrics">📐 254 m² 🏠 6 amb. 🛏 5 dorm. 🚿 3 baños 🚗 1 coch.</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/57856363.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="PH" data-barrio="Núñez" data-op="venta">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/57/36/37/35/360x266/2005863997.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏠 PH en Núñez
+      </div>
+      <div class="card-body">
+        <div class="price">USD 388.000 <span class="badge-new">NUEVA</span></div>
+        <div class="price-m2">USD 1.075/m²</div>
+        
+        <div class="addr">📍 Cramer 2900</div>
+        <div class="metrics">📐 361 m² 🏠 5 amb. 🛏 4 dorm. 🚿 3 baños 🚗 1 coch.</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/57363735.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="PH" data-barrio="Coghlan" data-op="venta">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/57/50/66/44/360x266/2009900709.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏠 PH en Coghlan
+      </div>
+      <div class="card-body">
+        <div class="price">USD 389.000 </div>
+        <div class="price-m2">USD 1.935/m²</div>
+        
+        <div class="addr">📍 AZURDUY 3200. Entre Pinto y Freire, Ramon</div>
+        <div class="metrics">📐 201 m² 🏠 4 amb. 🛏 3 dorm. 🚿 4 baños 🚗 1 coch.</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/57506644.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="PH" data-barrio="Saavedra" data-op="venta">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/58/48/98/360x266/2038972698.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏠 PH en Saavedra
+      </div>
+      <div class="card-body">
+        <div class="price">USD 390.000 </div>
+        <div class="price-m2">USD 992/m²</div>
+        
+        <div class="addr">📍 Cabildo al 4400</div>
+        <div class="metrics">📐 393 m² 🏠 10 amb. 🚿 2 baños</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/58584898.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="PH" data-barrio="Saavedra" data-op="venta">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/06/61/55/360x266/2028413655.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏠 PH en Saavedra
+      </div>
+      <div class="card-body">
+        <div class="price">USD 390.000 <span class="badge-new">NUEVA</span></div>
+        <div class="price-m2">USD 1.258/m²</div>
+        
+        <div class="addr">📍 Iberá 4600</div>
+        <div class="metrics">📐 310 m²</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/58066155.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="PH" data-barrio="Núñez" data-op="venta">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/59/46/49/360x266/2039299879.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏠 PH en Núñez
+      </div>
+      <div class="card-body">
+        <div class="price">USD 395.000 </div>
+        <div class="price-m2">USD 1.317/m²</div>
+        <span class="trend-up">⬆ Subió de USD 350.000</span>
+        <div class="addr">📍 Naon al 2600</div>
+        <div class="metrics">📐 300 m² 🏠 7 amb. 🛏 5 dorm. 🚿 3 baños 🚗 1 coch.</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/58594649.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="PH" data-barrio="Coghlan" data-op="venta">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/66/41/43/360x266/2041156429.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏠 PH en Coghlan
+      </div>
+      <div class="card-body">
+        <div class="price">USD 399.000 </div>
+        <div class="price-m2">USD 1.535/m²</div>
+        <span class="trend-up">⬆ Subió de USD 370.000</span>
+        <div class="addr">📍 Superí al 2900</div>
+        <div class="metrics">📐 260 m² 🏠 5 amb. 🛏 4 dorm. 🚿 2 baños</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/58664143.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="PH" data-barrio="Saavedra" data-op="venta">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/67/98/64/360x266/2041600170.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏠 PH en Saavedra
+      </div>
+      <div class="card-body">
+        <div class="price">USD 420.000 </div>
+        <div class="price-m2">USD 1.810/m²</div>
+        
+        <div class="addr">📍 Washington al 3700</div>
+        <div class="metrics">📐 232 m² 🏠 4 amb. 🛏 2 dorm. 🚿 2 baños 🚗 2 coch.</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/58679864.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="PH" data-barrio="Núñez" data-op="venta">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/57/82/60/18/360x266/2030087635.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏠 PH en Núñez
+      </div>
+      <div class="card-body">
+        <div class="price">USD 429.000 <span class="badge-new">NUEVA</span></div>
+        <div class="price-m2">USD 1.826/m²</div>
+        
+        <div class="addr">📍 Campos Salles al 2200</div>
+        <div class="metrics">📐 235 m² 🏠 5 amb. 🛏 3 dorm. 🚿 2 baños</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/57826018.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="PH" data-barrio="Núñez" data-op="venta">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/52/20/02/47/360x266/1878413803.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏠 PH en Núñez
+      </div>
+      <div class="card-body">
+        <div class="price">USD 450.000 </div>
+        <div class="price-m2">USD 1.343/m²</div>
+        
+        <div class="addr">📍 Manuela Pedraza al 2400</div>
+        <div class="metrics">📐 335 m² 🏠 11 amb. 🛏 6 dorm. 🚿 3 baños</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/52200247.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="PH" data-barrio="Saavedra" data-op="venta">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/66/24/17/360x266/2041094068.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏠 PH en Saavedra
+      </div>
+      <div class="card-body">
+        <div class="price">USD 490.000 <span class="badge-new">NUEVA</span></div>
+        <div class="price-m2">USD 1.650/m²</div>
+        
+        <div class="addr">📍 Tronador 1100</div>
+        <div class="metrics">📐 297 m²</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/58662417.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="PH" data-barrio="Núñez" data-op="venta">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/43/55/80/360x266/2034847178.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏠 PH en Núñez
+      </div>
+      <div class="card-body">
+        <div class="price">USD 540.000 <span class="badge-new">NUEVA</span></div>
+        <div class="price-m2">USD 1.327/m²</div>
+        
+        <div class="addr">📍 Manuela Pedraza al 2500</div>
+        <div class="metrics">📐 407 m² 🏠 5 amb. 🛏 4 dorm. 🚿 3 baños 🚗 2 coch.</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/58435580.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="PH" data-barrio="Saavedra" data-op="venta">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/39/04/97/360x266/2033392762.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏠 PH en Saavedra
+      </div>
+      <div class="card-body">
+        <div class="price">USD 650.000 <span class="badge-new">NUEVA</span></div>
+        <div class="price-m2">USD 1.102/m²</div>
+        
+        <div class="addr">📍 Cabildo al 4400</div>
+        <div class="metrics">📐 590 m² 🏠 5 amb. 🛏 4 dorm. 🚿 5 baños</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/58390497.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="PH" data-barrio="Saavedra" data-op="venta">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/58/48/93/360x266/2038972688.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏠 PH en Saavedra
+      </div>
+      <div class="card-body">
+        <div class="price">USD 1.100.000 <span class="badge-new">NUEVA</span></div>
+        <div class="price-m2">USD 2.517/m²</div>
+        
+        <div class="addr">📍 Cabildo al 4400</div>
+        <div class="metrics">📐 437 m² 🏠 10 amb. 🚿 3 baños</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/58584893.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="Galpón" data-barrio="Saavedra" data-op="venta">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/56/66/60/09/360x266/1986839462.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏭 Galpón en Saavedra
+      </div>
+      <div class="card-body">
+        <div class="price">USD 1.145.000 </div>
+        <div class="price-m2">USD 2.093/m²</div>
+        
+        <div class="addr">📍 Zapiola al 4800 Saavedra</div>
+        <div class="metrics">📐 547 m²</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/56666009.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="tab-content" id="tab-alquiler">
-<div class="stats-bar">
-<div class="stat"><div class="stat-label">Total activas</div><div class="stat-value">13</div></div>
-<div class="stat"><div class="stat-label">Precio promedio USD</div><div class="stat-value blue">$1.781</div></div>
-<div class="stat"><div class="stat-label">Nuevas</div><div class="stat-value green">1</div></div>
-<div class="stat"><div class="stat-label">Bajaron precio</div><div class="stat-value red">7</div></div>
-</div>
-<div class="filters">
-<button class="filter-btn active" data-filter="all">Todos</button>
-<button class="filter-btn" data-filter="PH">PH</button>
-<button class="filter-btn" data-filter="Galpón">Galpón</button>
-<button class="filter-btn" data-filter="Depósito">Depósito</button>
-<button class="filter-btn" data-filter="Oficina">Oficina</button>
-<span style="width:1px;background:var(--border);margin:0 4px"></span>
-<button class="filter-btn" data-filter="Saavedra">Saavedra</button>
-<button class="filter-btn" data-filter="Núñez">Núñez</button>
-<button class="filter-btn" data-filter="Coghlan">Coghlan</button>
-</div>
-<div class="grid" id="grid-alquiler">
-<div class="card" data-tipo="PH" data-barrio="Saavedra">
-<div class="card-img-wrap"><div class="badge new">NUEVA</div><a href="https://www.zonaprop.com.ar/propiedades/50342876.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/50/34/28/76/360x266/1830683255.jpg" alt="PH en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Saavedra</span></div>
-<div class="price">$ 600.000 </div>
-<div class="price-m2">ARS 2.308/m²</div>
-<div class="features">📐 260 m² 🏠 3 amb. 🛏 2 dorm. 🚿 2 baños 🚗 1 coch.</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57670779.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/67/07/79/360x266/2014060353.jpg" alt="PH en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Saavedra</span></div>
-<div class="price">USD 1.200 <span class="trend down">⬇ Bajó</span></div>
-<div class="prev-price">Antes: USD 218.000</div><div class="price-m2">USD 5/m²</div>
-<div class="features">📐 254 m² 🏠 6 amb. 🛏 4 dorm. 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/56555898.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/55/58/98/360x266/1983818549.jpg" alt="PH en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Saavedra</span></div>
-<div class="price">USD 1.350 <span class="trend down">⬇ Bajó</span></div>
-<div class="prev-price">Antes: USD 239.000</div><div class="price-m2">USD 7/m²</div>
-<div class="features">📐 203 m² 🏠 6 amb. 🛏 4 dorm. 🚿 3 baños</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57855475.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/85/54/75/360x266/2018786936.jpg" alt="PH en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Saavedra</span></div>
-<div class="price">USD 1.500 <span class="trend down">⬇ Bajó</span></div>
-<div class="prev-price">Antes: USD 280.000</div><div class="price-m2">USD 7/m²</div>
-<div class="features">📐 230 m² 🏠 5 amb. 🛏 3 dorm. 🚿 2 baños 🚗 1 coch.</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57683835.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/68/38/35/360x266/2014426416.jpg" alt="PH en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Saavedra</span></div>
-<div class="price">USD 1.500 <span class="trend down">⬇ Bajó</span></div>
-<div class="prev-price">Antes: USD 220.000</div><div class="price-m2">USD 7/m²</div>
-<div class="features">📐 230 m² 🏠 7 amb. 🛏 1 dorm. 🚿 3 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Núñez">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58554171.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/55/41/71/360x266/2038128424.jpg" alt="Galpón en Núñez" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Núñez</span></div>
-<div class="price">USD 1.500 <span class="trend down">⬇ Bajó</span></div>
-<div class="prev-price">Antes: USD 245.000</div><div class="price-m2">USD 7/m²</div>
-<div class="features">📐 212 m² 🏠 4 amb. 🛏 3 dorm. 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58414112.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/41/41/12/360x266/2034314478.jpg" alt="PH en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Saavedra</span></div>
-<div class="price">USD 1.600 <span class="trend down">⬇ Bajó</span></div>
-<div class="prev-price">Antes: USD 338.000</div><div class="price-m2">USD 5/m²</div>
-<div class="features">📐 330 m² 🏠 5 amb. 🛏 3 dorm. 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58679864.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/67/98/64/360x266/2041600170.jpg" alt="PH en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Saavedra</span></div>
-<div class="price">USD 2.200 <span class="trend down">⬇ Bajó</span></div>
-<div class="prev-price">Antes: USD 420.000</div><div class="price-m2">USD 9/m²</div>
-<div class="features">📐 232 m² 🏠 4 amb. 🛏 2 dorm. 🚿 2 baños 🚗 2 coch.</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58394457.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/39/44/57/360x266/2033763456.jpg" alt="Depósito en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Saavedra</span></div>
-<div class="price">USD 3.400 </div>
-<div class="price-m2">USD 9/m²</div>
-<div class="features">📐 375 m² 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58655212.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/65/52/12/360x266/2040881441.jpg" alt="PH en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Saavedra</span></div>
-<div class="price">$ 580.000 </div>
-<div class="price-m2">ARS 2.320/m²</div>
-<div class="features">📐 250 m² 🏠 4 amb. 🛏 3 dorm. 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="PH" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58628282.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/62/82/82/360x266/2040641879.jpg" alt="PH en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏠 PH en Saavedra</span></div>
-<div class="price">$ 800.000 </div>
-<div class="price-m2">ARS 3.376/m²</div>
-<div class="features">📐 237 m² 🏠 4 amb. 🛏 3 dorm. 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58497006.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/49/70/06/360x266/2038463139.jpg" alt="Galpón en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Saavedra</span></div>
-<div class="price">$ 800.000 </div>
-<div class="price-m2">ARS 3.810/m²</div>
-<div class="features">📐 210 m²</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Saavedra">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/56666009.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/66/60/09/360x266/1986337050.jpg" alt="Galpón en Saavedra" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Saavedra</span></div>
-<div class="price">$ 6.000.000 </div>
-<div class="price-m2">ARS 10.969/m²</div>
-<div class="features">📐 547 m²</div>
-</div></div>
-</div>
+<!-- ALQUILER -->
+<div id="tab-alquiler" class="tab-content">
+  <div class="stats-bar">
+    <div class="stat"><div class="stat-value">4</div><div class="stat-label">Total activas</div></div>
+    <div class="stat"><div class="stat-value">1</div><div class="stat-label">Nuevas</div></div>
+    <div class="stat"><div class="stat-value">0</div><div class="stat-label">Bajaron precio</div></div>
+  </div>
+  <div class="filters" data-target="alquiler">
+    <button class="filter-btn active" onclick="filter(this,'alquiler','all')">Todos</button>
+    <button class="filter-btn" onclick="filter(this,'alquiler','PH')">PH</button>
+    <button class="filter-btn" onclick="filter(this,'alquiler','Galpón')">Galpón</button>
+    <button class="filter-btn" onclick="filter(this,'alquiler','Depósito')">Depósito</button>
+    <button class="filter-btn" onclick="filter(this,'alquiler','Saavedra')">Saavedra</button>
+    <button class="filter-btn" onclick="filter(this,'alquiler','Núñez')">Núñez</button>
+    <button class="filter-btn" onclick="filter(this,'alquiler','Coghlan')">Coghlan</button>
+  </div>
+  <div class="grid" id="grid-alquiler">
+    
+    <div class="card" data-tipo="Depósito" data-barrio="Saavedra" data-op="alquiler">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/39/44/57/360x266/2033667147.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        📦 Depósito en Saavedra
+      </div>
+      <div class="card-body">
+        <div class="price">USD 3.400 </div>
+        <div class="price-m2">USD 9/m²</div>
+        
+        <div class="addr">📍 Conde al 4800</div>
+        <div class="metrics">📐 375 m² 🚿 2 baños</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/58394457.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="PH" data-barrio="Núñez" data-op="alquiler">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/56/62/35/360x266/2038441321.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏠 PH en Núñez
+      </div>
+      <div class="card-body">
+        <div class="price">USD 3.800 <span class="badge-new">NUEVA</span></div>
+        <div class="price-m2">USD 8/m²</div>
+        
+        <div class="addr">📍 Manuela Pedraza 1747</div>
+        <div class="metrics">📐 457 m² 🏠 9 amb. 🛏 8 dorm. 🚿 3 baños</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/58566235.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="Galpón" data-barrio="Núñez" data-op="alquiler">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/57/38/60/62/360x266/2006911831.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏭 Galpón en Núñez
+      </div>
+      <div class="card-body">
+        <div class="price">USD 4.500 </div>
+        <div class="price-m2">USD 14/m²</div>
+        
+        <div class="addr">📍 BASAVILBASO 900</div>
+        <div class="metrics">📐 311 m²</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/57386062.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card" data-tipo="PH" data-barrio="Saavedra" data-op="alquiler">
+      <div class="card-img-wrap">
+        <img src="https://imgar.zonapropcdn.com/avisos/1/00/53/23/30/52/360x266/1901667753.jpg" alt="" loading="lazy" onerror="this.style.display=none">
+        
+        
+      </div>
+      <div class="card-header">
+        🏠 PH en Saavedra
+      </div>
+      <div class="card-body">
+        <div class="price">$2.400.000 </div>
+        <div class="price-m2">$11.429/m²</div>
+        
+        <div class="addr">📍 Valdenegro 4456</div>
+        <div class="metrics">📐 210 m² 🏠 5 amb. 🛏 4 dorm. 🚿 3 baños</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/53233052.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="tab-content" id="tab-otros">
-<div class="stats-bar">
-<div class="stat"><div class="stat-label">Propiedades zona ampliada</div><div class="stat-value">105</div></div>
-</div>
-<div class="filters">
-<button class="filter-btn active" data-filter="all">Todos</button>
-<button class="filter-btn" data-filter="Galpón">Galpón</button>
-<button class="filter-btn" data-filter="Depósito">Depósito</button>
-</div>
-<div class="grid" id="grid-otros">
-<div class="card" data-tipo="Galpón" data-barrio="Villa Urquiza">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/55122515.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/55/12/25/15/360x266/1949147693.jpg" alt="Galpón en Villa Urquiza" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Urquiza</span></div>
-<div class="price">USD 1.300.000 </div>
-<div class="price-m2">USD 696/m²</div>
-<div class="features">📐 1868 m²</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/55180210.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/55/18/02/10/360x266/2012782761.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">USD 430.000 </div>
-<div class="price-m2">USD 869/m²</div>
-<div class="features">📐 495 m² 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58603219.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/60/32/19/360x266/2039517277.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">USD 1.100.000 </div>
-<div class="price-m2">USD 846/m²</div>
-<div class="features">📐 1300 m² 🚿 5 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57556386.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/55/63/86/360x266/2011338093.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">USD 540.000 </div>
-<div class="price-m2">USD 684/m²</div>
-<div class="features">📐 790 m² 🏠 1 amb. 🚿 6 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57358850.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/35/88/50/360x266/2006156671.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">USD 5.500.000 </div>
-<div class="price-m2">USD 367/m²</div>
-<div class="features">📐 15000 m² 🚿 10 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/52375243.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/52/37/52/43/360x266/1884037988.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">USD 540.000 </div>
-<div class="price-m2">USD 1.038/m²</div>
-<div class="features">📐 520 m² 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58127604.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/12/76/04/360x266/2026633085.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">USD 2.950.000 </div>
-<div class="price-m2">USD 797/m²</div>
-<div class="features">📐 3700 m² 🚿 20 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><div class="badge new">NUEVA</div><a href="https://www.zonaprop.com.ar/propiedades/50737956.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/50/73/79/56/360x266/1842674960.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">USD 550.000 </div>
-<div class="price-m2">USD 1.058/m²</div>
-<div class="features">📐 520 m² 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/53020478.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/53/02/04/78/360x266/1897098688.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">USD 4.500.000 </div>
-<div class="price-m2">USD 829/m²</div>
-<div class="features">📐 5430 m²</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57876502.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/87/65/02/360x266/2019345175.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">USD 310.000 </div>
-<div class="price-m2">USD 920/m²</div>
-<div class="features">📐 337 m²</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/54561855.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/54/56/18/55/360x266/1934829995.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">USD 800.000 </div>
-<div class="price-m2">USD 833/m²</div>
-<div class="features">📐 960 m² 🚿 6 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Florida">
-<div class="card-img-wrap"><div class="badge new">NUEVA</div><a href="https://www.zonaprop.com.ar/propiedades/48146188.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/48/14/61/88/360x266/2024258738.jpg" alt="Galpón en Florida" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Florida</span></div>
-<div class="price">USD 750.000 </div>
-<div class="price-m2">USD 576/m²</div>
-<div class="features">📐 1301 m²</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57956032.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/95/60/32/360x266/2021472817.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">USD 250.000 </div>
-<div class="price-m2">USD 1.157/m²</div>
-<div class="features">📐 216 m² 🏠 1 amb.</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/54722437.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/54/72/24/37/360x266/1938809320.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">USD 600.000 </div>
-<div class="price-m2">USD 1.154/m²</div>
-<div class="features">📐 520 m² 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Urquiza">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/56738574.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/73/85/74/360x266/1988949282.jpg" alt="Galpón en Villa Urquiza" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Urquiza</span></div>
-<div class="price">USD 330.000 </div>
-<div class="price-m2">USD 1.138/m²</div>
-<div class="features">📐 290 m² 🏠 7 amb. 🚿 4 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><div class="badge new">NUEVA</div><a href="https://www.zonaprop.com.ar/propiedades/52002868.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/52/00/28/68/360x266/1873800548.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">USD 2.700.000 </div>
-<div class="price-m2">USD 818/m²</div>
-<div class="features">📐 3300 m² 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/53233052.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/53/23/30/52/360x266/1901667753.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">USD 850.000 </div>
-<div class="price-m2">USD 500/m²</div>
-<div class="features">📐 1700 m² 🚿 10 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57789976.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/78/99/76/360x266/2017250656.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">USD 1.800.000 </div>
-<div class="price-m2">USD 720/m²</div>
-<div class="features">📐 2500 m² 🚿 10 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58021308.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/02/13/08/360x266/2023456478.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">USD 1.200.000 </div>
-<div class="price-m2">USD 800/m²</div>
-<div class="features">📐 1500 m² 🚿 3 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Florida">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57774659.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/77/46/59/360x266/2016810805.jpg" alt="Galpón en Florida" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Florida</span></div>
-<div class="price">USD 980.000 </div>
-<div class="price-m2">USD 963/m²</div>
-<div class="features">📐 1018 m² 🚿 6 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Urquiza">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58066155.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/06/61/55/360x266/2024552007.jpg" alt="Galpón en Villa Urquiza" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Urquiza</span></div>
-<div class="price">USD 170.000 </div>
-<div class="price-m2">USD 773/m²</div>
-<div class="features">📐 220 m² 🏠 4 amb. 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Florida">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58687723.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/68/77/23/360x266/2041823419.jpg" alt="Galpón en Florida" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Florida</span></div>
-<div class="price">USD 280.000 </div>
-<div class="price-m2">USD 753/m²</div>
-<div class="features">📐 372 m² 🚿 1 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57826018.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/82/60/18/360x266/2030087635.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">USD 495.000 </div>
-<div class="price-m2">USD 825/m²</div>
-<div class="features">📐 600 m² 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58640893.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/64/08/93/360x266/2040529181.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">USD 660.000 </div>
-<div class="price-m2">USD 857/m²</div>
-<div class="features">📐 770 m² 🚿 3 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58635766.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/63/57/66/360x266/2040382148.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">USD 430.000 </div>
-<div class="price-m2">USD 869/m²</div>
-<div class="features">📐 495 m² 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58627437.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/62/74/37/360x266/2040618004.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">USD 750.000 </div>
-<div class="price-m2">USD 1.442/m²</div>
-<div class="features">📐 520 m² 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58607891.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/60/78/91/360x266/2039645001.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">USD 550.000 </div>
-<div class="price-m2">USD 1.058/m²</div>
-<div class="features">📐 520 m² 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58631479.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/63/14/79/360x266/2040267014.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">USD 550.000 </div>
-<div class="price-m2">USD 917/m²</div>
-<div class="features">📐 600 m² 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57604196.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/60/41/96/360x266/2012782446.jpg" alt="Depósito en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Villa Martelli</span></div>
-<div class="price">USD 430.000 </div>
-<div class="price-m2">USD 869/m²</div>
-<div class="features">📐 495 m² 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57972545.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/97/25/45/360x266/2021958505.jpg" alt="Depósito en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Villa Martelli</span></div>
-<div class="price">USD 355.000 </div>
-<div class="price-m2">USD 1.485/m²</div>
-<div class="features">📐 239 m² 🏠 5 amb. 🚿 1 baños</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58602018.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/60/20/18/360x266/2039484111.jpg" alt="Depósito en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Villa Martelli</span></div>
-<div class="price">USD 2.200.000 </div>
-<div class="price-m2">USD 864/m²</div>
-<div class="features">📐 2545 m²</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Florida">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57732104.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/73/21/04/360x266/2015738901.jpg" alt="Depósito en Florida" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Florida</span></div>
-<div class="price">USD 980.000 </div>
-<div class="price-m2">USD 1.628/m²</div>
-<div class="features">📐 602 m² 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/55053066.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/55/05/30/66/360x266/1946942966.jpg" alt="Depósito en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Villa Martelli</span></div>
-<div class="price">USD 400.000 </div>
-<div class="price-m2">USD 1.250/m²</div>
-<div class="features">📐 320 m² 🏠 3 amb. 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Florida">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/56758894.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/75/88/94/360x266/1989494834.jpg" alt="Depósito en Florida" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Florida</span></div>
-<div class="price">USD 300.000 </div>
-<div class="price-m2">USD 1.500/m²</div>
-<div class="features">📐 200 m² 🏠 6 amb. 🚿 2 baños 🚗 1 coch.</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Florida">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58195950.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/19/59/50/360x266/2028193269.jpg" alt="Depósito en Florida" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Florida</span></div>
-<div class="price">USD 990.000 </div>
-<div class="price-m2">USD 1.012/m²</div>
-<div class="features">📐 978 m² 🏠 6 amb. 🚿 4 baños 🚗 6 coch.</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57280216.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/28/02/16/360x266/2004192589.jpg" alt="Depósito en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Villa Martelli</span></div>
-<div class="price">USD 1.500.000 </div>
-<div class="price-m2">USD 882/m²</div>
-<div class="features">📐 1700 m² 🚿 10 baños</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/55053108.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/55/05/31/08/360x266/1946944363.jpg" alt="Depósito en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Villa Martelli</span></div>
-<div class="price">USD 3.600.000 </div>
-<div class="price-m2">USD 663/m²</div>
-<div class="features">📐 5430 m²</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/56724675.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/72/46/75/360x266/1988532133.jpg" alt="Depósito en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Villa Martelli</span></div>
-<div class="price">USD 1.500.000 </div>
-<div class="price-m2">USD 1.330/m²</div>
-<div class="features">📐 1128 m²</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Villa Urquiza">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58653677.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/65/36/77/360x266/2040840556.jpg" alt="Depósito en Villa Urquiza" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Villa Urquiza</span></div>
-<div class="price">Consultar precio </div>
+<!-- BAJAS -->
+<div id="tab-bajas" class="tab-content">
+  <div class="stats-bar">
+    <div class="stat"><div class="stat-value">29</div><div class="stat-label">Dadas de baja</div></div>
+  </div>
+  <div class="grid" id="grid-bajas">
+    
+    <div class="card baja-card" data-op="venta">
+      <div class="card-img-wrap">
+        <div class="no-img">—</div>
+        <div class="baja-stamp">DADO DE BAJA</div>
+      </div>
+      <div class="card-header">ID: 58497006</div>
+      <div class="card-body">
+        <div class="price prev-price">USD 165.000</div>
+        <div class="addr">Operación: Venta</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/58497006.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
 
-<div class="features">📐 908 m²</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Florida">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58609406.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/60/94/06/360x266/2039687752.jpg" alt="Depósito en Florida" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Florida</span></div>
-<div class="price">USD 260.000 </div>
-<div class="price-m2">USD 985/m²</div>
-<div class="features">📐 264 m² 🚿 2 baños 🚗 1 coch.</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Florida">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58228014.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/22/80/14/360x266/2029070254.jpg" alt="Depósito en Florida" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Florida</span></div>
-<div class="price">USD 2.200.000 </div>
-<div class="price-m2">USD 778/m²</div>
-<div class="features">📐 2829 m²</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58651460.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/65/14/60/360x266/2040781116.jpg" alt="Depósito en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Villa Martelli</span></div>
-<div class="price">USD 2.200.000 </div>
-<div class="price-m2">USD 794/m²</div>
-<div class="features">📐 2770 m² 🚿 7 baños 🚗 6 coch.</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><div class="badge new">NUEVA</div><a href="https://www.zonaprop.com.ar/propiedades/54242021.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/54/24/20/21/360x266/1925956897.jpg" alt="Depósito en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Villa Martelli</span></div>
-<div class="price">USD 370.000 </div>
-<div class="price-m2">USD 974/m²</div>
-<div class="features">📐 380 m² 🚿 5 baños</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57831204.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/83/12/04/360x266/2018210812.jpg" alt="Depósito en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Villa Martelli</span></div>
-<div class="price">USD 480.000 </div>
-<div class="price-m2">USD 500/m²</div>
-<div class="features">📐 960 m² 🚿 6 baños</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58041125.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/04/11/25/360x266/2023819514.jpg" alt="Depósito en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Villa Martelli</span></div>
-<div class="price">USD 279.000 </div>
-<div class="price-m2">USD 734/m²</div>
-<div class="features">📐 380 m² 🚿 2 baños 🚗 1 coch.</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Villa Urquiza">
-<div class="card-img-wrap"><div class="badge new">NUEVA</div><a href="https://www.zonaprop.com.ar/propiedades/54418385.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/54/41/83/85/360x266/1930828113.jpg" alt="Depósito en Villa Urquiza" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Villa Urquiza</span></div>
-<div class="price">USD 330.000 </div>
-<div class="price-m2">USD 1.138/m²</div>
-<div class="features">📐 290 m² 🏠 7 amb. 🚿 4 baños</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57789443.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/78/94/43/360x266/2017237592.jpg" alt="Depósito en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Villa Martelli</span></div>
-<div class="price">USD 218.000 </div>
-<div class="price-m2">USD 426/m²</div>
-<div class="features">📐 512 m² 🚿 4 baños</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Villa Urquiza">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/56874751.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/87/47/51/360x266/1992508403.jpg" alt="Depósito en Villa Urquiza" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Villa Urquiza</span></div>
-<div class="price">USD 790.000 </div>
-<div class="price-m2">USD 1.328/m²</div>
-<div class="features">📐 595 m² 🚿 1 baños</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><div class="badge new">NUEVA</div><a href="https://www.zonaprop.com.ar/propiedades/54075694.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/54/07/56/94/360x266/1921630154.jpg" alt="Depósito en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Villa Martelli</span></div>
-<div class="price">USD 950.000 </div>
-<div class="price-m2">USD 1.303/m²</div>
-<div class="features">📐 729 m² 🚿 5 baños 🚗 1 coch.</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Villa Urquiza">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/56186871.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/18/68/71/360x266/1975097279.jpg" alt="Depósito en Villa Urquiza" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Villa Urquiza</span></div>
-<div class="price">USD 380.000 </div>
-<div class="price-m2">USD 1.124/m²</div>
-<div class="features">📐 338 m²</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58421289.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/42/12/89/360x266/2034518791.jpg" alt="Depósito en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Villa Martelli</span></div>
-<div class="price">USD 400.000 </div>
-<div class="price-m2">USD 1.250/m²</div>
-<div class="features">📐 320 m² 🏠 3 amb. 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/55053056.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/55/05/30/56/360x266/1946942377.jpg" alt="Depósito en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Villa Martelli</span></div>
-<div class="price">USD 600.000 </div>
-<div class="price-m2">USD 1.154/m²</div>
-<div class="features">📐 520 m² 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58580478.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/58/04/78/360x266/2038846068.jpg" alt="Depósito en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Villa Martelli</span></div>
-<div class="price">USD 200.000 </div>
-<div class="price-m2">USD 593/m²</div>
-<div class="features">📐 337 m²</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58681651.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/68/16/51/360x266/2041651373.jpg" alt="Depósito en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Villa Martelli</span></div>
-<div class="price">USD 420.000 </div>
-<div class="price-m2">USD 808/m²</div>
-<div class="features">📐 520 m² 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58680694.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/68/06/94/360x266/2041625118.jpg" alt="Depósito en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Villa Martelli</span></div>
-<div class="price">USD 310.000 </div>
-<div class="price-m2">USD 920/m²</div>
-<div class="features">📐 337 m²</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/55180210.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/55/18/02/10/360x266/2012782761.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">$ 3.650.000 </div>
-<div class="price-m2">ARS 7.374/m²</div>
-<div class="features">📐 495 m² 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58212689.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/21/26/89/360x266/2028639541.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">USD 32.000 </div>
-<div class="price-m2">USD 5/m²</div>
-<div class="features">📐 6500 m² 🚿 4 baños 🚗 20 coch.</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58337107.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/33/71/07/360x266/2032043667.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">$ 3.000.000 </div>
-<div class="price-m2">ARS 8.571/m²</div>
-<div class="features">📐 350 m²</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58047360.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/04/73/60/360x266/2023960013.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">USD 14.000 </div>
-<div class="price-m2">USD 4/m²</div>
-<div class="features">📐 3300 m² 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58553908.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/55/39/08/360x266/2038099015.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">$ 3.750.000 </div>
-<div class="price-m2">ARS 9.740/m²</div>
-<div class="features">📐 385 m² 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/56702422.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/70/24/22/360x266/1987899845.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">$ 3.400.000 </div>
-<div class="price-m2">ARS 6.800/m²</div>
-<div class="features">📐 500 m² 🚿 3 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Florida">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57649678.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/64/96/78/360x266/2013489175.jpg" alt="Galpón en Florida" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Florida</span></div>
-<div class="price">USD 11.000 </div>
-<div class="price-m2">USD 8/m²</div>
-<div class="features">📐 1301 m²</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Maipu">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57761825.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/76/18/25/360x266/2016484045.jpg" alt="Galpón en Villa Maipu" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Maipu</span></div>
-<div class="price">$ 5.800.000 </div>
-<div class="price-m2">ARS 7.532/m²</div>
-<div class="features">📐 770 m² 🏠 8 amb. 🚿 3 baños 🚗 20 coch.</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Pueyrredón">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58268069.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/26/80/69/360x266/2030174379.jpg" alt="Galpón en Villa Pueyrredón" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Pueyrredón</span></div>
-<div class="price">USD 2.500 </div>
-<div class="price-m2">USD 8/m²</div>
-<div class="features">📐 300 m² 🏠 1 amb. 🚿 1 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57556386.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/55/63/86/360x266/2011338093.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">USD 5.400 <span class="trend down">⬇ Bajó</span></div>
-<div class="prev-price">Antes: USD 540.000</div><div class="price-m2">USD 7/m²</div>
-<div class="features">📐 790 m² 🏠 1 amb. 🚿 6 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/52375243.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/52/37/52/43/360x266/1884037988.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">USD 5.400 <span class="trend down">⬇ Bajó</span></div>
-<div class="prev-price">Antes: USD 540.000</div><div class="price-m2">USD 10/m²</div>
-<div class="features">📐 520 m² 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Urquiza">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/55122515.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/55/12/25/15/360x266/1949147693.jpg" alt="Galpón en Villa Urquiza" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Urquiza</span></div>
-<div class="price">$ 7.500.000 </div>
-<div class="price-m2">ARS 4.015/m²</div>
-<div class="features">📐 1868 m²</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57876502.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/87/65/02/360x266/2019345175.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">$ 2.200.000 </div>
-<div class="price-m2">ARS 6.528/m²</div>
-<div class="features">📐 337 m²</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58603219.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/60/32/19/360x266/2039517277.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">USD 11.000 <span class="trend down">⬇ Bajó</span></div>
-<div class="prev-price">Antes: USD 1.100.000</div><div class="price-m2">USD 8/m²</div>
-<div class="features">📐 1300 m² 🚿 5 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><div class="badge new">NUEVA</div><a href="https://www.zonaprop.com.ar/propiedades/50737956.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/50/73/79/56/360x266/1842674960.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">USD 5.500 </div>
-<div class="price-m2">USD 11/m²</div>
-<div class="features">📐 520 m² 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/53020478.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/53/02/04/78/360x266/1897098688.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">USD 36.000 <span class="trend down">⬇ Bajó</span></div>
-<div class="prev-price">Antes: USD 4.500.000</div><div class="price-m2">USD 7/m²</div>
-<div class="features">📐 5430 m²</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57358850.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/35/88/50/360x266/2006156671.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">USD 80.000 <span class="trend down">⬇ Bajó</span></div>
-<div class="prev-price">Antes: USD 5.500.000</div><div class="price-m2">USD 5/m²</div>
-<div class="features">📐 15000 m² 🚿 10 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Florida">
-<div class="card-img-wrap"><div class="badge new">NUEVA</div><a href="https://www.zonaprop.com.ar/propiedades/48146188.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/48/14/61/88/360x266/2024258738.jpg" alt="Galpón en Florida" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Florida</span></div>
-<div class="price">USD 11.000 </div>
-<div class="price-m2">USD 8/m²</div>
-<div class="features">📐 1301 m²</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/54561855.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/54/56/18/55/360x266/1934829995.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">USD 7.680 <span class="trend down">⬇ Bajó</span></div>
-<div class="prev-price">Antes: USD 800.000</div><div class="price-m2">USD 8/m²</div>
-<div class="features">📐 960 m² 🚿 6 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58127604.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/12/76/04/360x266/2026633085.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">USD 30.000 <span class="trend down">⬇ Bajó</span></div>
-<div class="prev-price">Antes: USD 2.950.000</div><div class="price-m2">USD 8/m²</div>
-<div class="features">📐 3700 m² 🚿 20 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/54722437.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/54/72/24/37/360x266/1938809320.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">USD 6.000 <span class="trend down">⬇ Bajó</span></div>
-<div class="prev-price">Antes: USD 600.000</div><div class="price-m2">USD 12/m²</div>
-<div class="features">📐 520 m² 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><div class="badge new">NUEVA</div><a href="https://www.zonaprop.com.ar/propiedades/52002868.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/52/00/28/68/360x266/1873800548.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">USD 22.000 </div>
-<div class="price-m2">USD 7/m²</div>
-<div class="features">📐 3300 m² 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/53233052.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/53/23/30/52/360x266/1901667753.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">USD 13.600 <span class="trend down">⬇ Bajó</span></div>
-<div class="prev-price">Antes: USD 850.000</div><div class="price-m2">USD 8/m²</div>
-<div class="features">📐 1700 m² 🚿 10 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Florida">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57774659.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/77/46/59/360x266/2016810805.jpg" alt="Galpón en Florida" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Florida</span></div>
-<div class="price">USD 7.840 <span class="trend down">⬇ Bajó</span></div>
-<div class="prev-price">Antes: USD 980.000</div><div class="price-m2">USD 8/m²</div>
-<div class="features">📐 1018 m² 🚿 6 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57789976.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/78/99/76/360x266/2017250656.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">USD 14.400 <span class="trend down">⬇ Bajó</span></div>
-<div class="prev-price">Antes: USD 1.800.000</div><div class="price-m2">USD 6/m²</div>
-<div class="features">📐 2500 m² 🚿 10 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Urquiza">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/56738574.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/73/85/74/360x266/1988949282.jpg" alt="Galpón en Villa Urquiza" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Urquiza</span></div>
-<div class="price">$ 1.800.000 </div>
-<div class="price-m2">ARS 6.207/m²</div>
-<div class="features">📐 290 m² 🏠 7 amb. 🚿 4 baños</div>
-</div></div>
-<div class="card" data-tipo="Galpón" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58021308.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/02/13/08/360x266/2023456478.jpg" alt="Galpón en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>🏭 Galpón en Villa Martelli</span></div>
-<div class="price">USD 12.000 <span class="trend down">⬇ Bajó</span></div>
-<div class="prev-price">Antes: USD 1.200.000</div><div class="price-m2">USD 8/m²</div>
-<div class="features">📐 1500 m² 🚿 3 baños</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/56620424.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/62/04/24/360x266/1985036637.jpg" alt="Depósito en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Villa Martelli</span></div>
-<div class="price">USD 12.300 </div>
-<div class="price-m2">USD 11/m²</div>
-<div class="features">📐 1128 m²</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57604196.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/60/41/96/360x266/2012782446.jpg" alt="Depósito en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Villa Martelli</span></div>
-<div class="price">$ 3.650.000 </div>
-<div class="price-m2">ARS 7.374/m²</div>
-<div class="features">📐 495 m² 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Florida">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58101428.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/10/14/28/360x266/2025560333.jpg" alt="Depósito en Florida" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Florida</span></div>
-<div class="price">USD 5.300 </div>
-<div class="price-m2">USD 9/m²</div>
-<div class="features">📐 602 m² 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Florida">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57112074.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/11/20/74/360x266/2002021345.jpg" alt="Depósito en Florida" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Florida</span></div>
-<div class="price">USD 2.000 </div>
-<div class="price-m2">USD 8/m²</div>
-<div class="features">📐 250 m²</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Vicente López">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57112167.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/11/21/67/360x266/2002023969.jpg" alt="Depósito en Vicente López" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Vicente López</span></div>
-<div class="price">USD 38.000 </div>
-<div class="price-m2">USD 10/m²</div>
-<div class="features">📐 4000 m²</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58656975.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/65/69/75/360x266/2040931263.jpg" alt="Depósito en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Villa Martelli</span></div>
-<div class="price">USD 2.300 </div>
-<div class="price-m2">USD 10/m²</div>
-<div class="features">📐 242 m² 🚿 1 baños</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Belgrano">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58510558.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/51/05/58/360x266/2037174735.jpg" alt="Depósito en Belgrano" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Belgrano</span></div>
-<div class="price">$ 3.600.000 </div>
-<div class="price-m2">ARS 8.571/m²</div>
-<div class="features">📐 420 m² 🏠 8 amb. 🚿 5 baños 🚗 1 coch.</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Florida">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58437114.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/43/71/14/360x266/2034965428.jpg" alt="Depósito en Florida" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Florida</span></div>
-<div class="price">$ 3.000.000 </div>
-<div class="price-m2">ARS 8.571/m²</div>
-<div class="features">📐 350 m² 🚿 1 baños</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/56566395.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/56/63/95/360x266/1984034499.jpg" alt="Depósito en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Villa Martelli</span></div>
-<div class="price">USD 12.300 </div>
-<div class="price-m2">USD 11/m²</div>
-<div class="features">📐 1128 m²</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Vicente López">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/56521798.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/52/17/98/360x266/1982809889.jpg" alt="Depósito en Vicente López" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Vicente López</span></div>
-<div class="price">USD 3.000 </div>
-<div class="price-m2">USD 8/m²</div>
-<div class="features">📐 400 m²</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Florida">
-<div class="card-img-wrap"><div class="badge new">NUEVA</div><a href="https://www.zonaprop.com.ar/propiedades/57717406.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/71/74/06/360x266/2015401135.jpg" alt="Depósito en Florida" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Florida</span></div>
-<div class="price">USD 5.800 </div>
-<div class="price-m2">USD 10/m²</div>
-<div class="features">📐 579 m² 🏠 11 amb. 🚿 5 baños 🚗 1 coch.</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58559607.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/55/96/07/360x266/2038274050.jpg" alt="Depósito en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Villa Martelli</span></div>
-<div class="price">USD 7.000 </div>
-<div class="price-m2">USD 7/m²</div>
-<div class="features">📐 1000 m² 🏠 9 amb. 🚿 5 baños 🚗 2 coch.</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><div class="badge new">NUEVA</div><a href="https://www.zonaprop.com.ar/propiedades/53728069.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/53/72/80/69/360x266/1912973399.jpg" alt="Depósito en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Villa Martelli</span></div>
-<div class="price">Consultar precio </div>
+    <div class="card baja-card" data-op="venta">
+      <div class="card-img-wrap">
+        <div class="no-img">—</div>
+        <div class="baja-stamp">DADO DE BAJA</div>
+      </div>
+      <div class="card-header">ID: 54833210</div>
+      <div class="card-body">
+        <div class="price prev-price">USD 180.000</div>
+        <div class="addr">Operación: Venta</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/54833210.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
 
-<div class="features">📐 570 m² 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/58602018.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/58/60/20/18/360x266/2039484111.jpg" alt="Depósito en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Villa Martelli</span></div>
-<div class="price">USD 17.600 <span class="trend down">⬇ Bajó</span></div>
-<div class="prev-price">Antes: USD 2.200.000</div><div class="price-m2">USD 7/m²</div>
-<div class="features">📐 2545 m²</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57280216.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/28/02/16/360x266/2004192589.jpg" alt="Depósito en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Villa Martelli</span></div>
-<div class="price">USD 13.600 <span class="trend down">⬇ Bajó</span></div>
-<div class="prev-price">Antes: USD 1.500.000</div><div class="price-m2">USD 8/m²</div>
-<div class="features">📐 1700 m² 🚿 10 baños</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/55053108.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/55/05/31/08/360x266/1946944363.jpg" alt="Depósito en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Villa Martelli</span></div>
-<div class="price">USD 36.000 <span class="trend down">⬇ Bajó</span></div>
-<div class="prev-price">Antes: USD 3.600.000</div><div class="price-m2">USD 7/m²</div>
-<div class="features">📐 5430 m²</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Florida">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57732104.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/73/21/04/360x266/2015738901.jpg" alt="Depósito en Florida" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Florida</span></div>
-<div class="price">USD 7.840 <span class="trend down">⬇ Bajó</span></div>
-<div class="prev-price">Antes: USD 980.000</div><div class="price-m2">USD 13/m²</div>
-<div class="features">📐 602 m² 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/56724675.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/56/72/46/75/360x266/1988532133.jpg" alt="Depósito en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Villa Martelli</span></div>
-<div class="price">USD 9.024 <span class="trend down">⬇ Bajó</span></div>
-<div class="prev-price">Antes: USD 1.500.000</div><div class="price-m2">USD 8/m²</div>
-<div class="features">📐 1128 m²</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/55053066.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/55/05/30/66/360x266/1946942966.jpg" alt="Depósito en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Villa Martelli</span></div>
-<div class="price">USD 3.200 <span class="trend down">⬇ Bajó</span></div>
-<div class="prev-price">Antes: USD 400.000</div><div class="price-m2">USD 10/m²</div>
-<div class="features">📐 320 m² 🏠 3 amb. 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57831204.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/83/12/04/360x266/2018210812.jpg" alt="Depósito en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Villa Martelli</span></div>
-<div class="price">USD 7.680 <span class="trend down">⬇ Bajó</span></div>
-<div class="prev-price">Antes: USD 480.000</div><div class="price-m2">USD 8/m²</div>
-<div class="features">📐 960 m² 🚿 6 baños</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/55053056.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/55/05/30/56/360x266/1946942377.jpg" alt="Depósito en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Villa Martelli</span></div>
-<div class="price">USD 5.200 <span class="trend down">⬇ Bajó</span></div>
-<div class="prev-price">Antes: USD 600.000</div><div class="price-m2">USD 10/m²</div>
-<div class="features">📐 520 m² 🚿 2 baños</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><div class="badge new">NUEVA</div><a href="https://www.zonaprop.com.ar/propiedades/54075694.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/54/07/56/94/360x266/1921630154.jpg" alt="Depósito en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Villa Martelli</span></div>
-<div class="price">USD 7.584 </div>
-<div class="price-m2">USD 10/m²</div>
-<div class="features">📐 729 m² 🚿 5 baños 🚗 1 coch.</div>
-</div></div>
-<div class="card" data-tipo="Depósito" data-barrio="Villa Martelli">
-<div class="card-img-wrap"><a href="https://www.zonaprop.com.ar/propiedades/57789443.html" target="_blank"><img src="https://imgar.zonapropcdn.com/avisos/1/00/57/78/94/43/360x266/2017237592.jpg" alt="Depósito en Villa Martelli" loading="lazy"></a></div>
-<div class="card-body">
-<div class="card-header"><span>📦 Depósito en Villa Martelli</span></div>
-<div class="price">USD 4.096 <span class="trend down">⬇ Bajó</span></div>
-<div class="prev-price">Antes: USD 218.000</div><div class="price-m2">USD 8/m²</div>
-<div class="features">📐 512 m² 🚿 4 baños</div>
-</div></div>
-</div>
-</div>
+    <div class="card baja-card" data-op="venta">
+      <div class="card-img-wrap">
+        <div class="no-img">—</div>
+        <div class="baja-stamp">DADO DE BAJA</div>
+      </div>
+      <div class="card-header">ID: 57683835</div>
+      <div class="card-body">
+        <div class="price prev-price">USD 220.000</div>
+        <div class="addr">Operación: Venta</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/57683835.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
 
-<footer>
-Monitor Inmobiliario — Saavedra / Núñez / Coghlan (200-600 m²) — Contexto: Superi 3540<br>
-Actualizado automáticamente el 2026-03-27 · Datos de Zonaprop
-</footer>
+    <div class="card baja-card" data-op="venta">
+      <div class="card-img-wrap">
+        <div class="no-img">—</div>
+        <div class="baja-stamp">DADO DE BAJA</div>
+      </div>
+      <div class="card-header">ID: 56555898</div>
+      <div class="card-body">
+        <div class="price prev-price">USD 239.000</div>
+        <div class="addr">Operación: Venta</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/56555898.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card baja-card" data-op="venta">
+      <div class="card-img-wrap">
+        <div class="no-img">—</div>
+        <div class="baja-stamp">DADO DE BAJA</div>
+      </div>
+      <div class="card-header">ID: 58414112</div>
+      <div class="card-body">
+        <div class="price prev-price">USD 250.000</div>
+        <div class="addr">Operación: Venta</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/58414112.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card baja-card" data-op="venta">
+      <div class="card-img-wrap">
+        <div class="no-img">—</div>
+        <div class="baja-stamp">DADO DE BAJA</div>
+      </div>
+      <div class="card-header">ID: 58260401</div>
+      <div class="card-body">
+        <div class="price prev-price">USD 250.000</div>
+        <div class="addr">Operación: Venta</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/58260401.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card baja-card" data-op="venta">
+      <div class="card-img-wrap">
+        <div class="no-img">—</div>
+        <div class="baja-stamp">DADO DE BAJA</div>
+      </div>
+      <div class="card-header">ID: 58015783</div>
+      <div class="card-body">
+        <div class="price prev-price">USD 250.000</div>
+        <div class="addr">Operación: Venta</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/58015783.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card baja-card" data-op="venta">
+      <div class="card-img-wrap">
+        <div class="no-img">—</div>
+        <div class="baja-stamp">DADO DE BAJA</div>
+      </div>
+      <div class="card-header">ID: 57048261</div>
+      <div class="card-body">
+        <div class="price prev-price">USD 255.000</div>
+        <div class="addr">Operación: Venta</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/57048261.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card baja-card" data-op="venta">
+      <div class="card-img-wrap">
+        <div class="no-img">—</div>
+        <div class="baja-stamp">DADO DE BAJA</div>
+      </div>
+      <div class="card-header">ID: 58628282</div>
+      <div class="card-body">
+        <div class="price prev-price">USD 259.000</div>
+        <div class="addr">Operación: Venta</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/58628282.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card baja-card" data-op="venta">
+      <div class="card-img-wrap">
+        <div class="no-img">—</div>
+        <div class="baja-stamp">DADO DE BAJA</div>
+      </div>
+      <div class="card-header">ID: 58634133</div>
+      <div class="card-body">
+        <div class="price prev-price">USD 259.000</div>
+        <div class="addr">Operación: Venta</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/58634133.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card baja-card" data-op="venta">
+      <div class="card-img-wrap">
+        <div class="no-img">—</div>
+        <div class="baja-stamp">DADO DE BAJA</div>
+      </div>
+      <div class="card-header">ID: 55075695</div>
+      <div class="card-body">
+        <div class="price prev-price">USD 270.000</div>
+        <div class="addr">Operación: Venta</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/55075695.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card baja-card" data-op="venta">
+      <div class="card-img-wrap">
+        <div class="no-img">—</div>
+        <div class="baja-stamp">DADO DE BAJA</div>
+      </div>
+      <div class="card-header">ID: 58060762</div>
+      <div class="card-body">
+        <div class="price prev-price">USD 270.000</div>
+        <div class="addr">Operación: Venta</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/58060762.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card baja-card" data-op="venta">
+      <div class="card-img-wrap">
+        <div class="no-img">—</div>
+        <div class="baja-stamp">DADO DE BAJA</div>
+      </div>
+      <div class="card-header">ID: 57855475</div>
+      <div class="card-body">
+        <div class="price prev-price">USD 280.000</div>
+        <div class="addr">Operación: Venta</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/57855475.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card baja-card" data-op="venta">
+      <div class="card-img-wrap">
+        <div class="no-img">—</div>
+        <div class="baja-stamp">DADO DE BAJA</div>
+      </div>
+      <div class="card-header">ID: 58212376</div>
+      <div class="card-body">
+        <div class="price prev-price">USD 292.000</div>
+        <div class="addr">Operación: Venta</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/58212376.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card baja-card" data-op="venta">
+      <div class="card-img-wrap">
+        <div class="no-img">—</div>
+        <div class="baja-stamp">DADO DE BAJA</div>
+      </div>
+      <div class="card-header">ID: 54212487</div>
+      <div class="card-body">
+        <div class="price prev-price">USD 299.000</div>
+        <div class="addr">Operación: Venta</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/54212487.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card baja-card" data-op="venta">
+      <div class="card-img-wrap">
+        <div class="no-img">—</div>
+        <div class="baja-stamp">DADO DE BAJA</div>
+      </div>
+      <div class="card-header">ID: 57894556</div>
+      <div class="card-body">
+        <div class="price prev-price">USD 300.000</div>
+        <div class="addr">Operación: Venta</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/57894556.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card baja-card" data-op="venta">
+      <div class="card-img-wrap">
+        <div class="no-img">—</div>
+        <div class="baja-stamp">DADO DE BAJA</div>
+      </div>
+      <div class="card-header">ID: 53977433</div>
+      <div class="card-body">
+        <div class="price prev-price">USD 310.000</div>
+        <div class="addr">Operación: Venta</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/53977433.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card baja-card" data-op="venta">
+      <div class="card-img-wrap">
+        <div class="no-img">—</div>
+        <div class="baja-stamp">DADO DE BAJA</div>
+      </div>
+      <div class="card-header">ID: 54907580</div>
+      <div class="card-body">
+        <div class="price prev-price">USD 315.000</div>
+        <div class="addr">Operación: Venta</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/54907580.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card baja-card" data-op="venta">
+      <div class="card-img-wrap">
+        <div class="no-img">—</div>
+        <div class="baja-stamp">DADO DE BAJA</div>
+      </div>
+      <div class="card-header">ID: 54269910</div>
+      <div class="card-body">
+        <div class="price prev-price">USD 315.000</div>
+        <div class="addr">Operación: Venta</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/54269910.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card baja-card" data-op="alquiler">
+      <div class="card-img-wrap">
+        <div class="no-img">—</div>
+        <div class="baja-stamp">DADO DE BAJA</div>
+      </div>
+      <div class="card-header">ID: 50342876</div>
+      <div class="card-body">
+        <div class="price prev-price">$600.000</div>
+        <div class="addr">Operación: Alquiler</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/50342876.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card baja-card" data-op="alquiler">
+      <div class="card-img-wrap">
+        <div class="no-img">—</div>
+        <div class="baja-stamp">DADO DE BAJA</div>
+      </div>
+      <div class="card-header">ID: 57670779</div>
+      <div class="card-body">
+        <div class="price prev-price">USD 1.200</div>
+        <div class="addr">Operación: Alquiler</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/57670779.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card baja-card" data-op="alquiler">
+      <div class="card-img-wrap">
+        <div class="no-img">—</div>
+        <div class="baja-stamp">DADO DE BAJA</div>
+      </div>
+      <div class="card-header">ID: 56555898</div>
+      <div class="card-body">
+        <div class="price prev-price">USD 1.350</div>
+        <div class="addr">Operación: Alquiler</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/56555898.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card baja-card" data-op="alquiler">
+      <div class="card-img-wrap">
+        <div class="no-img">—</div>
+        <div class="baja-stamp">DADO DE BAJA</div>
+      </div>
+      <div class="card-header">ID: 57855475</div>
+      <div class="card-body">
+        <div class="price prev-price">USD 1.500</div>
+        <div class="addr">Operación: Alquiler</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/57855475.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card baja-card" data-op="alquiler">
+      <div class="card-img-wrap">
+        <div class="no-img">—</div>
+        <div class="baja-stamp">DADO DE BAJA</div>
+      </div>
+      <div class="card-header">ID: 57683835</div>
+      <div class="card-body">
+        <div class="price prev-price">USD 1.500</div>
+        <div class="addr">Operación: Alquiler</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/57683835.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card baja-card" data-op="alquiler">
+      <div class="card-img-wrap">
+        <div class="no-img">—</div>
+        <div class="baja-stamp">DADO DE BAJA</div>
+      </div>
+      <div class="card-header">ID: 58554171</div>
+      <div class="card-body">
+        <div class="price prev-price">USD 1.500</div>
+        <div class="addr">Operación: Alquiler</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/58554171.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card baja-card" data-op="alquiler">
+      <div class="card-img-wrap">
+        <div class="no-img">—</div>
+        <div class="baja-stamp">DADO DE BAJA</div>
+      </div>
+      <div class="card-header">ID: 58414112</div>
+      <div class="card-body">
+        <div class="price prev-price">USD 1.600</div>
+        <div class="addr">Operación: Alquiler</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/58414112.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card baja-card" data-op="alquiler">
+      <div class="card-img-wrap">
+        <div class="no-img">—</div>
+        <div class="baja-stamp">DADO DE BAJA</div>
+      </div>
+      <div class="card-header">ID: 58679864</div>
+      <div class="card-body">
+        <div class="price prev-price">USD 2.200</div>
+        <div class="addr">Operación: Alquiler</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/58679864.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card baja-card" data-op="alquiler">
+      <div class="card-img-wrap">
+        <div class="no-img">—</div>
+        <div class="baja-stamp">DADO DE BAJA</div>
+      </div>
+      <div class="card-header">ID: 58655212</div>
+      <div class="card-body">
+        <div class="price prev-price">$580.000</div>
+        <div class="addr">Operación: Alquiler</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/58655212.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+
+    <div class="card baja-card" data-op="alquiler">
+      <div class="card-img-wrap">
+        <div class="no-img">—</div>
+        <div class="baja-stamp">DADO DE BAJA</div>
+      </div>
+      <div class="card-header">ID: 58503603</div>
+      <div class="card-body">
+        <div class="price prev-price">USD 280.000</div>
+        <div class="addr">Operación: Alquiler</div>
+        <a href="https://www.zonaprop.com.ar/propiedades/58503603.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
-// Tab switching
-document.querySelectorAll('.tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
-    tab.classList.add('active');
-    document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+function switchTab(name) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function filter(btn, grid, value) {
+  const container = document.getElementById('grid-'+grid);
+  const cards = container.querySelectorAll('.card');
+  const filterBar = btn.closest('.filters');
+  filterBar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  cards.forEach(card => {
+    if (value === 'all') {
+      card.style.display = '';
+    } else {
+      const tipo = card.getAttribute('data-tipo');
+      const barrio = card.getAttribute('data-barrio');
+      card.style.display = (tipo === value || barrio === value) ? '' : 'none';
+    }
   });
-});
-
-// Filtering
-document.querySelectorAll('.filters').forEach(filterGroup => {
-  filterGroup.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const grid = filterGroup.nextElementSibling;
-      const filter = btn.dataset.filter;
-
-      // Toggle active state
-      if (filter === 'all') {
-        filterGroup.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-      } else {
-        filterGroup.querySelector('[data-filter="all"]').classList.remove('active');
-        btn.classList.toggle('active');
-      }
-
-      // Get active filters
-      const activeFilters = [...filterGroup.querySelectorAll('.filter-btn.active')].map(b => b.dataset.filter);
-      if (activeFilters.length === 0 || activeFilters.includes('all')) {
-        filterGroup.querySelector('[data-filter="all"]').classList.add('active');
-        grid.querySelectorAll('.card').forEach(c => c.style.display = '');
-        return;
-      }
-
-      grid.querySelectorAll('.card').forEach(card => {
-        const tipo = card.dataset.tipo;
-        const barrio = card.dataset.barrio;
-        const match = activeFilters.some(f => f === tipo || f === barrio);
-        card.style.display = match ? '' : 'none';
-      });
-    });
-  });
-});
+}
 </script>
+
 </body>
 </html>
