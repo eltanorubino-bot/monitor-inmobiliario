@@ -3,1363 +3,199 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Monitor Inmobiliario - Saavedra/Núñez/Coghlan</title>
+<title>Monitor Inmobiliario - Saavedra, Núñez, Coghlan</title>
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body { background:#0f1117; color:#e0e0e0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; }
-.topbar { background:#1a1d27; padding:12px 20px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #2a2d3a; position:sticky; top:0; z-index:100; }
-.topbar h1 { font-size:18px; color:#fff; }
-.topbar .date { color:#888; font-size:13px; }
-.tabs { display:flex; gap:0; background:#1a1d27; border-bottom:2px solid #2a2d3a; padding:0 20px; position:sticky; top:52px; z-index:99; }
-.tab { padding:12px 24px; cursor:pointer; color:#888; border-bottom:3px solid transparent; transition:all .2s; font-size:14px; font-weight:500; }
-.tab:hover { color:#ccc; }
-.tab.active { color:#ff6b35; border-bottom-color:#ff6b35; }
-.tab-content { display:none; }
-.tab-content.active { display:block; }
-.stats-bar { background:#1e2130; padding:16px 20px; display:flex; gap:20px; flex-wrap:wrap; border-bottom:1px solid #2a2d3a; }
-.stat { text-align:center; min-width:140px; }
-.stat-value { font-size:22px; font-weight:700; color:#fff; }
-.stat-label { font-size:11px; color:#888; text-transform:uppercase; letter-spacing:1px; margin-top:2px; }
-.filters { padding:12px 20px; display:flex; gap:8px; flex-wrap:wrap; background:#161822; border-bottom:1px solid #2a2d3a; }
-.filter-btn { padding:6px 14px; border-radius:20px; border:1px solid #3a3d4a; background:transparent; color:#aaa; cursor:pointer; font-size:12px; transition:all .2s; }
-.filter-btn:hover { border-color:#ff6b35; color:#ff6b35; }
-.filter-btn.active { background:#ff6b35; color:#fff; border-color:#ff6b35; }
-.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:16px; padding:20px; }
-.card { background:#1a1d27; border-radius:12px; overflow:hidden; border:1px solid #2a2d3a; transition:transform .2s, box-shadow .2s; }
-.card:hover { transform:translateY(-2px); box-shadow:0 8px 25px rgba(0,0,0,.3); }
-.card-img-wrap { position:relative; height:180px; overflow:hidden; background:#252836; }
-.card-img-wrap img { width:100%; height:100%; object-fit:cover; }
-.no-img { display:flex; align-items:center; justify-content:center; height:100%; color:#555; font-size:14px; }
-.card-header { padding:10px 14px 4px; font-size:13px; font-weight:600; color:#bbb; }
-.card-body { padding:4px 14px 14px; }
-.price { font-size:20px; font-weight:700; color:#4ade80; }
-.price-m2 { font-size:12px; color:#888; margin-top:2px; }
-.prev-price { color:#888; text-decoration:line-through; }
-.addr { font-size:13px; color:#aaa; margin-top:6px; }
-.metrics { font-size:12px; color:#888; margin-top:4px; }
-.card-link { display:inline-block; margin-top:8px; color:#ff6b35; text-decoration:none; font-size:13px; font-weight:500; }
-.card-link:hover { text-decoration:underline; }
-.badge-new { background:#22c55e; color:#fff; font-size:10px; padding:2px 8px; border-radius:10px; font-weight:700; margin-left:6px; vertical-align:middle; }
-.trend-down { display:inline-block; background:#22c55e22; color:#4ade80; font-size:11px; padding:2px 8px; border-radius:6px; margin-top:4px; }
-.trend-up { display:inline-block; background:#ef444422; color:#f87171; font-size:11px; padding:2px 8px; border-radius:6px; margin-top:4px; }
-.dias-pill { position:absolute; top:8px; right:8px; padding:3px 10px; border-radius:12px; font-size:11px; font-weight:600; }
-.dias-green { background:#22c55e33; color:#4ade80; }
-.dias-yellow { background:#eab30833; color:#fbbf24; }
-.dias-red { background:#ef444433; color:#f87171; }
-.baja-stamp { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) rotate(-20deg); background:#ef4444cc; color:#fff; font-size:18px; font-weight:900; padding:8px 24px; border-radius:8px; border:3px solid #fff; letter-spacing:2px; pointer-events:none; }
-.baja-card { opacity:.7; }
-.baja-card:hover { opacity:1; }
-.empty-state { text-align:center; padding:60px 20px; color:#555; }
-.empty-state h3 { font-size:18px; margin-bottom:8px; }
-@media(max-width:640px) {
-  .grid { grid-template-columns:1fr; padding:12px; gap:12px; }
-  .stats-bar { justify-content:center; }
-  .tabs { overflow-x:auto; }
-}
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0f1117;--card:#1a1d27;--card-hover:#22263a;--border:#2a2d3a;--text:#e4e4e7;--text-muted:#9ca3af;--accent:#f97316;--accent-hover:#fb923c;--green:#22c55e;--yellow:#eab308;--red:#ef4444;--blue:#3b82f6;--purple:#a855f7}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.topbar{background:#13151f;border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.topbar h1{font-size:18px;font-weight:700;color:var(--accent)}
+.topbar .date{color:var(--text-muted);font-size:13px}
+.tabs{display:flex;gap:0;background:#13151f;border-bottom:1px solid var(--border);padding:0 24px;position:sticky;top:49px;z-index:99}
+.tab{padding:12px 24px;cursor:pointer;color:var(--text-muted);font-size:14px;font-weight:500;border-bottom:2px solid transparent;transition:all .2s}
+.tab:hover{color:var(--text)}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.container{max-width:1400px;margin:0 auto;padding:20px 24px}
+.stats-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center}
+.stat-card .value{font-size:28px;font-weight:700;color:var(--accent)}
+.stat-card .label{font-size:12px;color:var(--text-muted);margin-top:4px;text-transform:uppercase;letter-spacing:.5px}
+.filters{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.filter-btn{padding:6px 16px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--text-muted);cursor:pointer;font-size:13px;transition:all .2s}
+.filter-btn:hover,.filter-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px}
+.property-card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:all .2s;cursor:pointer;position:relative}
+.property-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.card-header{padding:16px 16px 12px;display:flex;justify-content:space-between;align-items:flex-start}
+.card-price{font-size:22px;font-weight:700;color:var(--accent)}
+.card-price-m2{font-size:12px;color:var(--text-muted);margin-top:2px}
+.badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600}
+.badge-ph{background:rgba(59,130,246,.15);color:var(--blue)}
+.badge-oficina{background:rgba(168,85,247,.15);color:var(--purple)}
+.badge-galpon{background:rgba(234,179,8,.15);color:var(--yellow)}
+.badge-deposito{background:rgba(239,68,68,.15);color:var(--red)}
+.card-body{padding:0 16px 16px}
+.card-address{font-size:15px;font-weight:600;margin-bottom:4px}
+.card-barrio{font-size:13px;color:var(--text-muted);margin-bottom:12px}
+.card-features{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.feat{font-size:12px;color:var(--text-muted);display:flex;align-items:center;gap:4px}
+.feat svg{width:14px;height:14px;stroke:var(--text-muted)}
+.card-desc{font-size:12px;color:var(--text-muted);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pill{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600}
+.pill-new{background:rgba(34,197,94,.15);color:var(--green)}
+.pill-green{background:rgba(34,197,94,.1);color:var(--green)}
+.pill-yellow{background:rgba(234,179,8,.1);color:var(--yellow)}
+.pill-red{background:rgba(239,68,68,.1);color:var(--red)}
+.trend-up{color:var(--red)}
+.trend-down{color:var(--green)}
+.trend-stable{color:var(--text-muted)}
+.empty-state{text-align:center;padding:60px 20px;color:var(--text-muted)}
+.baja-overlay{position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(15,17,23,.7);display:flex;align-items:center;justify-content:center;z-index:10}
+.baja-stamp{color:var(--red);font-size:28px;font-weight:900;border:4px solid var(--red);padding:8px 20px;transform:rotate(-15deg);text-transform:uppercase;letter-spacing:2px;opacity:.85}
+.section-title{font-size:14px;font-weight:600;color:var(--text-muted);margin-bottom:16px;text-transform:uppercase;letter-spacing:1px}
+@media(max-width:768px){.grid{grid-template-columns:1fr}.stats-bar{grid-template-columns:repeat(2,1fr)}.topbar{padding:10px 16px}.container{padding:16px}.tabs{padding:0 16px}}
+.no-results{grid-column:1/-1;text-align:center;padding:40px;color:var(--text-muted)}
 </style>
 </head>
 <body>
-
 <div class="topbar">
-  <h1>🏘️ Monitor Inmobiliario — Saavedra / Núñez / Coghlan</h1>
-  <div class="date">Actualizado: 28/03/2026 10:04</div>
+  <h1>Monitor Inmobiliario - Superi 3540</h1>
+  <span class="date">Actualizado: 29 de marzo de 2026</span>
 </div>
-
-<div class="tabs">
-  <div class="tab active" onclick="switchTab('venta')">🏷️ Venta (40)</div>
-  <div class="tab" onclick="switchTab('alquiler')">🔑 Alquiler (4)</div>
-  <div class="tab" onclick="switchTab('bajas')">❌ Bajas (29)</div>
+<div class="tabs" id="tabs">
+  <div class="tab active" data-tab="venta">Venta (68)</div>
+  <div class="tab" data-tab="alquiler">Alquiler (57)</div>
+  <div class="tab" data-tab="bajas">Bajas (0)</div>
 </div>
-
-<!-- VENTA -->
-<div id="tab-venta" class="tab-content active">
-  <div class="stats-bar">
-    <div class="stat"><div class="stat-value">40</div><div class="stat-label">Total activas</div></div>
-    <div class="stat"><div class="stat-value">USD 375.900</div><div class="stat-label">Precio promedio</div></div>
-    <div class="stat"><div class="stat-value">18</div><div class="stat-label">Nuevas</div></div>
-    <div class="stat"><div class="stat-value">3</div><div class="stat-label">Bajaron precio</div></div>
+<div class="container">
+  <!-- VENTA SECTION -->
+  <div id="section-venta">
+    <div class="stats-bar">
+      <div class="stat-card"><div class="value">68</div><div class="label">Propiedades Activas</div></div>
+      <div class="stat-card"><div class="value">USD 456k</div><div class="label">Precio Promedio</div></div>
+      <div class="stat-card"><div class="value">USD 1,504</div><div class="label">Precio/m² Promedio</div></div>
+      <div class="stat-card"><div class="value">68</div><div class="label">Nuevas (primera corrida)</div></div>
+    </div>
+    <div class="filters" id="filters-venta">
+      <button class="filter-btn active" data-filter="all">Todos</button>
+      <button class="filter-btn" data-filter="PH">PH (50)</button>
+      <button class="filter-btn" data-filter="Oficina">Oficina (15)</button>
+      <button class="filter-btn" data-filter="Galpón">Galpón (2)</button>
+      <button class="filter-btn" data-filter="Depósito">Depósito (1)</button>
+      <span style="width:1px;background:var(--border);margin:0 4px"></span>
+      <button class="filter-btn" data-filter-barrio="Saavedra">Saavedra (33)</button>
+      <button class="filter-btn" data-filter-barrio="Núñez">Núñez (23)</button>
+      <button class="filter-btn" data-filter-barrio="Coghlan">Coghlan (12)</button>
+    </div>
+    <div class="grid" id="grid-venta"></div>
   </div>
-  <div class="filters" data-target="venta">
-    <button class="filter-btn active" onclick="filter(this,'venta','all')">Todos</button>
-    <button class="filter-btn" onclick="filter(this,'venta','PH')">PH</button>
-    <button class="filter-btn" onclick="filter(this,'venta','Galpón')">Galpón</button>
-    <button class="filter-btn" onclick="filter(this,'venta','Depósito')">Depósito</button>
-    <button class="filter-btn" onclick="filter(this,'venta','Saavedra')">Saavedra</button>
-    <button class="filter-btn" onclick="filter(this,'venta','Núñez')">Núñez</button>
-    <button class="filter-btn" onclick="filter(this,'venta','Coghlan')">Coghlan</button>
+  <!-- ALQUILER SECTION -->
+  <div id="section-alquiler" style="display:none">
+    <div class="stats-bar">
+      <div class="stat-card"><div class="value">57</div><div class="label">Propiedades Activas</div></div>
+      <div class="stat-card"><div class="value">$ 676k</div><div class="label">Precio Promedio</div></div>
+      <div class="stat-card"><div class="value">57</div><div class="label">Nuevas (primera corrida)</div></div>
+    </div>
+    <div class="filters" id="filters-alquiler">
+      <button class="filter-btn active" data-filter="all">Todos</button>
+      <button class="filter-btn" data-filter="PH">PH (4)</button>
+      <button class="filter-btn" data-filter="Oficina">Oficina (50)</button>
+      <button class="filter-btn" data-filter="Galpón">Galpón (1)</button>
+      <button class="filter-btn" data-filter="Depósito">Depósito (2)</button>
+      <span style="width:1px;background:var(--border);margin:0 4px"></span>
+      <button class="filter-btn" data-filter-barrio="Saavedra">Saavedra (12)</button>
+      <button class="filter-btn" data-filter-barrio="Núñez">Núñez (45)</button>
+      <button class="filter-btn" data-filter-barrio="Coghlan">Coghlan (0)</button>
+    </div>
+    <div class="grid" id="grid-alquiler"></div>
   </div>
-  <div class="grid" id="grid-venta">
-    
-    <div class="card" data-tipo="PH" data-barrio="Coghlan" data-op="venta">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/57/95/60/32/360x266/2020990752.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏠 PH en Coghlan
-      </div>
-      <div class="card-body">
-        <div class="price">USD 135.000 <span class="badge-new">NUEVA</span></div>
-        <div class="price-m2">USD 655/m²</div>
-        
-        <div class="addr">📍 Superí al 3400</div>
-        <div class="metrics">📐 206 m² 🏠 4 amb. 🛏 3 dorm. 🚿 2 baños</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/57956032.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="PH" data-barrio="Núñez" data-op="venta">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/57/69/75/74/360x266/2015118949.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏠 PH en Núñez
-      </div>
-      <div class="card-body">
-        <div class="price">USD 190.000 <span class="badge-new">NUEVA</span></div>
-        <div class="price-m2">USD 950/m²</div>
-        
-        <div class="addr">📍 Iberá al 2200</div>
-        <div class="metrics">📐 200 m² 🏠 6 amb. 🛏 4 dorm. 🚿 3 baños</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/57697574.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="PH" data-barrio="Saavedra" data-op="venta">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/50/34/28/76/360x266/1830683255.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏠 PH en Saavedra
-      </div>
-      <div class="card-body">
-        <div class="price">USD 209.000 </div>
-        <div class="price-m2">USD 804/m²</div>
-        
-        <div class="addr">📍 Arias 4600</div>
-        <div class="metrics">📐 260 m² 🏠 3 amb. 🛏 2 dorm. 🚿 2 baños 🚗 1 coch.</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/50342876.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="PH" data-barrio="Saavedra" data-op="venta">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/57/67/07/79/360x266/2014060353.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏠 PH en Saavedra
-      </div>
-      <div class="card-body">
-        <div class="price">USD 218.000 </div>
-        <div class="price-m2">USD 858/m²</div>
-        
-        <div class="addr">📍 Plaza al 4500</div>
-        <div class="metrics">📐 254 m² 🏠 6 amb. 🛏 4 dorm. 🚿 2 baños</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/57670779.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="PH" data-barrio="Núñez" data-op="venta">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/63/43/49/360x266/2040520744.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏠 PH en Núñez
-      </div>
-      <div class="card-body">
-        <div class="price">USD 220.000 <span class="badge-new">NUEVA</span></div>
-        <div class="price-m2">USD 1.019/m²</div>
-        
-        <div class="addr">📍 Leónidas Aguirre al 2500</div>
-        <div class="metrics">📐 216 m²</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/58634349.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="PH" data-barrio="Coghlan" data-op="venta">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/56/89/48/360x266/2038520754.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏠 PH en Coghlan
-      </div>
-      <div class="card-body">
-        <div class="price">USD 230.000 <span class="badge-new">NUEVA</span></div>
-        <div class="price-m2">USD 1.150/m²</div>
-        
-        <div class="addr">📍 Superí 2900</div>
-        <div class="metrics">📐 200 m² 🏠 7 amb. 🛏 4 dorm. 🚿 2 baños</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/58568948.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="Galpón" data-barrio="Núñez" data-op="venta">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/55/41/71/360x266/2038106957.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏭 Galpón en Núñez
-      </div>
-      <div class="card-body">
-        <div class="price">USD 245.000 </div>
-        <div class="price-m2">USD 1.156/m²</div>
-        
-        <div class="addr">📍 O'higgin al 3900</div>
-        <div class="metrics">📐 212 m² 🏠 4 amb. 🛏 3 dorm. 🚿 2 baños</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/58554171.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="PH" data-barrio="Saavedra" data-op="venta">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/57/37/61/15/360x266/2006617595.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏠 PH en Saavedra
-      </div>
-      <div class="card-body">
-        <div class="price">USD 250.000 </div>
-        <div class="price-m2">USD 1.000/m²</div>
-        
-        <div class="addr">📍 Larralde 3290</div>
-        <div class="metrics">📐 250 m² 🏠 3 amb. 🛏 2 dorm. 🚿 2 baños</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/57376115.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="PH" data-barrio="Saavedra" data-op="venta">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/47/33/86/91/360x266/1780764028.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏠 PH en Saavedra
-      </div>
-      <div class="card-body">
-        <div class="price">USD 260.000 </div>
-        <div class="price-m2">USD 942/m²</div>
-        <span class="trend-down">⬇ Bajó de USD 285.000</span>
-        <div class="addr">📍 Zapiola al 4500</div>
-        <div class="metrics">📐 276 m² 🏠 6 amb. 🛏 5 dorm. 🚿 2 baños</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/47338691.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="PH" data-barrio="Núñez" data-op="venta">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/65/68/95/360x266/2041260419.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏠 PH en Núñez
-      </div>
-      <div class="card-body">
-        <div class="price">USD 268.000 </div>
-        <div class="price-m2">USD 879/m²</div>
-        <span class="trend-down">⬇ Bajó de USD 349.000</span>
-        <div class="addr">📍 Manzanares al 2100</div>
-        <div class="metrics">📐 305 m² 🏠 6 amb. 🛏 5 dorm. 🚿 3 baños</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/58656895.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="PH" data-barrio="Saavedra" data-op="venta">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/57/62/25/24/360x266/2013124549.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏠 PH en Saavedra
-      </div>
-      <div class="card-body">
-        <div class="price">USD 270.000 </div>
-        <div class="price-m2">USD 1.116/m²</div>
-        
-        <div class="addr">📍 MACHAIN 4370</div>
-        <div class="metrics">📐 242 m² 🏠 3 amb. 🛏 2 dorm. 🚿 2 baños</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/57622524.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="PH" data-barrio="Núñez" data-op="venta">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/42/35/06/360x266/2038278168.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏠 PH en Núñez
-      </div>
-      <div class="card-body">
-        <div class="price">USD 280.000 <span class="badge-new">NUEVA</span></div>
-        <div class="price-m2">USD 1.353/m²</div>
-        
-        <div class="addr">📍 Vuelta de Obligado al 4700</div>
-        <div class="metrics">📐 207 m² 🏠 4 amb. 🛏 4 dorm. 🚿 3 baños</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/58423506.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="PH" data-barrio="Saavedra" data-op="venta">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/65/52/12/360x266/2041260432.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏠 PH en Saavedra
-      </div>
-      <div class="card-body">
-        <div class="price">USD 280.000 </div>
-        <div class="price-m2">USD 1.148/m²</div>
-        <span class="trend-up">⬆ Subió de USD 189.900</span>
-        <div class="addr">📍 Arias al 3900</div>
-        <div class="metrics">📐 244 m² 🏠 5 amb. 🛏 3 dorm. 🚿 2 baños</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/58655212.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="Depósito" data-barrio="Coghlan" data-op="venta">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/50/36/03/360x266/2036707654.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        📦 Depósito en Coghlan
-      </div>
-      <div class="card-body">
-        <div class="price">USD 280.000 <span class="badge-new">NUEVA</span></div>
-        <div class="price-m2">USD 1.022/m²</div>
-        
-        <div class="addr">📍 Washington 3300</div>
-        <div class="metrics">📐 274 m²</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/58503603.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="PH" data-barrio="Núñez" data-op="venta">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/50/23/75/23/360x266/1827550287.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏠 PH en Núñez
-      </div>
-      <div class="card-body">
-        <div class="price">USD 295.000 </div>
-        <div class="price-m2">USD 1.475/m²</div>
-        
-        <div class="addr">📍 Vuelta de Obligado al 4700</div>
-        <div class="metrics">📐 200 m² 🏠 4 amb. 🛏 3 dorm. 🚿 2 baños</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/50237523.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="PH" data-barrio="Saavedra" data-op="venta">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/54/55/05/360x266/2037864654.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏠 PH en Saavedra
-      </div>
-      <div class="card-body">
-        <div class="price">USD 299.000 <span class="badge-new">NUEVA</span></div>
-        <div class="price-m2">USD 1.311/m²</div>
-        
-        <div class="addr">📍 Amenabar al 3600 1°</div>
-        <div class="metrics">📐 228 m² 🏠 4 amb. 🛏 3 dorm. 🚿 3 baños</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/58545505.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="PH" data-barrio="Saavedra" data-op="venta">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/55/09/15/08/360x266/1949879553.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏠 PH en Saavedra
-      </div>
-      <div class="card-body">
-        <div class="price">USD 320.000 </div>
-        <div class="price-m2">USD 1.600/m²</div>
-        <span class="trend-down">⬇ Bajó de USD 535.000</span>
-        <div class="addr">📍 García Del Río 2900</div>
-        <div class="metrics">📐 200 m² 🏠 6 amb. 🛏 4 dorm. 🚿 2 baños</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/55091508.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="PH" data-barrio="Coghlan" data-op="venta">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/56/36/58/87/360x266/1989327113.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏠 PH en Coghlan
-      </div>
-      <div class="card-body">
-        <div class="price">USD 320.000 <span class="badge-new">NUEVA</span></div>
-        <div class="price-m2">USD 1.081/m²</div>
-        
-        <div class="addr">📍 RICARDO GUTIERREZ al 1800</div>
-        <div class="metrics">📐 296 m² 🏠 5 amb. 🛏 4 dorm. 🚿 3 baños 🚗 1 coch.</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/56365887.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="PH" data-barrio="Saavedra" data-op="venta">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/41/40/61/360x266/2034243632.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏠 PH en Saavedra
-      </div>
-      <div class="card-body">
-        <div class="price">USD 338.000 <span class="badge-new">NUEVA</span></div>
-        <div class="price-m2">USD 1.414/m²</div>
-        
-        <div class="addr">📍 Iberá 4600</div>
-        <div class="metrics">📐 239 m² 🏠 4 amb. 🛏 3 dorm. 🚿 2 baños</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/58414061.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="PH" data-barrio="Saavedra" data-op="venta">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/44/60/27/360x266/2035118772.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏠 PH en Saavedra
-      </div>
-      <div class="card-body">
-        <div class="price">USD 345.000 </div>
-        <div class="price-m2">USD 1.683/m²</div>
-        
-        <div class="addr">📍 Mariano Acha al 4500</div>
-        <div class="metrics">📐 205 m² 🏠 4 amb. 🛏 3 dorm. 🚿 1 baños 🚗 1 coch.</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/58446027.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="PH" data-barrio="Saavedra" data-op="venta">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/50/73/79/56/360x266/1838680625.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏠 PH en Saavedra
-      </div>
-      <div class="card-body">
-        <div class="price">USD 350.000 <span class="badge-new">NUEVA</span></div>
-        <div class="price-m2">USD 1.528/m²</div>
-        
-        <div class="addr">📍 Tronador al 1100</div>
-        <div class="metrics">📐 229 m² 🏠 5 amb. 🛏 4 dorm. 🚿 3 baños</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/50737956.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="PH" data-barrio="Saavedra" data-op="venta">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/39/05/02/360x266/2033392820.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏠 PH en Saavedra
-      </div>
-      <div class="card-body">
-        <div class="price">USD 360.000 <span class="badge-new">NUEVA</span></div>
-        <div class="price-m2">USD 1.029/m²</div>
-        
-        <div class="addr">📍 Cabildo al 4400</div>
-        <div class="metrics">📐 350 m² 🏠 5 amb. 🛏 4 dorm. 🚿 2 baños</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/58390502.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="PH" data-barrio="Saavedra" data-op="venta">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/46/13/95/360x266/2035542936.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏠 PH en Saavedra
-      </div>
-      <div class="card-body">
-        <div class="price">USD 369.000 </div>
-        <div class="price-m2">USD 1.512/m²</div>
-        
-        <div class="addr">📍 Plaza 3800</div>
-        <div class="metrics">📐 244 m² 🏠 4 amb. 🛏 3 dorm. 🚿 2 baños 🚗 1 coch.</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/58461395.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="PH" data-barrio="Núñez" data-op="venta">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/57/83/52/49/360x266/2018306848.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏠 PH en Núñez
-      </div>
-      <div class="card-body">
-        <div class="price">USD 370.000 </div>
-        <div class="price-m2">USD 1.682/m²</div>
-        
-        <div class="addr">📍 Besares al 1800</div>
-        <div class="metrics">📐 220 m² 🏠 4 amb. 🛏 3 dorm. 🚿 2 baños</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/57835249.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="PH" data-barrio="Núñez" data-op="venta">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/56/57/79/69/360x266/1984466986.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏠 PH en Núñez
-      </div>
-      <div class="card-body">
-        <div class="price">USD 380.000 </div>
-        <div class="price-m2">USD 1.719/m²</div>
-        
-        <div class="addr">📍 Manzanares al 2200</div>
-        <div class="metrics">📐 221 m² 🏠 4 amb. 🛏 3 dorm. 🚿 2 baños</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/56577969.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="PH" data-barrio="Coghlan" data-op="venta">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/57/85/63/63/360x266/2018807079.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏠 PH en Coghlan
-      </div>
-      <div class="card-body">
-        <div class="price">USD 380.000 </div>
-        <div class="price-m2">USD 1.496/m²</div>
-        
-        <div class="addr">📍 MELIAN 3162. Entre Ibera y Tamborini, jose p.</div>
-        <div class="metrics">📐 254 m² 🏠 6 amb. 🛏 5 dorm. 🚿 3 baños 🚗 1 coch.</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/57856363.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="PH" data-barrio="Núñez" data-op="venta">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/57/36/37/35/360x266/2005863997.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏠 PH en Núñez
-      </div>
-      <div class="card-body">
-        <div class="price">USD 388.000 <span class="badge-new">NUEVA</span></div>
-        <div class="price-m2">USD 1.075/m²</div>
-        
-        <div class="addr">📍 Cramer 2900</div>
-        <div class="metrics">📐 361 m² 🏠 5 amb. 🛏 4 dorm. 🚿 3 baños 🚗 1 coch.</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/57363735.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="PH" data-barrio="Coghlan" data-op="venta">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/57/50/66/44/360x266/2009900709.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏠 PH en Coghlan
-      </div>
-      <div class="card-body">
-        <div class="price">USD 389.000 </div>
-        <div class="price-m2">USD 1.935/m²</div>
-        
-        <div class="addr">📍 AZURDUY 3200. Entre Pinto y Freire, Ramon</div>
-        <div class="metrics">📐 201 m² 🏠 4 amb. 🛏 3 dorm. 🚿 4 baños 🚗 1 coch.</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/57506644.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="PH" data-barrio="Saavedra" data-op="venta">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/58/48/98/360x266/2038972698.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏠 PH en Saavedra
-      </div>
-      <div class="card-body">
-        <div class="price">USD 390.000 </div>
-        <div class="price-m2">USD 992/m²</div>
-        
-        <div class="addr">📍 Cabildo al 4400</div>
-        <div class="metrics">📐 393 m² 🏠 10 amb. 🚿 2 baños</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/58584898.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="PH" data-barrio="Saavedra" data-op="venta">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/06/61/55/360x266/2028413655.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏠 PH en Saavedra
-      </div>
-      <div class="card-body">
-        <div class="price">USD 390.000 <span class="badge-new">NUEVA</span></div>
-        <div class="price-m2">USD 1.258/m²</div>
-        
-        <div class="addr">📍 Iberá 4600</div>
-        <div class="metrics">📐 310 m²</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/58066155.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="PH" data-barrio="Núñez" data-op="venta">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/59/46/49/360x266/2039299879.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏠 PH en Núñez
-      </div>
-      <div class="card-body">
-        <div class="price">USD 395.000 </div>
-        <div class="price-m2">USD 1.317/m²</div>
-        <span class="trend-up">⬆ Subió de USD 350.000</span>
-        <div class="addr">📍 Naon al 2600</div>
-        <div class="metrics">📐 300 m² 🏠 7 amb. 🛏 5 dorm. 🚿 3 baños 🚗 1 coch.</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/58594649.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="PH" data-barrio="Coghlan" data-op="venta">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/66/41/43/360x266/2041156429.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏠 PH en Coghlan
-      </div>
-      <div class="card-body">
-        <div class="price">USD 399.000 </div>
-        <div class="price-m2">USD 1.535/m²</div>
-        <span class="trend-up">⬆ Subió de USD 370.000</span>
-        <div class="addr">📍 Superí al 2900</div>
-        <div class="metrics">📐 260 m² 🏠 5 amb. 🛏 4 dorm. 🚿 2 baños</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/58664143.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="PH" data-barrio="Saavedra" data-op="venta">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/67/98/64/360x266/2041600170.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏠 PH en Saavedra
-      </div>
-      <div class="card-body">
-        <div class="price">USD 420.000 </div>
-        <div class="price-m2">USD 1.810/m²</div>
-        
-        <div class="addr">📍 Washington al 3700</div>
-        <div class="metrics">📐 232 m² 🏠 4 amb. 🛏 2 dorm. 🚿 2 baños 🚗 2 coch.</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/58679864.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="PH" data-barrio="Núñez" data-op="venta">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/57/82/60/18/360x266/2030087635.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏠 PH en Núñez
-      </div>
-      <div class="card-body">
-        <div class="price">USD 429.000 <span class="badge-new">NUEVA</span></div>
-        <div class="price-m2">USD 1.826/m²</div>
-        
-        <div class="addr">📍 Campos Salles al 2200</div>
-        <div class="metrics">📐 235 m² 🏠 5 amb. 🛏 3 dorm. 🚿 2 baños</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/57826018.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="PH" data-barrio="Núñez" data-op="venta">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/52/20/02/47/360x266/1878413803.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏠 PH en Núñez
-      </div>
-      <div class="card-body">
-        <div class="price">USD 450.000 </div>
-        <div class="price-m2">USD 1.343/m²</div>
-        
-        <div class="addr">📍 Manuela Pedraza al 2400</div>
-        <div class="metrics">📐 335 m² 🏠 11 amb. 🛏 6 dorm. 🚿 3 baños</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/52200247.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="PH" data-barrio="Saavedra" data-op="venta">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/66/24/17/360x266/2041094068.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏠 PH en Saavedra
-      </div>
-      <div class="card-body">
-        <div class="price">USD 490.000 <span class="badge-new">NUEVA</span></div>
-        <div class="price-m2">USD 1.650/m²</div>
-        
-        <div class="addr">📍 Tronador 1100</div>
-        <div class="metrics">📐 297 m²</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/58662417.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="PH" data-barrio="Núñez" data-op="venta">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/43/55/80/360x266/2034847178.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏠 PH en Núñez
-      </div>
-      <div class="card-body">
-        <div class="price">USD 540.000 <span class="badge-new">NUEVA</span></div>
-        <div class="price-m2">USD 1.327/m²</div>
-        
-        <div class="addr">📍 Manuela Pedraza al 2500</div>
-        <div class="metrics">📐 407 m² 🏠 5 amb. 🛏 4 dorm. 🚿 3 baños 🚗 2 coch.</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/58435580.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="PH" data-barrio="Saavedra" data-op="venta">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/39/04/97/360x266/2033392762.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏠 PH en Saavedra
-      </div>
-      <div class="card-body">
-        <div class="price">USD 650.000 <span class="badge-new">NUEVA</span></div>
-        <div class="price-m2">USD 1.102/m²</div>
-        
-        <div class="addr">📍 Cabildo al 4400</div>
-        <div class="metrics">📐 590 m² 🏠 5 amb. 🛏 4 dorm. 🚿 5 baños</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/58390497.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="PH" data-barrio="Saavedra" data-op="venta">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/58/48/93/360x266/2038972688.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏠 PH en Saavedra
-      </div>
-      <div class="card-body">
-        <div class="price">USD 1.100.000 <span class="badge-new">NUEVA</span></div>
-        <div class="price-m2">USD 2.517/m²</div>
-        
-        <div class="addr">📍 Cabildo al 4400</div>
-        <div class="metrics">📐 437 m² 🏠 10 amb. 🚿 3 baños</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/58584893.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="Galpón" data-barrio="Saavedra" data-op="venta">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/56/66/60/09/360x266/1986839462.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏭 Galpón en Saavedra
-      </div>
-      <div class="card-body">
-        <div class="price">USD 1.145.000 </div>
-        <div class="price-m2">USD 2.093/m²</div>
-        
-        <div class="addr">📍 Zapiola al 4800 Saavedra</div>
-        <div class="metrics">📐 547 m²</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/56666009.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
+  <!-- BAJAS SECTION -->
+  <div id="section-bajas" style="display:none">
+    <div class="empty-state"><p>No hay bajas registradas aún. Esta es la primera corrida del monitor.</p></div>
   </div>
 </div>
-
-<!-- ALQUILER -->
-<div id="tab-alquiler" class="tab-content">
-  <div class="stats-bar">
-    <div class="stat"><div class="stat-value">4</div><div class="stat-label">Total activas</div></div>
-    <div class="stat"><div class="stat-value">1</div><div class="stat-label">Nuevas</div></div>
-    <div class="stat"><div class="stat-value">0</div><div class="stat-label">Bajaron precio</div></div>
-  </div>
-  <div class="filters" data-target="alquiler">
-    <button class="filter-btn active" onclick="filter(this,'alquiler','all')">Todos</button>
-    <button class="filter-btn" onclick="filter(this,'alquiler','PH')">PH</button>
-    <button class="filter-btn" onclick="filter(this,'alquiler','Galpón')">Galpón</button>
-    <button class="filter-btn" onclick="filter(this,'alquiler','Depósito')">Depósito</button>
-    <button class="filter-btn" onclick="filter(this,'alquiler','Saavedra')">Saavedra</button>
-    <button class="filter-btn" onclick="filter(this,'alquiler','Núñez')">Núñez</button>
-    <button class="filter-btn" onclick="filter(this,'alquiler','Coghlan')">Coghlan</button>
-  </div>
-  <div class="grid" id="grid-alquiler">
-    
-    <div class="card" data-tipo="Depósito" data-barrio="Saavedra" data-op="alquiler">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/39/44/57/360x266/2033667147.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        📦 Depósito en Saavedra
-      </div>
-      <div class="card-body">
-        <div class="price">USD 3.400 </div>
-        <div class="price-m2">USD 9/m²</div>
-        
-        <div class="addr">📍 Conde al 4800</div>
-        <div class="metrics">📐 375 m² 🚿 2 baños</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/58394457.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="PH" data-barrio="Núñez" data-op="alquiler">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/58/56/62/35/360x266/2038441321.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏠 PH en Núñez
-      </div>
-      <div class="card-body">
-        <div class="price">USD 3.800 <span class="badge-new">NUEVA</span></div>
-        <div class="price-m2">USD 8/m²</div>
-        
-        <div class="addr">📍 Manuela Pedraza 1747</div>
-        <div class="metrics">📐 457 m² 🏠 9 amb. 🛏 8 dorm. 🚿 3 baños</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/58566235.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="Galpón" data-barrio="Núñez" data-op="alquiler">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/57/38/60/62/360x266/2006911831.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏭 Galpón en Núñez
-      </div>
-      <div class="card-body">
-        <div class="price">USD 4.500 </div>
-        <div class="price-m2">USD 14/m²</div>
-        
-        <div class="addr">📍 BASAVILBASO 900</div>
-        <div class="metrics">📐 311 m²</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/57386062.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card" data-tipo="PH" data-barrio="Saavedra" data-op="alquiler">
-      <div class="card-img-wrap">
-        <img src="https://imgar.zonapropcdn.com/avisos/1/00/53/23/30/52/360x266/1901667753.jpg" alt="" loading="lazy" onerror="this.style.display=none">
-        
-        
-      </div>
-      <div class="card-header">
-        🏠 PH en Saavedra
-      </div>
-      <div class="card-body">
-        <div class="price">$2.400.000 </div>
-        <div class="price-m2">$11.429/m²</div>
-        
-        <div class="addr">📍 Valdenegro 4456</div>
-        <div class="metrics">📐 210 m² 🏠 5 amb. 🛏 4 dorm. 🚿 3 baños</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/53233052.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- BAJAS -->
-<div id="tab-bajas" class="tab-content">
-  <div class="stats-bar">
-    <div class="stat"><div class="stat-value">29</div><div class="stat-label">Dadas de baja</div></div>
-  </div>
-  <div class="grid" id="grid-bajas">
-    
-    <div class="card baja-card" data-op="venta">
-      <div class="card-img-wrap">
-        <div class="no-img">—</div>
-        <div class="baja-stamp">DADO DE BAJA</div>
-      </div>
-      <div class="card-header">ID: 58497006</div>
-      <div class="card-body">
-        <div class="price prev-price">USD 165.000</div>
-        <div class="addr">Operación: Venta</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/58497006.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card baja-card" data-op="venta">
-      <div class="card-img-wrap">
-        <div class="no-img">—</div>
-        <div class="baja-stamp">DADO DE BAJA</div>
-      </div>
-      <div class="card-header">ID: 54833210</div>
-      <div class="card-body">
-        <div class="price prev-price">USD 180.000</div>
-        <div class="addr">Operación: Venta</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/54833210.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card baja-card" data-op="venta">
-      <div class="card-img-wrap">
-        <div class="no-img">—</div>
-        <div class="baja-stamp">DADO DE BAJA</div>
-      </div>
-      <div class="card-header">ID: 57683835</div>
-      <div class="card-body">
-        <div class="price prev-price">USD 220.000</div>
-        <div class="addr">Operación: Venta</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/57683835.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card baja-card" data-op="venta">
-      <div class="card-img-wrap">
-        <div class="no-img">—</div>
-        <div class="baja-stamp">DADO DE BAJA</div>
-      </div>
-      <div class="card-header">ID: 56555898</div>
-      <div class="card-body">
-        <div class="price prev-price">USD 239.000</div>
-        <div class="addr">Operación: Venta</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/56555898.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card baja-card" data-op="venta">
-      <div class="card-img-wrap">
-        <div class="no-img">—</div>
-        <div class="baja-stamp">DADO DE BAJA</div>
-      </div>
-      <div class="card-header">ID: 58414112</div>
-      <div class="card-body">
-        <div class="price prev-price">USD 250.000</div>
-        <div class="addr">Operación: Venta</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/58414112.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card baja-card" data-op="venta">
-      <div class="card-img-wrap">
-        <div class="no-img">—</div>
-        <div class="baja-stamp">DADO DE BAJA</div>
-      </div>
-      <div class="card-header">ID: 58260401</div>
-      <div class="card-body">
-        <div class="price prev-price">USD 250.000</div>
-        <div class="addr">Operación: Venta</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/58260401.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card baja-card" data-op="venta">
-      <div class="card-img-wrap">
-        <div class="no-img">—</div>
-        <div class="baja-stamp">DADO DE BAJA</div>
-      </div>
-      <div class="card-header">ID: 58015783</div>
-      <div class="card-body">
-        <div class="price prev-price">USD 250.000</div>
-        <div class="addr">Operación: Venta</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/58015783.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card baja-card" data-op="venta">
-      <div class="card-img-wrap">
-        <div class="no-img">—</div>
-        <div class="baja-stamp">DADO DE BAJA</div>
-      </div>
-      <div class="card-header">ID: 57048261</div>
-      <div class="card-body">
-        <div class="price prev-price">USD 255.000</div>
-        <div class="addr">Operación: Venta</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/57048261.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card baja-card" data-op="venta">
-      <div class="card-img-wrap">
-        <div class="no-img">—</div>
-        <div class="baja-stamp">DADO DE BAJA</div>
-      </div>
-      <div class="card-header">ID: 58628282</div>
-      <div class="card-body">
-        <div class="price prev-price">USD 259.000</div>
-        <div class="addr">Operación: Venta</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/58628282.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card baja-card" data-op="venta">
-      <div class="card-img-wrap">
-        <div class="no-img">—</div>
-        <div class="baja-stamp">DADO DE BAJA</div>
-      </div>
-      <div class="card-header">ID: 58634133</div>
-      <div class="card-body">
-        <div class="price prev-price">USD 259.000</div>
-        <div class="addr">Operación: Venta</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/58634133.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card baja-card" data-op="venta">
-      <div class="card-img-wrap">
-        <div class="no-img">—</div>
-        <div class="baja-stamp">DADO DE BAJA</div>
-      </div>
-      <div class="card-header">ID: 55075695</div>
-      <div class="card-body">
-        <div class="price prev-price">USD 270.000</div>
-        <div class="addr">Operación: Venta</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/55075695.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card baja-card" data-op="venta">
-      <div class="card-img-wrap">
-        <div class="no-img">—</div>
-        <div class="baja-stamp">DADO DE BAJA</div>
-      </div>
-      <div class="card-header">ID: 58060762</div>
-      <div class="card-body">
-        <div class="price prev-price">USD 270.000</div>
-        <div class="addr">Operación: Venta</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/58060762.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card baja-card" data-op="venta">
-      <div class="card-img-wrap">
-        <div class="no-img">—</div>
-        <div class="baja-stamp">DADO DE BAJA</div>
-      </div>
-      <div class="card-header">ID: 57855475</div>
-      <div class="card-body">
-        <div class="price prev-price">USD 280.000</div>
-        <div class="addr">Operación: Venta</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/57855475.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card baja-card" data-op="venta">
-      <div class="card-img-wrap">
-        <div class="no-img">—</div>
-        <div class="baja-stamp">DADO DE BAJA</div>
-      </div>
-      <div class="card-header">ID: 58212376</div>
-      <div class="card-body">
-        <div class="price prev-price">USD 292.000</div>
-        <div class="addr">Operación: Venta</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/58212376.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card baja-card" data-op="venta">
-      <div class="card-img-wrap">
-        <div class="no-img">—</div>
-        <div class="baja-stamp">DADO DE BAJA</div>
-      </div>
-      <div class="card-header">ID: 54212487</div>
-      <div class="card-body">
-        <div class="price prev-price">USD 299.000</div>
-        <div class="addr">Operación: Venta</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/54212487.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card baja-card" data-op="venta">
-      <div class="card-img-wrap">
-        <div class="no-img">—</div>
-        <div class="baja-stamp">DADO DE BAJA</div>
-      </div>
-      <div class="card-header">ID: 57894556</div>
-      <div class="card-body">
-        <div class="price prev-price">USD 300.000</div>
-        <div class="addr">Operación: Venta</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/57894556.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card baja-card" data-op="venta">
-      <div class="card-img-wrap">
-        <div class="no-img">—</div>
-        <div class="baja-stamp">DADO DE BAJA</div>
-      </div>
-      <div class="card-header">ID: 53977433</div>
-      <div class="card-body">
-        <div class="price prev-price">USD 310.000</div>
-        <div class="addr">Operación: Venta</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/53977433.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card baja-card" data-op="venta">
-      <div class="card-img-wrap">
-        <div class="no-img">—</div>
-        <div class="baja-stamp">DADO DE BAJA</div>
-      </div>
-      <div class="card-header">ID: 54907580</div>
-      <div class="card-body">
-        <div class="price prev-price">USD 315.000</div>
-        <div class="addr">Operación: Venta</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/54907580.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card baja-card" data-op="venta">
-      <div class="card-img-wrap">
-        <div class="no-img">—</div>
-        <div class="baja-stamp">DADO DE BAJA</div>
-      </div>
-      <div class="card-header">ID: 54269910</div>
-      <div class="card-body">
-        <div class="price prev-price">USD 315.000</div>
-        <div class="addr">Operación: Venta</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/54269910.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card baja-card" data-op="alquiler">
-      <div class="card-img-wrap">
-        <div class="no-img">—</div>
-        <div class="baja-stamp">DADO DE BAJA</div>
-      </div>
-      <div class="card-header">ID: 50342876</div>
-      <div class="card-body">
-        <div class="price prev-price">$600.000</div>
-        <div class="addr">Operación: Alquiler</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/50342876.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card baja-card" data-op="alquiler">
-      <div class="card-img-wrap">
-        <div class="no-img">—</div>
-        <div class="baja-stamp">DADO DE BAJA</div>
-      </div>
-      <div class="card-header">ID: 57670779</div>
-      <div class="card-body">
-        <div class="price prev-price">USD 1.200</div>
-        <div class="addr">Operación: Alquiler</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/57670779.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card baja-card" data-op="alquiler">
-      <div class="card-img-wrap">
-        <div class="no-img">—</div>
-        <div class="baja-stamp">DADO DE BAJA</div>
-      </div>
-      <div class="card-header">ID: 56555898</div>
-      <div class="card-body">
-        <div class="price prev-price">USD 1.350</div>
-        <div class="addr">Operación: Alquiler</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/56555898.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card baja-card" data-op="alquiler">
-      <div class="card-img-wrap">
-        <div class="no-img">—</div>
-        <div class="baja-stamp">DADO DE BAJA</div>
-      </div>
-      <div class="card-header">ID: 57855475</div>
-      <div class="card-body">
-        <div class="price prev-price">USD 1.500</div>
-        <div class="addr">Operación: Alquiler</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/57855475.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card baja-card" data-op="alquiler">
-      <div class="card-img-wrap">
-        <div class="no-img">—</div>
-        <div class="baja-stamp">DADO DE BAJA</div>
-      </div>
-      <div class="card-header">ID: 57683835</div>
-      <div class="card-body">
-        <div class="price prev-price">USD 1.500</div>
-        <div class="addr">Operación: Alquiler</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/57683835.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card baja-card" data-op="alquiler">
-      <div class="card-img-wrap">
-        <div class="no-img">—</div>
-        <div class="baja-stamp">DADO DE BAJA</div>
-      </div>
-      <div class="card-header">ID: 58554171</div>
-      <div class="card-body">
-        <div class="price prev-price">USD 1.500</div>
-        <div class="addr">Operación: Alquiler</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/58554171.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card baja-card" data-op="alquiler">
-      <div class="card-img-wrap">
-        <div class="no-img">—</div>
-        <div class="baja-stamp">DADO DE BAJA</div>
-      </div>
-      <div class="card-header">ID: 58414112</div>
-      <div class="card-body">
-        <div class="price prev-price">USD 1.600</div>
-        <div class="addr">Operación: Alquiler</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/58414112.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card baja-card" data-op="alquiler">
-      <div class="card-img-wrap">
-        <div class="no-img">—</div>
-        <div class="baja-stamp">DADO DE BAJA</div>
-      </div>
-      <div class="card-header">ID: 58679864</div>
-      <div class="card-body">
-        <div class="price prev-price">USD 2.200</div>
-        <div class="addr">Operación: Alquiler</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/58679864.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card baja-card" data-op="alquiler">
-      <div class="card-img-wrap">
-        <div class="no-img">—</div>
-        <div class="baja-stamp">DADO DE BAJA</div>
-      </div>
-      <div class="card-header">ID: 58655212</div>
-      <div class="card-body">
-        <div class="price prev-price">$580.000</div>
-        <div class="addr">Operación: Alquiler</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/58655212.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-
-    <div class="card baja-card" data-op="alquiler">
-      <div class="card-img-wrap">
-        <div class="no-img">—</div>
-        <div class="baja-stamp">DADO DE BAJA</div>
-      </div>
-      <div class="card-header">ID: 58503603</div>
-      <div class="card-body">
-        <div class="price prev-price">USD 280.000</div>
-        <div class="addr">Operación: Alquiler</div>
-        <a href="https://www.zonaprop.com.ar/propiedades/58503603.html" target="_blank" rel="noopener" class="card-link">Ver en Zonaprop →</a>
-      </div>
-    </div>
-  </div>
-</div>
-
 <script>
-function switchTab(name) {
-  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('tab-'+name).classList.add('active');
-  event.target.classList.add('active');
+const DATA = {"scanDate":"2026-03-29","venta":[{"price":"USD 390.000","address":"Cabildo al 4400","barrio":"Saavedra","tipo":"PH","m2":"393 m² tot.","amb":"10 amb.","dorm":"","banos":"2 baños","coch":"","priceNum":390000,"currency":"USD","m2Num":393,"pricePerM2":992,"slug":"/propiedades/clasificado/veclphin-venta-ph-apto-profesional-en-av-cabildo-al-4400-58584898.html","desc":"Muy buen ph, para uso profesional, institucional, vivienda ubicada sobre la Avenida Cabildo, en plena zona Saavedra–Núñez. Características de la propi"},{"price":"USD 369.000","address":"Plaza 3800","barrio":"Saavedra","tipo":"PH","m2":"244 m² tot.","amb":"4 amb.","dorm":"3 dorm.","banos":"2 baños","coch":"1 coch.","priceNum":369000,"currency":"USD","m2Num":244,"pricePerM2":1512,"slug":"/propiedades/clasificado/veclphin-venta-ph-4-amb-saavedra-con-patio-balcon-y-cochera-58461395.html","desc":"Corredor Responsable: mudate hoy S. A. - Ignacio F. Feijoo cmcpsi 6431 / cpi 6505- Contacto: Sol Pechir. Te presentamos este espectacular ph absolutam"},{"price":"USD 380.000","address":"Manzanares al 2200","barrio":"Núñez","tipo":"PH","m2":"221 m² tot.","amb":"4 amb.","dorm":"3 dorm.","banos":"2 baños","coch":"","priceNum":380000,"currency":"USD","m2Num":221,"pricePerM2":1719,"slug":"/propiedades/clasificado/veclphin-ph-4-ambientes-con-patio-terraza-nunez.-56577969.html","desc":"Soñado ph tipo casa en inmejorable ubicación, a 2 cuadras de Av. Cabildo, 1 cuadra de hermosa plaza, Living y comedor, cocina y comedor diario, toilet"},{"price":"USD 345.000","address":"Mariano Acha al 4500","barrio":"Saavedra","tipo":"PH","m2":"205 m² tot.","amb":"4 amb.","dorm":"3 dorm.","banos":"1 baño","coch":"1 coch.","priceNum":345000,"currency":"USD","m2Num":205,"pricePerM2":1683,"slug":"/propiedades/clasificado/veclphin-venta-casa-4-ambientes-escritorio-o-4-dormitorio-58446027.html","desc":"Descubrí esta impresionante casa tipo duplex en uno de los barrios más exclusivos de Buenos Aires! Ubicado en la calle Mariano Acha al 4500, en el cor"},{"price":"USD 299.000","address":"Amenabar al 3600 1°","barrio":"Saavedra","tipo":"PH","m2":"228 m² tot.","amb":"4 amb.","dorm":"3 dorm.","banos":"3 baños","coch":"","priceNum":299000,"currency":"USD","m2Num":228,"pricePerM2":1311,"slug":"/propiedades/clasificado/veclphin-ph-s-exp-y-al-fte-en-amenabar-y-av-garcia-del-rio-58545505.html","desc":"Ph 4 ambientes (3° dormitorio O comedor) sin expensas al frente Y unico en el piso. 228 M2 totales por titulo. Todo A nuevo. Baulera individual. Espec"},{"price":"USD 389.000","address":"AZURDUY 3200. Entre Pinto y Freire, Ramon","barrio":"Coghlan","tipo":"PH","m2":"201 m² tot.","amb":"4 amb.","dorm":"3 dorm.","banos":"4 baños","coch":"1 coch.","priceNum":389000,"currency":"USD","m2Num":201,"pricePerM2":1935,"slug":"/propiedades/clasificado/veclphin-venta-triplex-de-4-ambientes-coghlan-57506644.html","desc":"Sup total: 201. 12 m2. Triplex de 4 ambientes ubicado a 2 cuadras de Avda Crisólogo Larralde, en hermosa zona residencial. Bonito jardín al contrafren"},{"price":"USD 420.000","address":"Washington al 3700","barrio":"Saavedra","tipo":"PH","m2":"232 m² tot.","amb":"4 amb.","dorm":"2 dorm.","banos":"2 baños","coch":"2 coch.","priceNum":420000,"currency":"USD","m2Num":232,"pricePerM2":1810,"slug":"/propiedades/clasificado/veclphin-ph-tipo-duplex-2-cocheras-con-jardin-en-saavedra-58679864.html","desc":"232 m² totales, Living comedor, 2 dormitorios con balcón, sum, 2 baños, toilette, cocheras, jardín con parrilla. Desarrollado en 4 niveles muy luminos"},{"price":"USD 380.000","address":"Manuel Ugarte al 3700","barrio":"Coghlan","tipo":"PH","m2":"216 m² tot.","amb":"5 amb.","dorm":"4 dorm.","banos":"2 baños","coch":"","priceNum":380000,"currency":"USD","m2Num":216,"pricePerM2":1759,"slug":"/propiedades/clasificado/veclphin-venta-ph-coghlan-5-ambientes-remodelado-58677040.html","desc":"Venta ph coghlan 5 ambientes remodelado Superficie total: 216, 3 m2 Superficie cubierta: 184, 3 m2 Superficie descubierta: 32, 1 m2 Excelente Ph en Co"},{"price":"USD 280.000","address":"Vuelta de Obligado al 4700","barrio":"Núñez","tipo":"PH","m2":"207 m² tot.","amb":"4 amb.","dorm":"4 dorm.","banos":"3 baños","coch":"","priceNum":280000,"currency":"USD","m2Num":207,"pricePerM2":1353,"slug":"/propiedades/clasificado/veclphin-ph-4-amb-en-dos-plantas-todo-luz-patio-terraza-y-58423506.html","desc":"Agmuy lindo ph en zona super tranquila de Núñez en 2 plantas con entrada independiente, mucha luz y excelente ventilación en todos sus ambientes. En p"},{"price":"USD 218.000","address":"Plaza al 4500","barrio":"Saavedra","tipo":"PH","m2":"254 m² tot.","amb":"6 amb.","dorm":"4 dorm.","banos":"2 baños","coch":"","priceNum":218000,"currency":"USD","m2Num":254,"pricePerM2":858,"slug":"/propiedades/clasificado/veclphin-2-phs-en-lote-propio-venta-en-conjunto-ideal-57670779.html","desc":"Venta en conjunto de dos phs en Planta Baja sobre lote propio de 254 m², ubicados en una de las mejores zonas de Saavedra. Oportunidad única: dos unid"},{"price":"USD 270.000","address":"MACHAIN 4370. Entre Correa y Ruiz huidobro","barrio":"Saavedra","tipo":"PH","m2":"242 m² tot.","amb":"3 amb.","dorm":"2 dorm.","banos":"2 baños","coch":"","priceNum":270000,"currency":"USD","m2Num":242,"pricePerM2":1116,"slug":"/propiedades/clasificado/veclphin-venta-ph-3-ambientes-con-patio-saavedra-57622524.html","desc":"Venta de Departamento 3 ambientes en saavedra, capital federal. Excelente ph 3 ambientes al frente con patio + azotea propia con cuarto de herramienta"},{"price":"USD 250.000","address":"Larralde 3290","barrio":"Saavedra","tipo":"PH","m2":"250 m² tot.","amb":"3 amb.","dorm":"2 dorm.","banos":"2 baños","coch":"","priceNum":250000,"currency":"USD","m2Num":250,"pricePerM2":1000,"slug":"/propiedades/clasificado/veclphin-ph-3-ambientes-premium-en-el-corazon-de-saavedra-57376115.html","desc":"Ubicado en una de las zonas residenciales con mayor crecimiento y demanda de caba, este exclusivo ph reciclado a nuevo se encuentra a metros del Parqu"},{"price":"USD 284.900","address":"Tronador 2800","barrio":"Coghlan","tipo":"PH","m2":"209 m² tot.","amb":"5 amb.","dorm":"3 dorm.","banos":"1 baño","coch":"1 coch.","priceNum":284900,"currency":"USD","m2Num":209,"pricePerM2":1363,"slug":"/propiedades/clasificado/veclphin-ph-unico-en-coghlan-5-amb-58342501.html","desc":"Ph Impecable en primer piso. Amplio living comedor. 4 dormitorios (uno podría ser dependencia o escritorio). Baños completo. Toilette de recepción. Co"},{"price":"USD 239.000","address":"LUGONES 4300","barrio":"Saavedra","tipo":"PH","m2":"203 m² tot.","amb":"6 amb.","dorm":"4 dorm.","banos":"3 baños","coch":"","priceNum":239000,"currency":"USD","m2Num":203,"pricePerM2":1177,"slug":"/propiedades/clasificado/veclphin-solido-ph-al-frente-en-2-plantas-terraza-quincho-y-56555898.html","desc":"Ph - lugones al 4300 - entre Ruiz Huidobro y Correa. ph al frente de 3 dormitorios + Escritorio ( o 4 dorm.) + terraza, quincho y parrilla, desarrolla"},{"price":"USD 338.000","address":"Iberá 4600","barrio":"Coghlan","tipo":"PH","m2":"239 m² tot.","amb":"4 amb.","dorm":"3 dorm.","banos":"2 baños","coch":"","priceNum":338000,"currency":"USD","m2Num":239,"pricePerM2":1414,"slug":"/propiedades/clasificado/veclphin-ph-4-ambientes-en-villa-urquiza-sin-expensas-con-58414112.html","desc":"Ph a estrenar 4 ambientes con patio, jardín y terraza propia de 90 m2 equipada con parrilla. Sólo comparte ingreso con una unidad. Sin expensas. Cuent"},{"price":"USD 380.000","address":"MELIAN 3162. Entre Ibera y Tamborini, jose p.","barrio":"Coghlan","tipo":"PH","m2":"254 m² tot.","amb":"6 amb.","dorm":"5 dorm.","banos":"3 baños","coch":"1 coch.","priceNum":380000,"currency":"USD","m2Num":254,"pricePerM2":1496,"slug":"/propiedades/clasificado/veclphin-casa-6-ambientes.-melian-al-3100-57856363.html","desc":"Venta de Casa 6 ambientes en Coghlan, Capital Federa. Venta 3 ph en block sobre lote propio sin subdividir en Coghlan. Los 3 Ph se desarrollan de la s"},{"price":"USD 450.000","address":"Manuela Pedraza al 2400","barrio":"Núñez","tipo":"PH","m2":"335 m² tot.","amb":"11 amb.","dorm":"6 dorm.","banos":"3 baños","coch":"","priceNum":450000,"currency":"USD","m2Num":335,"pricePerM2":1343,"slug":"/propiedades/clasificado/veclphin-impresionante-ph-en-venta-en-nunez-con-terraza-52200247.html","desc":"Ph en venta en Núñez. Excelente estado. Amplio y luminoso. 290m2 cubiertos 45m2 descubiertos. 1er planta: Estudio, hall de distribución, living, comed"},{"price":"USD 209.000","address":"Arias 4600","barrio":"Saavedra","tipo":"PH","m2":"260 m² tot.","amb":"3 amb.","dorm":"2 dorm.","banos":"2 baños","coch":"1 coch.","priceNum":209000,"currency":"USD","m2Num":260,"pricePerM2":804,"slug":"/propiedades/clasificado/veclphin-arias-4700-gran-ph-al-frente-con-entrada-50342876.html","desc":"Comodisimo Ph al frente en dos plantas acepta menor valor en parte de pago. entrada independiente. Gje. 2 terrazas. super espacioso. en planta alta 2 "},{"price":"USD 338.000","address":"Iberá 4600","barrio":"Saavedra","tipo":"PH","m2":"239 m² tot.","amb":"4 amb.","dorm":"3 dorm.","banos":"2 baños","coch":"","priceNum":338000,"currency":"USD","m2Num":239,"pricePerM2":1414,"slug":"/propiedades/clasificado/veclphin-ph-4-ambientes-en-villa-urquiza-sin-expensas-con-58414061.html","desc":"Ph a estrenar 4 ambientes con patio, jardín y terraza propia de 90 m2 equipada con parrilla. Sólo comparte ingreso con una unidad. Sin expensas. Cuent"},{"price":"USD 255.000","address":"Monroe 4000","barrio":"Coghlan","tipo":"PH","m2":"270 m² tot.","amb":"4 amb.","dorm":"3 dorm.","banos":"2 baños","coch":"","priceNum":255000,"currency":"USD","m2Num":270,"pricePerM2":944,"slug":"/propiedades/clasificado/veclphin-venta-ph-en-planta-baja-de-4-ambientes-con-jardin-y-57048261.html","desc":"Ph al contrafrente, todo en planta baja. Living comedor con pisos de parquet, cocina independiente con comedor diario, lavadero o patio techado, dos d"},{"price":"USD 270.000","address":"RAMALLO 4673. Entre Acha, mariano y Lugones","barrio":"Saavedra","tipo":"PH","m2":"240 m² tot.","amb":"5 amb.","dorm":"4 dorm.","banos":"2 baños","coch":"","priceNum":270000,"currency":"USD","m2Num":240,"pricePerM2":1125,"slug":"/propiedades/clasificado/veclphin-venta-de-casa-ph-5-ambientes-en-saavedra-capital-55075695.html","desc":"Venta de Casa ph 5 ambientes en Saavedra, Capital Federal. ramallo Y mariano acha - ph con entrada independiente en tres plantas - frente Y contrafren"},{"price":"USD 384.000","address":"Paroissien 2582","barrio":"Núñez","tipo":"PH","m2":"250 m² tot.","amb":"3 amb.","dorm":"2 dorm.","banos":"1 baño","coch":"","priceNum":384000,"currency":"USD","m2Num":250,"pricePerM2":1536,"slug":"/propiedades/clasificado/veclphin-venta-en-block!-son-3-departamentos-en-excelente-57416705.html","desc":"Impecables 3 departamentos al frente de 70 metros aprox. Cada uno de 3 ambientes + cocina + balcón o patio + baño completo. Oportunidad inversores con"},{"price":"USD 220.000","address":"Deheza 4280","barrio":"Saavedra","tipo":"PH","m2":"230 m² tot.","amb":"7 amb.","dorm":"1 dorm.","banos":"3 baños","coch":"","priceNum":220000,"currency":"USD","m2Num":230,"pricePerM2":957,"slug":"/propiedades/clasificado/veclphin-3-phs-en-block-p.-b:-3-amb.-con-patio-p.-a:-2-phs-57683835.html","desc":"Oportunidad 3 phs en block (sin subdividir) en planta baja: 3 ambientes con entrada independiente. Living comedor - 2 dormitorios - cocina - baño comp"},{"price":"USD 249.000","address":"Moldes y Arias","barrio":"Saavedra","tipo":"PH","m2":"200 m² tot.","amb":"4 amb.","dorm":"","banos":"2 baños","coch":"","priceNum":249000,"currency":"USD","m2Num":200,"pricePerM2":1245,"slug":"/propiedades/clasificado/veclphin-saavedra.-moldes-y-arias-exc-ph-4-amb-c-gran-terraza-53977433.html","desc":". Excelente ph en Núñez. En la esquina de Arias y Moldes. Barrio super tranquilo. A mts de avenidas, transporte y toda la movida gastronómica y de esc"},{"price":"USD 259.000","address":"Deheza 4972","barrio":"Saavedra","tipo":"PH","m2":"237 m² tot.","amb":"4 amb.","dorm":"3 dorm.","banos":"2 baños","coch":"1 coch.","priceNum":259000,"currency":"USD","m2Num":237,"pricePerM2":1093,"slug":"/propiedades/clasificado/veclphin-ph-3-ambientes-cochera-patios-terraza-y-pileta-58628282.html","desc":"Lindísimo ph tipo casa de 3 ambientes en venta ubicado en el barrio de Saavedra. Sobre la calle Deheza a metros de Av Balbín, cercanía con la Av Gral."},{"price":"USD 250.000","address":"Jaramillo al 4200","barrio":"Saavedra","tipo":"PH","m2":"200 m² tot.","amb":"6 amb.","dorm":"4 dorm.","banos":"2 baños","coch":"","priceNum":250000,"currency":"USD","m2Num":200,"pricePerM2":1250,"slug":"/propiedades/clasificado/veclphin-oportunidad-terreno-en-saavedra-58260401.html","desc":"¡Oportunidad Única! Casa Antigua Tipo Chorizo para Reciclar o Proyecto NuevoDescripción: Encantadora casa antigua tipo chorizo, con mucho potencial pa"},{"price":"USD 295.000","address":"IBERA 4885. Entre Galvan y Valdenegro","barrio":"Saavedra","tipo":"PH","m2":"318 m² tot.","amb":"7 amb.","dorm":"6 dorm.","banos":"5 baños","coch":"1 coch.","priceNum":295000,"currency":"USD","m2Num":318,"pricePerM2":928,"slug":"/propiedades/clasificado/veclphin-venta-ph-cochera-quincho-parrilla-terrazas-saavedra-57399096.html","desc":"Venta de Magnifico ph al Frente. Entrada individual, Peatonal y Vehicular. Balcon corrido al frente y Quincho con Parrilla al contrafrente. Hall de re"},{"price":"USD 278.000","address":"Tronador","barrio":"Saavedra","tipo":"PH","m2":"209 m² tot.","amb":"5 amb.","dorm":"3 dorm.","banos":"2 baños","coch":"","priceNum":278000,"currency":"USD","m2Num":209,"pricePerM2":1330,"slug":"/propiedades/clasificado/veclphin-excepcional-ph-en-saavedra-todo-a-nuevo!-entrada-58212376.html","desc":"Excepcional ph en saavedra. ver planos! Tomamos ph o departamento en parte de pago. Todo A nuevo hace 12 años. entrada independiente. hall de entrada."},{"price":"USD 429.000","address":"Campos Salles al 2200","barrio":"Núñez","tipo":"PH","m2":"235 m² tot.","amb":"5 amb.","dorm":"3 dorm.","banos":"2 baños","coch":"","priceNum":429000,"currency":"USD","m2Num":235,"pricePerM2":1826,"slug":"/propiedades/clasificado/veclphin-venta-ph-5-ambientes-terraza-nunez-57826018.html","desc":"Ph en venta nuñez 4 dormitorios terraza 1 piso por escaleraingreso por entrada independientepiso 1: livingcomedorpisos de pinoteaambois ambientes vent"},{"price":"USD 205.000","address":"Correa al 4500","barrio":"Saavedra","tipo":"PH","m2":"204 m² tot.","amb":"5 amb.","dorm":"4 dorm.","banos":"2 baños","coch":"1 coch.","priceNum":205000,"currency":"USD","m2Num":204,"pricePerM2":1005,"slug":"/propiedades/clasificado/veclphin-reservado!-ph-5-ambientes-con-patio-terraza-y-cochera-58315818.html","desc":"Reservado!! Contacto: Julián Moiguer - 11 Ver datosventa ph 5 ambientes con patio, terraza Y cochera (sin expensas / apto crédito) – saavedraexcelente"},{"price":"USD 205.000","address":"Correa al 4500","barrio":"Saavedra","tipo":"PH","m2":"204 m² tot.","amb":"5 amb.","dorm":"4 dorm.","banos":"2 baños","coch":"1 coch.","priceNum":205000,"currency":"USD","m2Num":204,"pricePerM2":1005,"slug":"/propiedades/clasificado/veclphin-reservado!-ph-5-ambientes-con-patio-terraza-y-cochera-58315818.html","desc":"Reservado!! Contacto: Julián Moiguer - 11 Ver datosventa ph 5 ambientes con patio, terraza Y cochera (sin expensas / apto crédito) – saavedraexcelente"},{"price":"USD 429.000","address":"Campos Salles al 2200","barrio":"Núñez","tipo":"PH","m2":"235 m² tot.","amb":"5 amb.","dorm":"3 dorm.","banos":"2 baños","coch":"","priceNum":429000,"currency":"USD","m2Num":235,"pricePerM2":1826,"slug":"/propiedades/clasificado/veclphin-venta-ph-5-ambientes-terraza-nunez-57826018.html","desc":"Ph en venta nuñez 4 dormitorios terraza 1 piso por escaleraingreso por entrada independientepiso 1: livingcomedorpisos de pinoteaambois ambientes vent"},{"price":"USD 270.000","address":"Roque Perez 4700","barrio":"Saavedra","tipo":"PH","m2":"236 m² tot.","amb":"4 amb.","dorm":"3 dorm.","banos":"1 baño","coch":"1 coch.","priceNum":270000,"currency":"USD","m2Num":236,"pricePerM2":1144,"slug":"/propiedades/clasificado/veclphin-venta-ph-casa-saavedra-coghlan-4ambient-garage-patio-58066155.html","desc":"Casa ph Planta Baja a la calle con Espacio aéreo propio, garage (de 4, 97 x 5, 56) gran terraza a cielo abierto en el corazón de Saavedra Residencial "},{"price":"USD 189.900","address":"Vilela 2700","barrio":"Saavedra","tipo":"PH","m2":"250 m² tot.","amb":"4 amb.","dorm":"3 dorm.","banos":"2 baños","coch":"","priceNum":189900,"currency":"USD","m2Num":250,"pricePerM2":760,"slug":"/propiedades/clasificado/veclphin-gran-ph-en-saavedra-en-venta-a-reciclar-vilela-2700-58655212.html","desc":"Oportunidad en Saavedra. Gran ph sin Expensas tipo chorizo con terraza a Reciclar. En un lote con 3 unidades, esta es la unidad del medio, se accede p"},{"price":"USD 350.000","address":"Obligado 4200","barrio":"Núñez","tipo":"PH","m2":"220 m² tot.","amb":"5 amb.","dorm":"4 dorm.","banos":"3 baños","coch":"1 coch.","priceNum":350000,"currency":"USD","m2Num":220,"pricePerM2":1591,"slug":"/propiedades/clasificado/veclphin-nunez-casa-ph-5amb-cochera-patio-jardin-3dorm-playr-58594649.html","desc":"Chalet ph triplex 5 ambientes sobre 4, 35 x 28, 47. -&quot;Lomas de Nuñez&quot; 1 c/Avenida cabildo -4 c/Av. Del libertador (Zona Clubes) -a pasos de "},{"price":"USD 220.000","address":"Roque Pérez 4600","barrio":"Saavedra","tipo":"PH","m2":"221 m² tot.","amb":"8 amb.","dorm":"4 dorm.","banos":"2 baños","coch":"","priceNum":220000,"currency":"USD","m2Num":221,"pricePerM2":995,"slug":"/propiedades/clasificado/veclphin-casa-ph-pb-frente-4-dorm-8-amb-gran-patio-saavedra-58634349.html","desc":"Corredor Responsable: Fernando Daniel Tombazzi cucicba 7622 / cmcpdjlm 1078- Contacto: Silvio Fernandez. Saavedra – A pocas cuadras del dot Baires Sho"},{"price":"USD 330.000","address":"Monroe 3100","barrio":"Coghlan","tipo":"PH","m2":"310 m² tot.","amb":"43 amb.","dorm":"3 dorm.","banos":"2 baños","coch":"","priceNum":330000,"currency":"USD","m2Num":310,"pricePerM2":1065,"slug":"/propiedades/clasificado/veclphin-departamento-ph-en-venta-en-belgrano-capital-federal-58713626.html","desc":"Ph monroe Y balbin. primer piso por escalera. 190 M2 cubiertos + 120 descubiertos. 4 ambientes. sin expensas"},{"price":"USD 370.000","address":"Besares al 1800","barrio":"Núñez","tipo":"PH","m2":"220 m² tot.","amb":"4 amb.","dorm":"3 dorm.","banos":"2 baños","coch":"","priceNum":370000,"currency":"USD","m2Num":220,"pricePerM2":1682,"slug":"/propiedades/clasificado/veclphin-ph-impecable-en-lomas-de-nunez-4-amb-con-patio-57835249.html","desc":"Hermoso ph de 4 Amb. En Lomas de Nuñez. Totalmente reciclado hace 15 añospb: Living Comedor – Star – Escritorio – Cocina – Toilette - Patio con parril"},{"price":"USD 535.000","address":"Quesada 4000","barrio":"Coghlan","tipo":"PH","m2":"233 m² tot.","amb":"8 amb.","dorm":"5 dorm.","banos":"2 baños","coch":"1 coch.","priceNum":535000,"currency":"USD","m2Num":233,"pricePerM2":2296,"slug":"/propiedades/clasificado/veclphin-departamento-ph-en-venta-en-coghlan-capital-federal-55091508.html","desc":"¡ph independiente 5 dormitorios en coghlan! Con pileta semiclimatizada, cochera, 5 dormitorios, quincho, parrilla, jardín, patio. En la inmejorable zo"},{"price":"USD 295.000","address":"IBERA 4885. Entre Galvan y Valdenegro","barrio":"Coghlan","tipo":"PH","m2":"318 m² tot.","amb":"7 amb.","dorm":"6 dorm.","banos":"5 baños","coch":"1 coch.","priceNum":295000,"currency":"USD","m2Num":318,"pricePerM2":928,"slug":"/propiedades/clasificado/veclphin-venta-ph-7-amb-c-cochera-quincho-parrilla-terrazas-56365887.html","desc":"Venta de Magnifico ph al Frente. Entrada individual, Peatonal y Vehicular. Balcon corrido al frente y Quincho con Parrilla al contrafrente. Hall de re"},{"price":"USD 284.000","address":"Ramallo 3500","barrio":"Núñez","tipo":"PH","m2":"286 m² tot.","amb":"4 amb.","dorm":"3 dorm.","banos":"3 baños","coch":"1 coch.","priceNum":284000,"currency":"USD","m2Num":286,"pricePerM2":993,"slug":"/propiedades/clasificado/veclphin-ph-estilo-casa-i-jardin-i-pileta-i-amplios-ambientes-58390502.html","desc":"Es Saavedra, cercano a Nuñez. Apto credito. 286, 40 m2 totales por escritura. 184, 90 cubiertos. Extenso jardín propio con fondo y pileta bien instala"},{"price":"USD 259.000","address":"Ramallo 4673","barrio":"Saavedra","tipo":"PH","m2":"324 m² tot.","amb":"4 amb.","dorm":"3 dorm.","banos":"1 baño","coch":"","priceNum":259000,"currency":"USD","m2Num":324,"pricePerM2":799,"slug":"/propiedades/clasificado/veclphin-venta-de-ph-independiente-en-saavedra-caba.-58634133.html","desc":"Ph tipo casa en venta en el barrio de Saavedra, Caba. Planta baja: - Excelente ubicacion en el barrio de Saavedra! - Barrio muy tranquilo y lindo, cer"},{"price":"USD 295.000","address":"Manuela Pedraza al 2000","barrio":"Núñez","tipo":"PH","m2":"200 m² tot.","amb":"4 amb.","dorm":"3 dorm.","banos":"2 baños","coch":"","priceNum":295000,"currency":"USD","m2Num":200,"pricePerM2":1475,"slug":"/propiedades/clasificado/veclphin-ph-con-3-dorm.-de-120-m-sup2--en-venta-en-nunez-50237523.html","desc":"Ph en venta en Núñez, ideal para familias. Cuenta con 120 m2 de superficie construida y 200 m2 de superficie total. Disposición al frente, muy luminos"},{"price":"USD 284.000","address":"Ramallo 3500","barrio":"Saavedra","tipo":"PH","m2":"286 m² tot.","amb":"4 amb.","dorm":"3 dorm.","banos":"3 baños","coch":"1 coch.","priceNum":284000,"currency":"USD","m2Num":286,"pricePerM2":993,"slug":"/propiedades/clasificado/veclphin-ph-estilo-casa-i-jardin-i-pileta-i-amplios-ambientes-58390497.html","desc":"286, 40 m2 totales por escritura. 184, 90 cubiertos. Apto credito. Extenso jardín propio con fondo y pileta bien instalada. Dos unidades tipo Ph duple"},{"price":"USD 540.000","address":"3 de Febrero 3400","barrio":"Núñez","tipo":"PH","m2":"310 m² tot.","amb":"5 amb.","dorm":"3 dorm.","banos":"3 baños","coch":"3 coch.","priceNum":540000,"currency":"USD","m2Num":310,"pricePerM2":1742,"slug":"/propiedades/clasificado/veclphin-ph-5-amb.-con-terraza-y-3-cocheras-3-pisos_-nunez-58662417.html","desc":"Corredor Responsable: Laura Palini cpi 7752 / csm 2733- Contacto: Sabrina Molina. Increíble ph de 5 ambientes distribuido en 4 plantas, con 3 cocheras"},{"price":"USD 350.000","address":"Ibera 2937 - PB Fondo","barrio":"Núñez","tipo":"PH","m2":"305 m² tot.","amb":"6 amb.","dorm":"5 dorm.","banos":"3 baños","coch":"","priceNum":350000,"currency":"USD","m2Num":305,"pricePerM2":1148,"slug":"/propiedades/clasificado/veclphin-ph-6-ambientes-contrafrente-venta-nunez-58435580.html","desc":"Ph - 6 amb - nuñez - apto credito Esta propiedad tipo ph está ubicada en el corazón de Nuñez, una de las zonas más buscadas de la Capital Federal. Con"},{"price":"USD 275.000","address":"Amenábar 3800","barrio":"Núñez","tipo":"PH","m2":"214 m² tot.","amb":"4 amb.","dorm":"3 dorm.","banos":"2 baños","coch":"1 coch.","priceNum":275000,"currency":"USD","m2Num":214,"pricePerM2":1285,"slug":"/propiedades/clasificado/veclphin-casa-venta-nunez-de-214-m-sup2--en-dos-plantas-patio-y-57956032.html","desc":"Real oportunidad! Venta Hermoso ph tipo Casa 4 ambientes, con entrada independiente y espaciosa cochera. Solo 3 unidades en el lote, es la única al fr"},{"price":"USD 395.000","address":"AZURDUY 3600. Entre Av. ricardo balbin y Perez, roque","barrio":"Coghlan","tipo":"PH","m2":"246 m² tot.","amb":"6 amb.","dorm":"4 dorm.","banos":"3 baños","coch":"1 coch.","priceNum":395000,"currency":"USD","m2Num":246,"pricePerM2":1606,"slug":"/propiedades/clasificado/veclphin-venta-ph-duplex-6-ambientes-con-cochera-en-coghlan-57697574.html","desc":"Ver video adjunto. Venta ph duplex 6 ambientes con cochera muy amplia al frente en coghlan. Excelente estado. Para exigentes. Apto credito bancario. P"},{"price":"USD 275.000","address":"Juan Carlos Cruz 2300","barrio":"Núñez","tipo":"PH","m2":"200 m² tot.","amb":"4 amb.","dorm":"3 dorm.","banos":"2 baños","coch":"","priceNum":275000,"currency":"USD","m2Num":200,"pricePerM2":1375,"slug":"/propiedades/clasificado/veclphpa-puerto-de-olivos-libertador-rio-gran-jardin-de-100-47338691.html","desc":"Soñado ph Libertador río usd 1. 375 M2 Puerto de Olivos ph 5 ambientes tipo casa con jardín propio de 100 M2 sin expensas y sin comisión inmobiliaria "},{"price":"USD 349.000","address":"Ramón Freire","barrio":"Núñez","tipo":"PH","m2":"210 m² tot.","amb":"3 amb.","dorm":"2 dorm.","banos":"3 baños","coch":"","priceNum":349000,"currency":"USD","m2Num":210,"pricePerM2":1662,"slug":"/propiedades/clasificado/veclphpa-excelente-ph-casa-totalmente-reciclado-a-nueva.-pileta-58656895.html","desc":"Materiales de excelente calidad, unico reciclado a nuevo. Excelente oportunidad de compra. Digno de ver, 2 cuartos, posibilidad de hacer un 3ro. Jardi"},{"price":"USD 399.000","address":"Avenida Cabildo 4769","barrio":"Núñez","tipo":"Oficina","m2":"254 m² tot.","amb":"1 amb.","dorm":"","banos":"2 baños","coch":"","priceNum":399000,"currency":"USD","m2Num":254,"pricePerM2":1571,"slug":"/propiedades/clasificado/veclocin-unico-piso-oficina-145-m-sup2--mas-terraza-de-100-56273400.html","desc":"11 Ver datos fratelli grupo inmobiliariovende posibilidad de financiación en venta!! oficina 252 m² totales (144 m² cubiertos) ubicada en el 2º Piso, "},{"price":"USD 2.600.000","address":"Arias 3700","barrio":"Saavedra","tipo":"Oficina","m2":"580 m² tot.","amb":"14 amb.","dorm":"","banos":"6 baños","coch":"10 coch.","priceNum":2600000,"currency":"USD","m2Num":580,"pricePerM2":4483,"slug":"/propiedades/clasificado/veclocin-oficina-580-m-sup2-.-10-cocheras.-amoblada-y-equipada.-52306977.html","desc":"Ventaedificio Intecons, Saavedra. Excelente ubicación y accesos. General Paz y Panamericana. A metros del Shopping dot. 580 m² cubiertos. Amoblado5 de"},{"price":"USD 399.000","address":"Av Cabildo al 4700","barrio":"Núñez","tipo":"Oficina","m2":"254 m² tot.","amb":"1 amb.","dorm":"","banos":"2 baños","coch":"","priceNum":399000,"currency":"USD","m2Num":254,"pricePerM2":1571,"slug":"/propiedades/clasificado/veclocin-espectacular-oficina-en-venta-con-terraza-privada-en-56068696.html","desc":"Espectacular oficina en venta de 254 m2 totales lista para entregar! Se trata de una oficina de 146 m2 cubiertos, junto con una increíble terraza de 1"},{"price":"USD 390.000","address":"Cabildo al 4400","barrio":"Saavedra","tipo":"Oficina","m2":"393 m² tot.","amb":"10 amb.","dorm":"","banos":"2 baños","coch":"","priceNum":390000,"currency":"USD","m2Num":393,"pricePerM2":992,"slug":"/propiedades/clasificado/veclocin-venta-ph-oficina-en-av-cabildo-al-4400-saavedra-58584994.html","desc":"Excelente oficina tipo ph, ubicada sobre la Avenida Cabildo, en plena zona Saavedra–Núñez. Características de la propiedad: Cuenta con 390 m² distribu"},{"price":"USD 1.850.000","address":"Arias al 3700","barrio":"Saavedra","tipo":"Oficina","m2":"580 m² tot.","amb":"","dorm":"","banos":"4 baños","coch":"6 coch.","priceNum":1850000,"currency":"USD","m2Num":580,"pricePerM2":3190,"slug":"/propiedades/clasificado/veclocin-venta-oficina-580-m-sup2--edificio-intecons-55807645.html","desc":"Venta oficina - 580 M2 – edificio intecons-Superficie Oficina: 580 m²-Cocheras: 6 unidadesEl edificio Intecons es una torre corporativa de categoría A"},{"price":"USD 360.000","address":"Holmberg 4000","barrio":"Saavedra","tipo":"Oficina","m2":"350 m² tot.","amb":"","dorm":"","banos":"3 baños","coch":"1 coch.","priceNum":360000,"currency":"USD","m2Num":350,"pricePerM2":1029,"slug":"/propiedades/clasificado/veclocin-oficina-en-venta-en-saavedra-capital-federal-buenos-58564291.html","desc":"Propiedad estrategica con doble frente, ideal para empresas o desarrollos profesionales. La planta baja permite reconvertirse en una gran recepción co"},{"price":"USD 729.000","address":"Av. Cramer 3300","barrio":"Núñez","tipo":"Oficina","m2":"270 m² tot.","amb":"4 amb.","dorm":"3 dorm.","banos":"3 baños","coch":"2 coch.","priceNum":729000,"currency":"USD","m2Num":270,"pricePerM2":2700,"slug":"/propiedades/clasificado/veclocin-venta-oficina-corporativa-57666403.html","desc":"Oficina en Venta de 270 m² con 3 cocheras | Cramer Núñez. Excelente oficina ubicada sobre Avenida Cramer, a metros del colegio Tarbut, en un edificio "},{"price":"USD 1.250.000","address":"Victorino DE LA Plaza 1600 | Nuñez | Barrio River","barrio":"Núñez","tipo":"Oficina","m2":"495 m² tot.","amb":"7 amb.","dorm":"3 dorm.","banos":"4 baños","coch":"2 coch.","priceNum":1250000,"currency":"USD","m2Num":495,"pricePerM2":2525,"slug":"/propiedades/clasificado/veclocin-casa-en-venta-en-barrio-river-57182251.html","desc":"Espectacular Casa en Barrio River, ubicada en Victorino de la Plaza entre Ricchieri y Rafael HernándezApto profesional. Ideal oficinas para Productora"},{"price":"USD 1.300.000","address":"Estomba 3700","barrio":"Saavedra","tipo":"Oficina","m2":"436 m² tot.","amb":"6 amb.","dorm":"","banos":"12 baños","coch":"","priceNum":1300000,"currency":"USD","m2Num":436,"pricePerM2":2982,"slug":"/propiedades/clasificado/veclocin-edificio-de-oficinas-en-venta-excelente-zona-51972631.html","desc":"Excelente edificio de oficinas, en el barrio de Saavedra, con frente a 2 calles, Estomba y Jaramillo. A pasos de Avenida Ricardo Balbín. Excelente zon"},{"price":"USD 41.500","address":"Campo Salles al 1100","barrio":"Núñez","tipo":"Oficina","m2":"600 m² tot.","amb":"","dorm":"","banos":"","coch":"","priceNum":41500,"currency":"USD","m2Num":600,"pricePerM2":69,"slug":"/propiedades/clasificado/veclocin-oficina-en-parque-de-la-innovacion-54792798.html","desc":"Parque de la innovacion negocio de oficinasdesde pequeños ticketsparque de innovaciónel nuevo barrio premium que se está haciendo en nuñez!! opciones "},{"price":"USD 329.000","address":"Deheza al 3600","barrio":"Saavedra","tipo":"Oficina","m2":"250 m² tot.","amb":"5 amb.","dorm":"","banos":"3 baños","coch":"1 coch.","priceNum":329000,"currency":"USD","m2Num":250,"pricePerM2":1316,"slug":"/propiedades/clasificado/veclocin-propiedad-en-excelente-estado-reciclada-de-250-m-con-57944341.html","desc":"Casa sobre lote de 8 x 21 con 250mts cubiertos construidos de 5 amb con 3 baños con vivienda secundaria independiente - estado muy bueno reciclada hac"},{"price":"Consultar precio","address":"libertador y arias","barrio":"Núñez","tipo":"Oficina","m2":"485 m² tot.","amb":"","dorm":"","banos":"5 baños","coch":"5 coch.","priceNum":0,"currency":"USD","m2Num":485,"pricePerM2":0,"slug":"/propiedades/clasificado/veclocin-excelente-oficina-con-vista-al-rio-54588637.html","desc":"Excelente oficina con vista al rio, sala de reuniones, doble circulación, terraza privada de 100mtrs."},{"price":"USD 520.000","address":"3 de Febrero al 3000","barrio":"Núñez","tipo":"Oficina","m2":"200 m² tot.","amb":"","dorm":"","banos":"2 baños","coch":"","priceNum":520000,"currency":"USD","m2Num":200,"pricePerM2":2600,"slug":"/propiedades/clasificado/veclocin-venta-oficina-nunez-57388940.html","desc":"Venta nuñezun ph con habilitación oficinas comerciales. Ubicada sobre 3 de Febrero al 3000, esta propiedad combina el encanto de una casa antigua con "},{"price":"USD 920.000","address":"Zapiola 4200, Saavedra","barrio":"Saavedra","tipo":"Oficina","m2":"240 m² tot.","amb":"10 amb.","dorm":"5 dorm.","banos":"6 baños","coch":"2 coch.","priceNum":920000,"currency":"USD","m2Num":240,"pricePerM2":3833,"slug":"/propiedades/clasificado/veclocin-oficina-en-venta-con-renta-en-saavedra-semipiso-58622487.html","desc":"En edificio Corporativo con todas las normativas para habilitar, muy bien ubicado a pocas cuadras de Av. General Paz y dot Baires Shopping. 230 metros"},{"price":"USD 1.980.000","address":"Excelente Oficina en Cramer al 3200","barrio":"Coghlan","tipo":"Oficina","m2":"1000 m² tot.","amb":"","dorm":"","banos":"","coch":"8 coch.","priceNum":1980000,"currency":"USD","m2Num":1000,"pricePerM2":1980,"slug":"/propiedades/clasificado/veclocin-excelente-oficina-en-cramer-al-3200-48362297.html","desc":"Excelente oficina de 1000 mts en venta y alquiler! Espacios amplios, terraza, 8 cocherasLa propiedad cumple con la ley 5115. Accesible para personas c"},{"price":"USD 1.145.000","address":"Zapiola al 4800 Saavedra","barrio":"Saavedra","tipo":"Galpón","m2":"547 m² tot.","amb":"","dorm":"","banos":"","coch":"","priceNum":1145000,"currency":"USD","m2Num":547,"pricePerM2":2093,"slug":"/propiedades/clasificado/veclbgin-terreno-en-venta-saavedra-apto-multifamiliar-56666009.html","desc":"Lote de 547, 40 m2 con 16, 25 metros de frente, a 50 mts de Gral Paz. Zapiola a esa altura es ancha, de doble mano. En permanente actualizacion de pro"},{"price":"USD 245.000","address":"O\"higgin al 3900","barrio":"Núñez","tipo":"Galpón","m2":"212 m² tot.","amb":"4 amb.","dorm":"3 dorm.","banos":"2 baños","coch":"","priceNum":245000,"currency":"USD","m2Num":212,"pricePerM2":1156,"slug":"/propiedades/clasificado/veclbgin-ph-en-nunez-en-venta-58554171.html","desc":"Dúplex 212 m² refaccionado • quincho Y parrilla • ubicación premium en núñez. En una de las zonas más buscadas de Núñez, a solo 2 cuadras de Av. Cabil"},{"price":"USD 280.000","address":"Washington 3300","barrio":"Coghlan","tipo":"Depósito","m2":"274 m² tot.","amb":"","dorm":"","banos":"","coch":"","priceNum":280000,"currency":"USD","m2Num":274,"pricePerM2":1022,"slug":"/propiedades/clasificado/vecldein-venta-importante-local-taller-mecanico-en-coghlan-58503603.html","desc":"Corredor Responsable: walter pascualini cpi 3763 / csi 5601- Contacto: Jorge Bara Rodiño. coghlan. Venta impecable Y amplio local con posibilidad para"}],"alquiler":[{"price":"USD 3.800","address":"Manuela Pedraza 1747","barrio":"Núñez","tipo":"PH","m2":"457 m² tot.","amb":"9 amb.","dorm":"8 dorm.","banos":"3 baños","coch":"","priceNum":3800,"currency":"USD","m2Num":457,"pricePerM2":8,"slug":"/propiedades/clasificado/alclphin-alquiler-comercial-nunez-ph-58566235.html","desc":"Ph comercial en alquiler Núñez | Amplios espacios y gran potencial. Ubicado en el corazón de la mejor zona de Núñez, sobre la esquina de Pedraza y 11 "},{"price":"$ 2.400.000","address":"Valdenegro 4456","barrio":"Saavedra","tipo":"PH","m2":"210 m² tot.","amb":"5 amb.","dorm":"4 dorm.","banos":"3 baños","coch":"","priceNum":2400000,"currency":"ARS","m2Num":210,"pricePerM2":11429,"slug":"/propiedades/clasificado/alclphin-ph-5-ambientes-tza-bcon-uso-profesional-53233052.html","desc":"Para Ingresar a partir de Abril 2026. apto uso comercial / profesional. hermoso ph de 5 ambientes O 4 mas dependencia de servicio, 1° er piso por esca"},{"price":"USD 100.000","address":"Besares al 3400","barrio":"Saavedra","tipo":"PH","m2":"560000 m² tot.","amb":"","dorm":"","banos":"","coch":"","priceNum":100000,"currency":"USD","m2Num":560000,"pricePerM2":0,"slug":"/propiedades/clasificado/alclphin-depto-en-saavedra-57789976.html","desc":"Propiedades ficticias para pruebas de tokko broker! Propiedades ficticias para pruebas de tokko broker! Propiedades ficticias para pruebas de tokko br"},{"price":"USD 100.000","address":"Besares al 3400","barrio":"Saavedra","tipo":"PH","m2":"560000 m² tot.","amb":"","dorm":"","banos":"","coch":"","priceNum":100000,"currency":"USD","m2Num":560000,"pricePerM2":0,"slug":"/propiedades/clasificado/alclphin-depto-en-saavedra-58424636.html","desc":"Propiedades ficticias para pruebas de tokko broker! Propiedades ficticias para pruebas de tokko broker! Propiedades ficticias para pruebas de tokko br"},{"price":"USD 9.576","address":"Tronador N°4890","barrio":"Saavedra","tipo":"Oficina","m2":"399 m² tot.","amb":"1 amb.","dorm":"","banos":"1 baño","coch":"4 coch.","priceNum":9576,"currency":"USD","m2Num":399,"pricePerM2":24,"slug":"/propiedades/clasificado/alclocin-oficina-general-paz-y-panamericana-54910257.html","desc":"Torre Panamericana Plaza semi piso 13 - 399 M2Tronador, 4890, Saavedra, Ciudad Autónoma de Buenos AiresEl edificio se compone de 3 subsuelos, planta b"},{"price":"USD 3.980","address":"Libertador 7272","barrio":"Núñez","tipo":"Oficina","m2":"212 m² tot.","amb":"","dorm":"","banos":"","coch":"2 coch.","priceNum":3980,"currency":"USD","m2Num":212,"pricePerM2":19,"slug":"/propiedades/clasificado/alclocin-piso-alto-en-av-libertador-7272-212-m-sup2--otras-51810913.html","desc":"Triple oportunidad corporativa en libertador 7272 | piso alto destacado. En el corazón de Núñez, sobre Av. Del Libertador, se encuentran disponibles t"},{"price":"USD 3.400","address":"Av. Crámer 3226","barrio":"Núñez","tipo":"Oficina","m2":"275 m² tot.","amb":"","dorm":"","banos":"3 baños","coch":"2 coch.","priceNum":3400,"currency":"USD","m2Num":275,"pricePerM2":12,"slug":"/propiedades/clasificado/alclocin-av-cramer-al-3200-nunez-oficina-en-alquiler-de-275-58205314.html","desc":"Oficina de 275m² Planta Libre, actualmente tiene unas divisiones. Cuenta con 3 baños y 2 kitchenette. 3 aires acondicionados split. 2 cocheras cubiert"},{"price":"USD 4.660","address":"Av. del Libertador al 6500","barrio":"Núñez","tipo":"Oficina","m2":"233 m² tot.","amb":"","dorm":"","banos":"2 baños","coch":"3 coch.","priceNum":4660,"currency":"USD","m2Num":233,"pricePerM2":20,"slug":"/propiedades/clasificado/alclocin-alquiler-excelente-oficina-en-belgrano.-53227229.html","desc":"Excelente oficina sobre Av. Del Libertador en el barrio de Belgrano. 233m2. Amplia recepción, 2 despachos al frente conectados por puertas corredizas,"},{"price":"USD 5.960","address":"Av. Del Libertador al 7200","barrio":"Núñez","tipo":"Oficina","m2":"214 m² tot.","amb":"5 amb.","dorm":"","banos":"4 baños","coch":"2 coch.","priceNum":5960,"currency":"USD","m2Num":214,"pricePerM2":28,"slug":"/propiedades/clasificado/alclocin-oficina-aaa-en-alquiler-sobre-av-libertador-en-nunez-57555818.html","desc":"Excelente duplex de oficina aaa en edificio corporativo ubicado en Av Libertador al 7000. Distribuidas en piso 13-14 consta de 265 mt2, 4 baños y coci"},{"price":"USD 5.960","address":"Av. Libertador 7270","barrio":"Núñez","tipo":"Oficina","m2":"265 m² tot.","amb":"","dorm":"","banos":"","coch":"2 coch.","priceNum":5960,"currency":"USD","m2Num":265,"pricePerM2":22,"slug":"/propiedades/clasificado/alclocin-alquiler-oficina-av-del-libertador-7270-duplex-de-57470417.html","desc":"Edificio construido en el año 2000. Estratégica ubicación sobre Av. Del Libertador con accesos rápidos desde la zona norte y hacia el centro. - Frente"},{"price":"USD 4.200","address":"Av. Libertador 7270","barrio":"Núñez","tipo":"Oficina","m2":"212 m² tot.","amb":"","dorm":"","banos":"","coch":"2 coch.","priceNum":4200,"currency":"USD","m2Num":212,"pricePerM2":20,"slug":"/propiedades/clasificado/alclocin-alquiler-oficina-av-del-libertador-7270-212-56406258.html","desc":"Edificio construido en el año 2000. Estratégica ubicación sobre Av. Del Libertador con accesos rápidos desde la zona norte y hacia el centro. - Frente"},{"price":"USD 5.960","address":"Av Cabildo al 4300","barrio":"Saavedra","tipo":"Oficina","m2":"451 m² tot.","amb":"","dorm":"","banos":"2 baños","coch":"1 coch.","priceNum":5960,"currency":"USD","m2Num":451,"pricePerM2":13,"slug":"/propiedades/clasificado/alclocin-excelente-piso-de-oficinas.-con-vista-abierta!-56434061.html","desc":"Fratelli grupo inmobiliario 11 Ver datosalquila unico piso de 450M2. Con quincho Y parrilla privada. 7mo piso al frente. Super luminoso! Edificio Corp"},{"price":"$ 8.550.237","address":"Cabildo al 4300","barrio":"Núñez","tipo":"Oficina","m2":"450 m² tot.","amb":"1 amb.","dorm":"","banos":"2 baños","coch":"1 coch.","priceNum":8550237,"currency":"ARS","m2Num":450,"pricePerM2":19001,"slug":"/propiedades/clasificado/alclocin-ultimo-piso-diponible!-oficina-en-alquiler-con-terraza-57140830.html","desc":"Alquiler oficina con terraza Y parrilla!! - ultimo piso diponible! Cabildo y Correa. Excelente zona con los mejores accesos de la ciudad. Especificaci"},{"price":"USD 8.832","address":"Tronador 4800","barrio":"Saavedra","tipo":"Oficina","m2":"368 m² tot.","amb":"1 amb.","dorm":"","banos":"4 baños","coch":"4 coch.","priceNum":8832,"currency":"USD","m2Num":368,"pricePerM2":24,"slug":"/propiedades/clasificado/alclocin-alquiler-oficina-panamericana-plaza-espectacular-55878935.html","desc":"Presentamos en Alquiler una espectacular oficina en el Emblemático Edificio panamericana plaza. Espectacular media planta de 368 metros en piso alto. "},{"price":"USD 5.960","address":"Av. del Libertador 7272","barrio":"Núñez","tipo":"Oficina","m2":"265 m² tot.","amb":"","dorm":"","banos":"","coch":"1 coch.","priceNum":5960,"currency":"USD","m2Num":265,"pricePerM2":22,"slug":"/propiedades/clasificado/alclocin-duplex-con-terraza-y-con-vista-al-rio-en-nunez-57480322.html","desc":"En Núñez, sobre Av. Del Libertador, se encuentran disponible oficina desarrollada en Duplex. Nuestro destacado: Piso 13 y 14 | 265 m² Oficina de categ"},{"price":"USD 10.680","address":"Tronador 4800","barrio":"Saavedra","tipo":"Oficina","m2":"445 m² tot.","amb":"1 amb.","dorm":"","banos":"3 baños","coch":"4 coch.","priceNum":10680,"currency":"USD","m2Num":445,"pricePerM2":24,"slug":"/propiedades/clasificado/alclocin-alquiler-oficina-panamericana-plaza-espectacular-56276889.html","desc":"Presentamos en Alquiler una espectacular oficina en el Emblemático Edificio panamericana plaza. Espectacular planta de 445 metros. Ubicada en piso 2. "},{"price":"USD 5.960","address":"Av Cabildo al 4300","barrio":"Núñez","tipo":"Oficina","m2":"451 m² tot.","amb":"","dorm":"","banos":"2 baños","coch":"1 coch.","priceNum":5960,"currency":"USD","m2Num":451,"pricePerM2":13,"slug":"/propiedades/clasificado/alclocin-excelente-piso-de-oficinas.-con-vista-abierta!-56433977.html","desc":"Fratelli grupo inmobiliario 11 Ver datosalquila unico piso de 450M2. Con quincho Y parrilla privada. 7mo piso al frente. Super luminoso! Edificio Corp"},{"price":"USD 5.960","address":"Av del Libertador al 7200 Piso 13","barrio":"Núñez","tipo":"Oficina","m2":"310 m² tot.","amb":"","dorm":"","banos":"","coch":"2 coch.","priceNum":5960,"currency":"USD","m2Num":310,"pricePerM2":19,"slug":"/propiedades/clasificado/alclocin-oficina-en-alquiler-lista-para-entrar-con-vista-al-rio-57642528.html","desc":"Oficina lista para entrar, sobre Av. Del Libertador con vista al rioEdificio construido en el año 2000, desarrollado en Subsuelo, Planta Baja y 14 pis"},{"price":"USD 4.600","address":"Nuñez","barrio":"Núñez","tipo":"Oficina","m2":"212 m² tot.","amb":"","dorm":"","banos":"4 baños","coch":"2 coch.","priceNum":4600,"currency":"USD","m2Num":212,"pricePerM2":22,"slug":"/propiedades/clasificado/alclocin-oficina-nunez-57016553.html","desc":"Edificio de oficinas ubicado sobre Av. Del Libertador y Manuela Pedraza en Nuñez. Fachada de curtain wall, seguridad 24 hs. Y cctv. Grupo electrogeno "},{"price":"USD 4.200","address":"Av del Libertador al 7200","barrio":"Núñez","tipo":"Oficina","m2":"215 m² tot.","amb":"","dorm":"","banos":"4 baños","coch":"1 coch.","priceNum":4200,"currency":"USD","m2Num":215,"pricePerM2":20,"slug":"/propiedades/clasificado/alclocin-oficina-en-alquiler-plug-and-play-en-nunez-con-vista-57479365.html","desc":"Oficina en Alquiler Plug &amp;amp; Play en Nuñez con vista al rio con mueblesEdificio con fachada de Curtain WallSeguridad las 24 hs. Hall de entrada "},{"price":"USD 3.900","address":"Av Libertador al 6500","barrio":"Núñez","tipo":"Oficina","m2":"233 m² tot.","amb":"","dorm":"","banos":"","coch":"3 coch.","priceNum":3900,"currency":"USD","m2Num":233,"pricePerM2":17,"slug":"/propiedades/clasificado/alclocin-oficinas-de-categoria-51613987.html","desc":"Características del edificio: *Edificio de oficinas de 2 frentes Libertador 6570 y Ugarte 1500. *Frente en piel de vidrio templado con cámara de aire."},{"price":"$ 5.350.000","address":"Av. del Libertador 8630","barrio":"Núñez","tipo":"Oficina","m2":"220 m² tot.","amb":"4 amb.","dorm":"","banos":"","coch":"","priceNum":5350000,"currency":"ARS","m2Num":220,"pricePerM2":24318,"slug":"/propiedades/clasificado/alclocin-av-del-libertador-8630-piso-oficina-premium-58291462.html","desc":"Excelente oficina de 220 m2 con recepción Privada sobre Avda. Del Libertador. Balcón corrido al contra frente, 2 baños, Tres despachos, tres puestos d"},{"price":"USD 4.200","address":"Av. del Libertador al 7200","barrio":"Núñez","tipo":"Oficina","m2":"212 m² tot.","amb":"","dorm":"","banos":"4 baños","coch":"2 coch.","priceNum":4200,"currency":"USD","m2Num":212,"pricePerM2":20,"slug":"/propiedades/clasificado/alclocin-oficina-en-alquiler-en-nunez-56455974.html","desc":"Piso oficina de categoría. Blindex con sistema de cortinas. - 212 m2 cubiertos totales. - Piso 5° con vistas abiertas y mucha luz natural. - Layout ad"},{"price":"USD 4.200","address":"Av. del Libertador al 7200","barrio":"Núñez","tipo":"Oficina","m2":"212 m² tot.","amb":"","dorm":"","banos":"4 baños","coch":"1 coch.","priceNum":4200,"currency":"USD","m2Num":212,"pricePerM2":20,"slug":"/propiedades/clasificado/alclocin-oficina-en-nunez-alquiler-53984121.html","desc":"Piso completo en buen estado general, desarrollado en recepción, tres despachos, dos salas de reuniones, área de trabajo, sala de servidores, alfombra"},{"price":"USD 3.980","address":"Libertador al 7200","barrio":"Núñez","tipo":"Oficina","m2":"212 m² tot.","amb":"","dorm":"","banos":"4 baños","coch":"2 coch.","priceNum":3980,"currency":"USD","m2Num":212,"pricePerM2":19,"slug":"/propiedades/clasificado/alclocin-oficina-en-alquiler-amueblada-plug-and-play-sobre-av-57479389.html","desc":"Oficina amoblada lista para entrar, sobre Av del Libertador con vista al rioEdificio construido en el año 2000, desarrollado en Subsuelo, Planta Baja "},{"price":"USD 4.000","address":"Av Libertador 7660","barrio":"Núñez","tipo":"Oficina","m2":"273 m² tot.","amb":"","dorm":"","banos":"3 baños","coch":"4 coch.","priceNum":4000,"currency":"USD","m2Num":273,"pricePerM2":15,"slug":"/propiedades/clasificado/alclocin-nunez-a-m-del-distrito-de-innovacion-53050815.html","desc":"Basamento de torre, acceso desde la calle. Ascensor Privado. Ideal para empresa de servicios o institutos de enseñanza por su acceso directo desde la "},{"price":"USD 4.600","address":"Del Libertador Av. al 7200","barrio":"Núñez","tipo":"Oficina","m2":"212 m² tot.","amb":"","dorm":"","banos":"2 baños","coch":"2 coch.","priceNum":4600,"currency":"USD","m2Num":212,"pricePerM2":22,"slug":"/propiedades/clasificado/alclocin-oficina-en-alquiler-en-nunez-56932977.html","desc":"Oficinas ubicadas sobre Avenida del Libertador en el barrio de Núñez a cuadras de la Avenida Gral. Paz. Excelente acceso vehicular desde el Norte de l"},{"price":"USD 4.000","address":"Juana Azurduy al 2400","barrio":"Núñez","tipo":"Oficina","m2":"380 m² tot.","amb":"","dorm":"","banos":"4 baños","coch":"","priceNum":4000,"currency":"USD","m2Num":380,"pricePerM2":11,"slug":"/propiedades/clasificado/alclocin-oficina-nunez-56796682.html","desc":"Edificio de oficinas ubicado sobre la calle Juana Azurduy, a media cuadra de Av. Cabildo. El mismo se desarrolla en pb y tres pisos de oficinas. La of"},{"price":"USD 3.400","address":"Av. Cramer 3300","barrio":"Núñez","tipo":"Oficina","m2":"270 m² tot.","amb":"4 amb.","dorm":"3 dorm.","banos":"3 baños","coch":"2 coch.","priceNum":3400,"currency":"USD","m2Num":270,"pricePerM2":13,"slug":"/propiedades/clasificado/alclocin-alquiler-oficina-corporativa-57648811.html","desc":"Oficina en alquiler 270 m² con 3 cocheras | Cramer Núñez. Excelente oficina ubicada sobre Avenida Cramer, a metros del colegio Tarbut, en un edificio "},{"price":"USD 1","address":"Libertador al 6500","barrio":"Núñez","tipo":"Oficina","m2":"233 m² tot.","amb":"","dorm":"","banos":"2 baños","coch":"3 coch.","priceNum":1,"currency":"USD","m2Num":233,"pricePerM2":0,"slug":"/propiedades/clasificado/alclocin-excelente-oficina-en-alquiler-sobre-av-del-libertador-48170507.html","desc":"Excelente ubicación en el barrio de nuñez sobre av. Del libertador. Oficina 233 M2. Piso 3 recepción, despachos todos al frente. Amplias salas de reun"},{"price":"USD 7.140","address":"Arias al 3700","barrio":"Saavedra","tipo":"Oficina","m2":"255 m² tot.","amb":"1 amb.","dorm":"","banos":"2 baños","coch":"4 coch.","priceNum":7140,"currency":"USD","m2Num":255,"pricePerM2":28,"slug":"/propiedades/clasificado/alclocin-oficina-en-alquiler-edificio-corporativo-con-4-58338092.html","desc":"Oficina en Alquiler en Edificio Súper Corporativo con 4 CocherasOficina premium de 255 m² planta con vistas panorámicas. Áreas de trabajo amplias y fl"},{"price":"USD 4.600","address":"Del Libertador Av. al 7200","barrio":"Núñez","tipo":"Oficina","m2":"212 m² tot.","amb":"","dorm":"","banos":"2 baños","coch":"2 coch.","priceNum":4600,"currency":"USD","m2Num":212,"pricePerM2":22,"slug":"/propiedades/clasificado/alclocin-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-57524985.html","desc":"Oficinas ubicadas sobre Avenida del Libertador en el barrio de Núñez a cuadras de la Avenida Gral. Paz. Excelente acceso vehicular desde el Norte de l"},{"price":"USD 4.950","address":"Cabildo 2677 -piso 9 B","barrio":"Núñez","tipo":"Oficina","m2":"240 m² tot.","amb":"","dorm":"","banos":"2 baños","coch":"1 coch.","priceNum":4950,"currency":"USD","m2Num":240,"pricePerM2":21,"slug":"/propiedades/clasificado/alclocin-alquiler-de-oficina-de-240-m-sup2--en-n-52396927.html","desc":"Planta estructuralmente libre con piso tecnico, cielorrasos suspendidos, aire acondicionado central propio. Batería de baños y office. Cafetería y sal"},{"price":"USD 10.700","address":"Cabildo 2677 -piso 5","barrio":"Núñez","tipo":"Oficina","m2":"520 m² tot.","amb":"","dorm":"","banos":"2 baños","coch":"2 coch.","priceNum":10700,"currency":"USD","m2Num":520,"pricePerM2":21,"slug":"/propiedades/clasificado/alclocin-alquiler-de-oficina-de-520-m-sup2--en-nunez-52397451.html","desc":"Edificio desarrollado en pb y 12 pisos. Fachada de curtain wall con dvh. Oficina en planta libre con piso tecnico, cielorrasos suspendidos y equipos d"},{"price":"$ 5.200.000","address":"Libertador al 8600","barrio":"Núñez","tipo":"Oficina","m2":"205 m² tot.","amb":"7 amb.","dorm":"","banos":"4 baños","coch":"2 coch.","priceNum":5200000,"currency":"ARS","m2Num":205,"pricePerM2":25366,"slug":"/propiedades/clasificado/alclocin-piso-de-oficina-premium-en-alquiler-av-libertador-58434208.html","desc":"Oficina Premium en Alquiler – Piso Completo de 205 m² sobre Av. LibertadorExclusiva oficina ubicada en el piso 11º, sobre Avenida del Libertador a met"},{"price":"USD 7.500","address":"Victorino DE LA Plaza 1600 | Nuñez | Barrio River","barrio":"Núñez","tipo":"Oficina","m2":"495 m² tot.","amb":"7 amb.","dorm":"3 dorm.","banos":"4 baños","coch":"2 coch.","priceNum":7500,"currency":"USD","m2Num":495,"pricePerM2":15,"slug":"/propiedades/clasificado/alclocin-casa-en-venta-en-barrio-river-57182252.html","desc":"Espectacular Casa en Barrio River, ubicada en Victorino de la Plaza entre Ricchieri y Rafael HernándezApto profesional. Ideal oficinas para Productora"},{"price":"USD 8.500","address":"Arias al 3700","barrio":"Saavedra","tipo":"Oficina","m2":"325 m² tot.","amb":"","dorm":"","banos":"2 baños","coch":"6 coch.","priceNum":8500,"currency":"USD","m2Num":325,"pricePerM2":26,"slug":"/propiedades/clasificado/alclocin-oficina-en-saavedra-57189431.html","desc":"La torre Intecons, construida en el año 2011, se encuentra ubicada en la zona denominada polo Dot. Está a metros de la Av. Gral. Paz y Panamericana y "},{"price":"$ 5.200.000","address":"Libertador al 8600","barrio":"Núñez","tipo":"Oficina","m2":"205 m² tot.","amb":"7 amb.","dorm":"","banos":"4 baños","coch":"2 coch.","priceNum":5200000,"currency":"ARS","m2Num":205,"pricePerM2":25366,"slug":"/propiedades/clasificado/alclocin-piso-de-oficina-premium-en-alquiler-av-libertador-57179734.html","desc":"Oficina Premium en Alquiler – Piso Completo de 200 m² sobre Av. LibertadorExclusiva oficina ubicada en el piso 14º, sobre Avenida del Libertador a met"},{"price":"USD 4.200","address":"Av. Del Libertador al 7200","barrio":"Núñez","tipo":"Oficina","m2":"214 m² tot.","amb":"5 amb.","dorm":"","banos":"4 baños","coch":"2 coch.","priceNum":4200,"currency":"USD","m2Num":214,"pricePerM2":20,"slug":"/propiedades/clasificado/alclocin-oficina-aaa-en-alquiler-sobre-av-libertador-en-nunez-56662587.html","desc":"Excelente piso de oficina aaa en edificio corporativo ubicado en Av Libertador al 7000. En piso 5 consta de 214 mt2, 4 baños y cocina. La oficina se e"},{"price":"USD 11.000","address":"Tronador al 4800","barrio":"Saavedra","tipo":"Oficina","m2":"457 m² tot.","amb":"","dorm":"","banos":"3 baños","coch":"3 coch.","priceNum":11000,"currency":"USD","m2Num":457,"pricePerM2":24,"slug":"/propiedades/clasificado/alclocin-panamericana-plaza-semipiso-en-alquiler-zona-56347105.html","desc":"Edificio Categoría aaa desarrollado en 3 subsuelos, P. B y 14 pisos. Vista a la ciudad - Hall de acceso con triple altura de techos - 4 ascensores pri"},{"price":"USD 2.650","address":"Ernesto A. Bavio al 3000","barrio":"Núñez","tipo":"Oficina","m2":"227 m² tot.","amb":"4 amb.","dorm":"3 dorm.","banos":"4 baños","coch":"3 coch.","priceNum":2650,"currency":"USD","m2Num":227,"pricePerM2":12,"slug":"/propiedades/clasificado/alclocin-alquiler-casa-orientada-a-oficina-4-ambientes-en-58619333.html","desc":"Casa en Alquiler – Solo Uso Comercial - En Barrio River ¡Oportunidad única! Casa súper amplia estratégicamente ubicada en el exclusivo Barrio River, u"},{"price":"USD 4.240","address":"Av. Del Libertador 7270","barrio":"Núñez","tipo":"Oficina","m2":"212 m² tot.","amb":"","dorm":"","banos":"2 baños","coch":"2 coch.","priceNum":4240,"currency":"USD","m2Num":212,"pricePerM2":20,"slug":"/propiedades/clasificado/alclocin-oficina-en-alquiler-libertador-office-plaza-nunez-45114195.html","desc":"- Características del edificio: . Antigüedad: 2008.. Pisos: 14.. Superficie propia: 3. 006 m². Superficie disponible: 1. 174 m². Plantas divisibles.. "},{"price":"USD 8.180","address":"Av. Libertador 7270","barrio":"Núñez","tipo":"Oficina","m2":"424 m² tot.","amb":"","dorm":"","banos":"","coch":"4 coch.","priceNum":8180,"currency":"USD","m2Num":424,"pricePerM2":19,"slug":"/propiedades/clasificado/alclocin-alquiler-oficina-av-del-libertador-7270-424-55509345.html","desc":"- Edificio construido en el año 2000. - Estratégica ubicación sobre Av. Del Libertador con accesos rápidos desde la zona norte y hacia el centro. - 42"},{"price":"USD 5.300","address":"Cabildo 2677 -piso 9 A","barrio":"Núñez","tipo":"Oficina","m2":"260 m² tot.","amb":"","dorm":"","banos":"2 baños","coch":"1 coch.","priceNum":5300,"currency":"USD","m2Num":260,"pricePerM2":20,"slug":"/propiedades/clasificado/alclocin-alquiler-de-oficina-de-260-m-sup2--en-nunez-52397792.html","desc":"Planta estructuralmente libre con piso técnico con divisiones desmontables, cielorrasos suspendidos con artefactos de iluminación, Aire acondicionado "},{"price":"USD 9.600","address":"Tronador al 4800","barrio":"Saavedra","tipo":"Oficina","m2":"399 m² tot.","amb":"","dorm":"","banos":"3 baños","coch":"3 coch.","priceNum":9600,"currency":"USD","m2Num":399,"pricePerM2":24,"slug":"/propiedades/clasificado/alclocin-panamericana-plaza-semipiso-en-alquiler-zona-56347153.html","desc":"Edificio Categoría aaa desarrollado en 3 subsuelos, P. B y 14 pisos. Vista a la ciudad - Hall de acceso con triple altura de techos - 4 ascensores pri"},{"price":"USD 3.850","address":"Rafael Obligado 4899","barrio":"Núñez","tipo":"Oficina","m2":"275 m² tot.","amb":"","dorm":"","banos":"2 baños","coch":"5 coch.","priceNum":3850,"currency":"USD","m2Num":275,"pricePerM2":14,"slug":"/propiedades/clasificado/alclocin-alquiler-de-oficina-por-costanera-norte-58468528.html","desc":"Oficina Premium Frente al Río Costanera Norte, Núñez. Exclusiva oficina de 275 m² ubicada en Rafael Obligado 4899, frente al Aeroparque y con vistas p"},{"price":"$ 5.350.000","address":"Av. del Libertador al 8600","barrio":"Núñez","tipo":"Oficina","m2":"206 m² tot.","amb":"8 amb.","dorm":"","banos":"2 baños","coch":"1 coch.","priceNum":5350000,"currency":"ARS","m2Num":206,"pricePerM2":25971,"slug":"/propiedades/clasificado/alclocin-alquiler-oficina-210-m-sobre-libertador-con-vista-al-58286107.html","desc":"Edificio de oficinas con imagen corporativa sobre Av. Del Libertador al 8600 de 15 pisos entre las calles Pico y Vedia. Esta oficina esta compuesta po"},{"price":"USD 10.700","address":"Cabildo 2677 -piso 6","barrio":"Núñez","tipo":"Oficina","m2":"520 m² tot.","amb":"","dorm":"","banos":"2 baños","coch":"2 coch.","priceNum":10700,"currency":"USD","m2Num":520,"pricePerM2":21,"slug":"/propiedades/clasificado/alclocin-alquiler-de-oficina-de-520-m-sup2--en-nunez-53250133.html","desc":"Edificio desarrollado en pb y 12 pisos. Fachada de curtain wall con dvh. Oficina en planta libre con piso técnico y cielorrasos suspendidos con artefa"},{"price":"USD 10.700","address":"Cabildo N°2677 -piso 6","barrio":"Núñez","tipo":"Oficina","m2":"520 m² tot.","amb":"","dorm":"","banos":"4 baños","coch":"2 coch.","priceNum":10700,"currency":"USD","m2Num":520,"pricePerM2":21,"slug":"/propiedades/clasificado/alclocin-alquiler-de-oficina-de-520-m-sup2--en-nunez-53727642.html","desc":"Edificio desarrollado en pb y 12 pisos. Fachada de curtain wall con dvh. Oficina en planta libre con piso técnico y cielorrasos suspendidos con artefa"},{"price":"USD 4.950","address":"Cabildo 2677 -piso 4 B","barrio":"Núñez","tipo":"Oficina","m2":"240 m² tot.","amb":"","dorm":"","banos":"2 baños","coch":"1 coch.","priceNum":4950,"currency":"USD","m2Num":240,"pricePerM2":21,"slug":"/propiedades/clasificado/alclocin-alquiler-de-oficina-de-240-m-sup2--en-nunez-53180489.html","desc":"Planta estructuralmente libre con piso técnico con divisiones desmontables, cielorrasos suspendidos con artefactos de iluminación, Aire acondicionado "},{"price":"$ 5.350.000","address":"Av. del Libertador al 8600","barrio":"Núñez","tipo":"Oficina","m2":"206 m² tot.","amb":"8 amb.","dorm":"","banos":"2 baños","coch":"1 coch.","priceNum":5350000,"currency":"ARS","m2Num":206,"pricePerM2":25971,"slug":"/propiedades/clasificado/alclocin-alquiler-oficina-205-m-sobre-libertador-con-vista-al-58107715.html","desc":"Edificio de oficinas con imagen corporativa sobre Av. Del Libertador al 8600 de 15 pisos entre las calles Pico y Vedia. Esta oficina esta compuesta po"},{"price":"USD 4.600","address":"Libertador 7200, Núñez, Capital Federal, Argentina.","barrio":"Núñez","tipo":"Oficina","m2":"212 m² tot.","amb":"5 amb.","dorm":"","banos":"4 baños","coch":"","priceNum":4600,"currency":"USD","m2Num":212,"pricePerM2":22,"slug":"/propiedades/clasificado/alclocin-nunez-alquiler-oficina-planta-libre-edificio-56350055.html","desc":"Excelente planta en piso 9 con vista abierta al rio de oficinas de 212 m2 desarrollada en piso completo, planta libre con varios despachos y salas de "},{"price":"Consultar precio","address":"libertador y arias","barrio":"Núñez","tipo":"Oficina","m2":"485 m² tot.","amb":"","dorm":"","banos":"5 baños","coch":"5 coch.","priceNum":0,"currency":"USD","m2Num":485,"pricePerM2":0,"slug":"/propiedades/clasificado/veclocin-excelente-oficina-con-vista-al-rio-54588637.html","desc":"Excelente oficina con vista al rio, sala de reuniones, doble circulación, terraza privada de 100mtrs."},{"price":"USD 3.500","address":"ARCOS 4300","barrio":"Núñez","tipo":"Oficina","m2":"267 m² tot.","amb":"","dorm":"","banos":"","coch":"2 coch.","priceNum":3500,"currency":"USD","m2Num":267,"pricePerM2":13,"slug":"/propiedades/clasificado/alclocin-oficinas-planta-dividida-nunez-capital-federal-52508325.html","desc":"Excepcional casa ( inmueble comercial) en la mejor cuadra de lomas de nuñez. Categoría. Con ascensor. Uso institucional / oficinas / sede entidad come"},{"price":"USD 4.500","address":"BASAVILBASO 900","barrio":"Núñez","tipo":"Galpón","m2":"311 m² tot.","amb":"","dorm":"","banos":"","coch":"","priceNum":4500,"currency":"USD","m2Num":311,"pricePerM2":14,"slug":"/propiedades/clasificado/alclbgin-galpon-en-alquiler-en-nunez-57386062.html","desc":"Galpón en alquiler Leopoldo Basavilbaso al 900. Excelente galpón con lote propio de 8, 66 x 36 mts. Frente al parque/plaza el salvador, Proximo a Univ"},{"price":"USD 3.400","address":"Conde al 4800","barrio":"Saavedra","tipo":"Depósito","m2":"375 m² tot.","amb":"","dorm":"","banos":"2 baños","coch":"","priceNum":3400,"currency":"USD","m2Num":375,"pricePerM2":9,"slug":"/propiedades/clasificado/alcldein-alquiler-deposito-excelente-ubicacion-en-saavedra-58394457.html","desc":"Alquiler deposito - excelente ubicacion en saavedra* mixtura 1 Se puede habilitar Comercio Barrial hasta 200 m2 - Locales y comercios que sirven a la "},{"price":"USD 14.000","address":"Ibera al 3200","barrio":"Núñez","tipo":"Depósito","m2":"916 m² tot.","amb":"","dorm":"","banos":"","coch":"","priceNum":14000,"currency":"USD","m2Num":916,"pricePerM2":15,"slug":"/propiedades/clasificado/alcldein-alquiler-deposito-916-m-cub-en-3-plantas-barrio-de-54833210.html","desc":"Inmueble industrial ubicado en el Barrio de Nuñez desarrollado en 3 plantas (planta baja más 2 niveles) según la descripción que a continuación se det"}]};
+
+function badgeClass(tipo) {
+  const map = {'PH':'badge-ph','Oficina':'badge-oficina','Galpón':'badge-galpon','Depósito':'badge-deposito'};
+  return map[tipo] || 'badge-ph';
 }
 
-function filter(btn, grid, value) {
-  const container = document.getElementById('grid-'+grid);
-  const cards = container.querySelectorAll('.card');
-  const filterBar = btn.closest('.filters');
-  filterBar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+function formatPrice(p) { return p; }
 
-  cards.forEach(card => {
-    if (value === 'all') {
-      card.style.display = '';
-    } else {
-      const tipo = card.getAttribute('data-tipo');
-      const barrio = card.getAttribute('data-barrio');
-      card.style.display = (tipo === value || barrio === value) ? '' : 'none';
+function renderCard(item) {
+  const url = item.slug ? 'https://www.zonaprop.com.ar' + item.slug : '#';
+  const priceM2 = item.pricePerM2 > 0 ? (item.currency === 'USD' ? 'USD ' : '$ ') + item.pricePerM2.toLocaleString('es-AR') + '/m\u00B2' : '';
+  const feats = [item.m2, item.amb, item.dorm, item.banos, item.coch].filter(Boolean);
+  
+  return '<a href="' + url + '" target="_blank" rel="noopener" style="text-decoration:none;color:inherit">' +
+    '<div class="property-card" data-tipo="' + item.tipo + '" data-barrio="' + item.barrio + '">' +
+    '<div class="card-header">' +
+      '<div><div class="card-price">' + formatPrice(item.price) + '</div>' +
+      (priceM2 ? '<div class="card-price-m2">' + priceM2 + '</div>' : '') +
+      '</div>' +
+      '<span class="badge ' + badgeClass(item.tipo) + '">' + item.tipo + '</span>' +
+    '</div>' +
+    '<div class="card-body">' +
+      '<div class="card-address">' + (item.address || 'Dirección no especificada') + '</div>' +
+      '<div class="card-barrio">' + item.barrio + ', CABA</div>' +
+      '<div class="card-features">' + feats.map(f => '<span class="feat">' + f + '</span>').join('') + '</div>' +
+      '<div class="card-desc">' + (item.desc || '') + '</div>' +
+    '</div>' +
+    '</div></a>';
+}
+
+function renderGrid(containerId, items) {
+  const grid = document.getElementById(containerId);
+  if(!items.length) { grid.innerHTML = '<div class="no-results">No se encontraron propiedades con estos filtros</div>'; return; }
+  grid.innerHTML = items.map(renderCard).join('');
+}
+
+// Initial render
+renderGrid('grid-venta', DATA.venta);
+renderGrid('grid-alquiler', DATA.alquiler);
+
+// Tabs
+document.getElementById('tabs').addEventListener('click', function(e) {
+  const tab = e.target.closest('.tab');
+  if(!tab) return;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  const target = tab.dataset.tab;
+  document.querySelectorAll('[id^="section-"]').forEach(s => s.style.display = 'none');
+  document.getElementById('section-' + target).style.display = '';
+});
+
+// Filters
+function setupFilters(containerId, gridId, items) {
+  const container = document.getElementById(containerId);
+  if(!container) return;
+  let activeType = 'all';
+  let activeBarrio = null;
+  
+  container.addEventListener('click', function(e) {
+    const btn = e.target.closest('.filter-btn');
+    if(!btn) return;
+    
+    if(btn.dataset.filter !== undefined) {
+      container.querySelectorAll('[data-filter]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeType = btn.dataset.filter;
     }
+    if(btn.dataset.filterBarrio !== undefined) {
+      if(btn.classList.contains('active')) { btn.classList.remove('active'); activeBarrio = null; }
+      else { container.querySelectorAll('[data-filter-barrio]').forEach(b => b.classList.remove('active')); btn.classList.add('active'); activeBarrio = btn.dataset.filterBarrio; }
+    }
+    
+    let filtered = items;
+    if(activeType !== 'all') filtered = filtered.filter(i => i.tipo === activeType);
+    if(activeBarrio) filtered = filtered.filter(i => i.barrio === activeBarrio);
+    renderGrid(gridId, filtered);
   });
 }
-</script>
 
-</body>
-</html>
+setupFilters('filters-venta', 'grid-venta', DATA.venta);
+setupFilters('filters-alquiler', 'grid-alquiler', DATA.alquiler);
+</script>
+</body></html>
